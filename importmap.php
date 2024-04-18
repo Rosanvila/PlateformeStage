@@ -25,4 +25,29 @@ return [
     '@hotwired/turbo' => [
         'version' => '7.3.0',
     ],
+    'bootstrap' => [
+        'version' => '5.3.3',
+    ],
+    '@popperjs/core' => [
+        'version' => '2.11.8',
+    ],
+    'bootstrap/dist/css/bootstrap.min.css' => [
+        'version' => '5.3.3',
+        'type' => 'css',
+    ],
+    'intl-messageformat' => [
+        'version' => '10.5.11',
+    ],
+    'tslib' => [
+        'version' => '2.6.2',
+    ],
+    '@formatjs/icu-messageformat-parser' => [
+        'version' => '2.7.6',
+    ],
+    '@formatjs/fast-memoize' => [
+        'version' => '2.2.0',
+    ],
+    '@formatjs/icu-skeleton-parser' => [
+        'version' => '1.8.0',
+    ],
 ];

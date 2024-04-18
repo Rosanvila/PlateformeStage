@@ -1,0 +1,27 @@
+menu:
+  home: Accueil
+  search: Recherche
+  contacts: Contacts
+  events: Événements
+  my_account: Mon compte
+login:
+  connexion: Connexion
+  email_adress: Adresse email
+  password: Mot de passe
+  login: Me connecter
+  forgot_password: Mot de passe oublié ?
+  you_have_no_account: Vous n'avez pas de compte ?
+  signup: Inscrivez-vous
+mailer:
+  authentication_code: 
+    subject: 'MySecu - Code afin de vous connecter, expire à {expiresAt}'
+    body:
+      start: "Bonjour,
+
+      Votre code d'authentification afin de vous connecter à MySecu est
+      
+      "
+      end: "Ce code est valable jusqu'à {expiresAt} et étant lié à votre compte, ne peut être transféré.
+      
+
+      Si vous n'avez pas demandé ce code, merci de changer immédiatement votre mot de passe."

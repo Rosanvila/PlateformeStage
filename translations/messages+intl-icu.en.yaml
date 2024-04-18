@@ -1,0 +1,27 @@
+menu:
+  home: Home
+  search: Search
+  contacts: Contacts
+  events: Events
+  my_account: My account
+login:
+  connexion: Connexion
+  email_adress: Email address
+  password: Password
+  login: Login
+  forgot_password: Forgot your password ?
+  you_have_no_account: You don't have an account ?
+  signup: Sign up
+mailer:
+  authentication_code: 
+    subject: 'MySecu - Code to use in order to login, expires at {expiresAt}'
+    body:
+      start: "Hello,
+
+      Your authentication code to login into MySecu is
+
+      "
+      end: "This code is valid until {expiresAt} and is linked to your account, so it cannot be transferred.
+
+
+      If you did not request this code, please change your password immediately."

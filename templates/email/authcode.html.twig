@@ -1,0 +1,10 @@
+{% extends 'email/base.html.twig' %}
+
+{% block title %}{{ subject|trans() }}{% endblock %}
+{% block preheader %}{{ subject|trans() }}{% endblock %}
+
+{% block body %}
+     {{ "mailer.authentication_code.body.start"|trans()|nl2br }}
+     <p style="font-weight: bold;">{{ authCode }}</p>
+     {{ "mailer.authentication_code.body.end"|trans({'%authCode%': authCode, '%expiresAt%': expiresAt})|nl2br|raw }}
+{% endblock %}
