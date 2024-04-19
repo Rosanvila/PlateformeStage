@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% trans_default_domain 'security' %}
+{% block title %}{{ 'reset_password.reset_your_password'|trans }}{% endblock %}
+
+{% block body %}
+    <div class="container col-4">
+        <h3>{{ 'reset_password.reset_your_password'|trans }}</h3>
+
+        {{ form_start(resetForm) }}
+            <div class="row form-floating mb-3">
+                {{ form_widget(resetForm.plainPassword.first) }}
+                {{ form_label(resetForm.plainPassword.first) }}
+                {{ form_errors(resetForm.plainPassword.first) }}
+                {{ form_help(resetForm.plainPassword.first) }}
+            </div>
+
+            <div class="row form-floating mb-3">
+                {{ form_widget(resetForm.plainPassword.second) }}
+                {{ form_label(resetForm.plainPassword.second) }}
+                {{ form_errors(resetForm.plainPassword.second) }}
+                {{ form_help(resetForm.plainPassword.second) }}
+            </div>
+                <div class="row justify-content-center">
+                    <div class="col-10 d-flex mb-3">
+                        <button type="submit" class="flex-fill btn btn-mysecu">{{ 'reset_password.reset_your_password'|trans }}</button>
+                    </div>
+                </div>
+        {{ form_end(resetForm) }}
+    </div>
+{% endblock %}

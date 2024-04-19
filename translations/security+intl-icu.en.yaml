@@ -1,0 +1,18 @@
+reset_password:
+  reset_your_password: Reset your password
+  send_email: Send email
+  password_reset_email_sent_title: Password Reset Email Sent
+  password_reset_email_sent: If an account with this email address exists, then a password reset link has been sent to you.
+        The link will expire in { expiresAt }.
+  check_your_spam: If you don't receive an email please check your spam folder or <a class="link-dark" href="{ href }">try again</a>.
+  email: "<h1>Hi!</h1>
+
+    <p>To reset your password, please visit the following link</p>
+
+    <a href=\"{ href }\">{ href }</a>
+
+
+    <p>Ce lien expirera dans { expiresAt }.</p>"
+  email_subject: MySecu - Your password reset request
+New password: New password
+Repeat Password: Repeat Password

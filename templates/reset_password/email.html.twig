@@ -1,0 +1,9 @@
+{% extends 'security/email/base.html.twig' %}
+
+{% trans_default_domain 'security' %}
+{% block title %}{{ subject|trans() }}{% endblock %}
+{% block preheader %}{{ subject|trans() }}{% endblock %}
+
+{% block body %}
+    {{ 'reset_password.email'|trans({'%href%': url('app_reset_password', {token: resetToken.token}), '%expiresAt%': resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') })|raw }}
+{% endblock %}

@@ -1,0 +1,3 @@
+The password fields must match.: The password fields must match.
+Please enter a password: Please enter a password
+Your password should be at least {{ limit }} characters: Your password should be at least { limit } characters

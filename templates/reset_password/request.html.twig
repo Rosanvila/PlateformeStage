@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% trans_default_domain 'security' %}
+{% block title %}{{ 'reset_password.reset_your_password'|trans }}{% endblock %}
+
+{% block body %}
+    <div class="container col-4">
+        {% for flash_error in app.flashes('reset_password_error') %}
+            <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+        {% endfor %}
+        <h3>{{ 'reset_password.reset_your_password'|trans }}</h3>
+
+        {{ form_start(requestForm) }}
+            <div class="form-floating mb-3 mt-3">
+                {{ form_widget(requestForm.email) }}
+                {{ form_label(requestForm.email) }}
+                {{ form_errors(requestForm.email) }}
+                {{ form_help(requestForm.email) }}
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-10 d-flex mb-3">
+                    <button type="submit" class="flex-fill btn btn-mysecu">{{ 'reset_password.send_email'|trans }}</button>
+                </div>
+            </div>
+        {{ form_end(requestForm) }}
+    </div>
+{% endblock %}
