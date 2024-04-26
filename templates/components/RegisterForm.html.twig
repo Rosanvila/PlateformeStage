@@ -1,0 +1,117 @@
+<div {{ attributes }}>
+    {{ form_errors(form) }}
+
+    {{ form_start(form) }}
+
+    <div class="row mb-3 justify-content-between">
+        <div class="gx-1 form-floating col-4">
+            {{ form_widget(form.lastname) }}
+            {{ form_label(form.lastname) }}
+            {{ form_errors(form.lastname) }}
+            {{ form_help(form.lastname) }}
+        </div>
+        <div class="gx-1 form-floating col-4">
+            {{ form_widget(form.function) }}
+            {{ form_label(form.function) }}
+            {{ form_errors(form.function) }}
+            {{ form_help(form.function) }}
+        </div>
+        <div class="gx-1 d-flex col-4">
+            <img class="form-control img-fluid" style="max-width: 30%; padding: 0" src="" alt="" id="picturePreview">
+            {{ form_widget(form.picture,{'attr': {'class': 'd-none'}}) }}
+            {{ form_label(form.picture, null, {'label_attr': {'style': 'height: 100%', 'class': 'input-group-text ms-1'}}) }}
+            {{ form_errors(form.picture) }}
+            {# {{ form_help(form.picture) }} #}
+        </div>
+    </div>
+
+    <div class="row mb-3 justify-content-between">
+        <div class="gx-1 form-floating col-4">
+            {{ form_widget(form.firstname) }}
+            {{ form_label(form.firstname) }}
+            {{ form_errors(form.firstname) }}
+            {{ form_help(form.firstname) }}
+        </div>
+        <div class="gx-1 form-floating col-4">
+            {{ form_widget(form.job) }}
+            {{ form_label(form.job) }}
+            {{ form_errors(form.job) }}
+            {{ form_help(form.job) }}
+        </div>
+        <div class="gx-1  form-floating col-4">
+            {{ form_widget(form.email) }}
+            {{ form_label(form.email) }}
+            {{ form_errors(form.email) }}
+            {{ form_help(form.email) }}
+        </div>
+    </div>
+
+    <div class="row mb-3 justify-content-between">
+        <div class="gx-1 form-floating col-4">
+            {{ form_widget(form.company) }}
+            {{ form_label(form.company) }}
+            {{ form_errors(form.company) }}
+            {{ form_help(form.company) }}
+        </div>
+        <div class="gx-1 form-floating col-4">
+            {{ form_widget(form.expertise) }}
+            {{ form_label(form.expertise) }}
+            {{ form_errors(form.expertise) }}
+            {{ form_help(form.expertise) }}
+        </div>
+        <div class="gx-1 form-floating col-4">
+            {{ form_widget(form.plainPassword.password.first) }}
+            {{ form_label(form.plainPassword.password.first) }}
+            {{ form_errors(form.plainPassword.password.first) }}
+            {{ form_help(form.plainPassword.password.first) }}
+        </div>
+    </div>
+
+    <div class="row mb-3 justify-content-between">
+        <div class="gx-1 form-floating col-8">
+            {{ form_widget(form.businessAddress) }}
+            {{ form_label(form.businessAddress) }}
+            {{ form_errors(form.businessAddress) }}
+            {{ form_help(form.businessAddress) }}
+        </div>
+        <div class="gx-1 form-floating col-4">
+            {{ form_widget(form.plainPassword.password.second) }}
+            {{ form_label(form.plainPassword.password.second) }}
+            {{ form_errors(form.plainPassword.password.second) }}
+            {{ form_help(form.plainPassword.password.second) }}
+        </div>
+    </div>
+
+    {% if form.siretNumber is defined and form.vatNumber is defined %}
+        <div class="row mb-3 justify-content-start">
+            <div class="gx-1 form-floating col-4">
+                {{ form_widget(form.siretNumber) }}
+                {{ form_label(form.siretNumber) }}
+                {{ form_errors(form.siretNumber) }}
+                {{ form_help(form.siretNumber) }}
+            </div>
+            <div class="gx-1 form-floating col-4">
+                {{ form_widget(form.vatNumber) }}
+                {{ form_label(form.vatNumber) }}
+                {{ form_errors(form.vatNumber) }}
+                {{ form_help(form.vatNumber) }}
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="row mb-3">
+            {{ form_row(form.agreeTerms) }}
+    </div>
+    <div class="row mb-3 d-flex justify-content-center">
+        <div class="col-4 d-flex justify-content-center">
+            {{ form_row(form.submit) }}
+        </div>
+    </div>
+    <div class="row mb-3 d-flex justify-content-center">
+        <div class="col-4 d-flex justify-content-center">
+            {{ 'register.already_have_an_account' | trans({'%href%': path('app_login'), '%connect%': 'login.connect'|trans }) | raw }}
+        </div>
+    </div>
+    {{ form_row(form._token) }}
+    {{ form_end(form, {render_rest: false}) }}
+</div>

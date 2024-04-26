@@ -12,6 +12,7 @@ login:
   forgot_password: Forgot your password ?
   you_have_no_account: You don't have an account ?
   signup: Sign up
+  connect: Login
 mailer:
   authentication_code: 
     subject: 'MySecu - Code to use in order to login, expires at {expiresAt}'
@@ -25,3 +26,47 @@ mailer:
 
 
       If you did not request this code, please change your password immediately."
+  register:
+    confirm_my_email: Confirm my email
+    subject: Please confirm your email
+    body: "
+        <h1>Hi! Please confirm your email!</h1>
+
+        <p>
+            Please confirm your email address by clicking the following link: <br><br>
+            <a href=\"{signedUrl}\">Confirm my Email</a>.
+            This link will expire in {expiresAtMessageKey}.
+        </p>
+
+        <p>
+            Cheers!
+        </p>
+    "
+register:
+  title: Register
+  lastname: Lastname
+  picture: Picture
+  firstname: Firstname
+  email: Email
+  password: Password
+  confirm_password: Confirm password
+  accept_terms: I accept <a href="{href}" class="link-dark" target="_blank">Terms of Service*</a>
+  job: Vous êtes (ISSM, CTO, ...)
+  function: Function
+  company: Company
+  businessAddress: Business Adress
+  expertise: Expertise
+  submit_not_freemium: Sign up and proceed to payment
+  submit_freemium: Sign up for free
+  already_have_an_account: Already have an account ?&nbsp;<a class="link-dark" href="{ href }">{ connect }</a>
+  should_agree_terms: You should accept the terms of service
+  siretNumber: SIRET Number
+  vatNumber: VAT Number
+expertise:
+  infrastructures: Infrastructures
+  security: Security
+  network: Network
+  cloud: Cloud
+  storage: Storage
+  backup: Backup
+  services: Services

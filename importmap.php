@@ -50,4 +50,14 @@ return [
     '@formatjs/icu-skeleton-parser' => [
         'version' => '1.8.0',
     ],
+    '@symfony/ux-live-component' => [
+        'path' => './vendor/symfony/ux-live-component/assets/dist/live_controller.js',
+    ],
+    'tom-select' => [
+        'version' => '2.3.1',
+    ],
+    'tom-select/dist/css/tom-select.bootstrap5.css' => [
+        'version' => '2.3.1',
+        'type' => 'css',
+    ],
 ];

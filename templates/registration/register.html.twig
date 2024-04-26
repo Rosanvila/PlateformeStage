@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="module">
+        import '{{ asset('js/register.js') }}';
+    </script>
+{% endblock %}
+
+{% block title %}{{ 'register.title'|trans }}{% endblock %}
+
+{% block body %}
+    {% for flash_error in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+    {% endfor %}
+
+    <div class="card">
+        <div class="card-body">
+            <h3 class="card-title d-flex justify-content-center">{{ 'register.title'|trans }}</h3>
+
+            {# {{ component('RegisterForm', {form: registrationForm}) }} #}
+            <twig:RegisterForm initialFormData="{{ registrationForm.vars.value }}" />
+
+        </div>
+    </div>
+{% endblock %}

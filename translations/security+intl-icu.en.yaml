@@ -16,3 +16,5 @@ reset_password:
   email_subject: MySecu - Your password reset request
 New password: New password
 Repeat Password: Repeat Password
+Hide: Hide
+Show: Show

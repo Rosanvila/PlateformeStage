@@ -9,17 +9,17 @@
 
         {{ form_start(resetForm) }}
             <div class="row form-floating mb-3">
-                {{ form_widget(resetForm.plainPassword.first) }}
-                {{ form_label(resetForm.plainPassword.first) }}
-                {{ form_errors(resetForm.plainPassword.first) }}
-                {{ form_help(resetForm.plainPassword.first) }}
+                {{ form_widget(resetForm.plainPassword.password.first) }}
+                {{ form_label(resetForm.plainPassword.password.first) }}
+                {{ form_errors(resetForm.plainPassword.password.first) }}
+                {{ form_help(resetForm.plainPassword.password.first) }}
             </div>
 
             <div class="row form-floating mb-3">
-                {{ form_widget(resetForm.plainPassword.second) }}
-                {{ form_label(resetForm.plainPassword.second) }}
-                {{ form_errors(resetForm.plainPassword.second) }}
-                {{ form_help(resetForm.plainPassword.second) }}
+                {{ form_widget(resetForm.plainPassword.password.second) }}
+                {{ form_label(resetForm.plainPassword.password.second) }}
+                {{ form_errors(resetForm.plainPassword.password.second) }}
+                {{ form_help(resetForm.plainPassword.password.second) }}
             </div>
                 <div class="row justify-content-center">
                     <div class="col-10 d-flex mb-3">

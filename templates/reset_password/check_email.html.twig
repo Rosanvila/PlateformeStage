@@ -4,7 +4,7 @@
 {% block title %}{{ 'reset_password.password_reset_email_sent_title'|trans }}{% endblock %}
 
 {% block body %}
-    <div class="container col-10 mt-3">
+    <div class="container col-10">
     <p>
         {{ 'reset_password.password_reset_email_sent'|trans({'%expiresAt%': resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, "ResetPasswordBundle") }) }}
     </p>

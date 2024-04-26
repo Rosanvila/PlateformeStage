@@ -12,6 +12,7 @@ login:
   forgot_password: Mot de passe oublié ?
   you_have_no_account: Vous n'avez pas de compte ?
   signup: Inscrivez-vous
+  connect: Connectez-vous
 mailer:
   authentication_code: 
     subject: 'MySecu - Code afin de vous connecter, expire à {expiresAt}'
@@ -25,3 +26,41 @@ mailer:
       
 
       Si vous n'avez pas demandé ce code, merci de changer immédiatement votre mot de passe."
+  register:
+    confirm_my_email: Confirmer mon email
+    subject: Merci de confirmer votre email
+    body: "
+            Merci de confirmer votre email en cliquant sur le lien suivant: <br />
+            <a href=\"{signedUrl}\">{signedUrlLabel}</a>
+            <br /><br />
+            Ce lien expirera dans {expiresAtMessageKey}.
+    "
+register:
+  title: Inscription
+  lastname: Nom
+  picture: Photo
+  firstname: Prénom
+  email: Email
+  email_already_used: Il existe déjà un compte avec cette adresse email
+  password: Mot de passe
+  confirm_password: Confirmation du mot de passe
+  accept_terms: J'accepte les <a href="{href}" class="link-dark" target="_blank">Conditions Générales d'Utilisation*</a>
+  job: Vous êtes (RSSI, CTO, ...)
+  function: Fonction
+  company: Société
+  businessAddress: Adresse professionnelle
+  expertise: Expertises
+  submit_not_freemium: S'inscrire et procéder au paiement
+  submit_freemium: S'inscrire gratuitement
+  already_have_an_account: Vous êtes déja inscrit ?&nbsp;<a class="link-dark" href="{ href }">{ connect }</a>
+  should_agree_terms: Vous devez accepter les CGU
+  siretNumber: Numéro SIRET
+  vatNumber: Numéro de TVA intracommunautaire
+expertise:
+  infrastructures: Infrastructures
+  security: Sécurité
+  network: Réseau
+  cloud: Cloud
+  storage: Stockage
+  backup: Sauvegarde
+  services: Services

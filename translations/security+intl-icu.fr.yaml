@@ -18,4 +18,6 @@ reset_password:
     <p>Ce lien expirera dans { expiresAt }.</p>"
   email_subject: MySecu - Réinitialisation du mot de passe
 New password: Nouveau mot de passe
-Repeat Password: Répéter le nouveau mot de passe
+Repeat Password: Confirmation du mot de passe
+Hide: Cacher
+Show: Afficher
