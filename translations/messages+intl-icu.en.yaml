@@ -70,3 +70,9 @@ expertise:
   storage: Storage
   backup: Backup
   services: Services
+
+  footer:
+    legal: Legal Mentions
+    cookies: Cookies
+    cgu: Terms of Use
+    cgv: Terms of Sale
