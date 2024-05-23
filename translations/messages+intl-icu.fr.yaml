@@ -14,7 +14,7 @@ login:
   signup: Inscrivez-vous
   connect: Connectez-vous
 mailer:
-  authentication_code: 
+  authentication_code:
     subject: 'MySecu - Code afin de vous connecter, expire à {expiresAt}'
     body:
       start: "Bonjour,
@@ -70,3 +70,30 @@ footer:
   cookies: Cookies
   cgu: CGU
   cgv: CGV
+
+
+index:
+  hero: "
+          Notre plateforme vous permet de vous connecter avec
+          les meilleurs professionnels de la cybersécurité et de collaborer sur des solutions
+          efficientes.
+  "
+  btn_discover: découvrir notre plateforme
+  subscription: nos abonnements
+  subs_txt: Comparez nos offres et choisissez celle qui vous convient
+
+table:
+  free_events: Accès aux évènements gratuits
+  events: Accès à tous les évènements
+  create_events: Création d'évènements
+  profil_access: Accès complet aux profils
+  relation: Mise en relation
+  chat: Chat actif
+  send_event: Envoi d'invitations aux évènements
+  events_react: Réactions durant les évènements
+  events_comment: Commentaires durant les évènements
+  events_moderation: Modération des évènements
+  profil_subs: Abonnement
+  fees: Frais d'inscription
+  consultation: Juste consultatif
+  relation_limited: Limitée

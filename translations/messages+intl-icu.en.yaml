@@ -14,7 +14,7 @@ login:
   signup: Sign up
   connect: Login
 mailer:
-  authentication_code: 
+  authentication_code:
     subject: 'MySecu - Code to use in order to login, expires at {expiresAt}'
     body:
       start: "Hello,
@@ -71,8 +71,33 @@ expertise:
   backup: Backup
   services: Services
 
-  footer:
-    legal: Legal Mentions
-    cookies: Cookies
-    cgu: Terms of Use
-    cgv: Terms of Sale
+footer:
+  legal: Legal Mentions
+  cookies: Cookies
+  cgu: Terms of Use
+  cgv: Terms of Sale
+
+index:
+  hero: "
+          Our platform allows you to connect with top cybersecurity professionals and collaborate on efficient solutions.
+  "
+  btn_discover: discover our platform
+  subscription: our subscriptions
+  subs_txt: Compare our offers and choose the one that suits you
+
+
+table:
+  free_events: Access to free events
+  events: Access to all events
+  create_events: Create events
+  profil_access: Full profile access
+  relation: Networking
+  chat: Active chat
+  send_event: Send event invitations
+  events_react: React during events
+  events_comment: Comment during events
+  events_moderation: Event moderation
+  profil_subs: Subscription
+  fees: Registration fees
+  consultation: Only consultation
+  relation_limited: Limited
