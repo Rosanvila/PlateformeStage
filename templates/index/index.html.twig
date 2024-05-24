@@ -22,7 +22,8 @@
                     </div>
                 </li>
                 <li>
-                    <a href="#" class="btn bg-primary rounded-5 w-auto text-uppercase mb-0 px-3 py-2 fw-medium text-light">
+                    <a href="#"
+                       class="btn bg-primary rounded-5 w-auto text-uppercase mb-0 px-3 py-2 fw-medium text-light">
                         {{ 'index.btn_discover' |trans }}
                     </a>
                 </li>
@@ -51,78 +52,145 @@
         <table class="table table-dark text-center mt-3">
             <thead>
             <tr>
-                <th></th>
-                <th class="text-uppercase text-primary fw-medium">freemium</th>
-                <th class="text-uppercase text-primary fw-medium">premium</th>
-                <th class="text-uppercase text-primary fw-medium">vendors</th>
+                <th class="border-0"></th>
+                <th class="text-uppercase text-primary fw-medium border-0">freemium</th>
+                <th class="text-uppercase text-primary fw-medium border-0">premium</th>
+                <th class="text-uppercase text-primary fw-medium border-0">vendors</th>
             </tr>
             </thead>
             <tbody>
             <tr>
-                <td class="text-start fw-light">{{ 'table.free_events' |trans }}</td>
-                <td><img src="{{ asset('icons/table_check_white.svg') }}" alt="checked"></td>
-                <td><img src="{{ asset('icons/table_check_white.svg') }}" alt="checked"></td>
-                <td><img src="{{ asset('icons/table_check_white.svg') }}" alt="checked"></td>
+                <td class="text-start align-content-center fw-light">{{ 'table.free_events' |trans }}</td>
+                <td>
+                    <twig:ux:icon name="ic:round-check" width="40" height="40"/>
+                </td>
+                <td>
+                    <twig:ux:icon name="ic:round-check" width="40" height="40"/>
+                </td>
+                <td>
+                    <twig:ux:icon name="ic:round-check" width="40" height="40"/>
+                </td>
+
             </tr>
             <tr>
-                <td class="text-start fw-light">{{ 'table.events' |trans }}</td>
-                <td> <img src="{{ asset('icons/cross.svg') }}" alt="cross"></td>
-                <td><img src="{{ asset('icons/table_check_white.svg') }}" alt="checked"></td>
-                <td><img src="{{ asset('icons/table_check_white.svg') }}" alt="checked"></td>
+                <td class="text-start align-content-center fw-light">{{ 'table.events' |trans }}</td>
+                <td>
+                    <twig:ux:icon name="charm:cross" width="40" height="40"/>
+                </td>
+                <td>
+                    <twig:ux:icon name="ic:round-check" width="40" height="40"/>
+                </td>
+                <td>
+                    <twig:ux:icon name="ic:round-check" width="40" height="40"/>
+                </td>
             </tr>
             <tr>
-                <td class="text-start fw-light">{{ 'table.create_events' |trans }}</td>
-                <td> <img src="{{ asset('icons/cross.svg') }}" alt="cross"></td>
-                <td> <img src="{{ asset('icons/cross.svg') }}" alt="cross"></td>
-                <td><img src="{{ asset('icons/table_check_white.svg') }}" alt="checked"></td>
+                <td class="text-start align-content-center fw-light">{{ 'table.create_events' |trans }}</td>
+                <td>
+                    <twig:ux:icon name="charm:cross" width="40" height="40"/>
+                </td>
+                <td>
+                    <twig:ux:icon name="charm:cross" width="40" height="40"/>
+                </td>
+                <td>
+                    <twig:ux:icon name="ic:round-check" width="40" height="40"/>
+                </td>
             </tr>
             <tr>
-                <td class="text-start fw-light">{{ 'table.profil_access' |trans }}</td>
+                <td class="text-start align-content-center fw-light">{{ 'table.profil_access' |trans }}</td>
                 <td>{{ 'table.consultation' |trans }}</td>
-                <td><img src="{{ asset('icons/table_check_white.svg') }}" alt="checked"></td>
-                <td><img src="{{ asset('icons/table_check_white.svg') }}" alt="checked"></td>
+                <td>
+                    <twig:ux:icon name="ic:round-check" width="40" height="40"/>
+                </td>
+                <td>
+                    <twig:ux:icon name="ic:round-check" width="40" height="40"/>
+                </td>
             </tr>
             <tr>
-                <td class="text-start fw-light">{{ 'table.relation' |trans }}</td>
-                <td>{{ 'table.relation_limited' |trans}}</td>
-                <td><img src="{{ asset('icons/table_check_white.svg') }}" alt="checked"></td>
-                <td><img src="{{ asset('icons/table_check_white.svg') }}" alt="checked"></td>
+                <td class="text-start align-content-center fw-light">{{ 'table.relation' |trans }}</td>
+                <td>{{ 'table.relation_limited' |trans }}</td>
+                <td>
+                    <twig:ux:icon name="ic:round-check" width="40" height="40"/>
+                </td>
+                <td>
+                    <twig:ux:icon name="ic:round-check" width="40" height="40"/>
+                </td>
             </tr>
             <tr>
-                <td class="text-start fw-light">{{ 'table.chat' |trans }}</td>
-                <td> <img src="{{ asset('icons/cross.svg') }}" alt="cross"></td>
-                <td><img src="{{ asset('icons/table_check_white.svg') }}" alt="checked"></td>
-                <td><img src="{{ asset('icons/table_check_white.svg') }}" alt="checked"></td>
+                <td class="text-start align-content-center fw-light">{{ 'table.chat' |trans }}</td>
+                <td>
+                    <twig:ux:icon name="charm:cross" width="40" height="40"/>
+                </td>
+                <td>
+                    <twig:ux:icon name="ic:round-check" width="40" height="40"/>
+                </td>
+                <td>
+                    <twig:ux:icon name="ic:round-check" width="40" height="40"/>
+                </td>
             </tr>
             <tr>
-                <td class="text-start fw-light">{{ 'table.send_event' |trans }}</td>
-                <td> <img src="{{ asset('icons/cross.svg') }}" alt="cross"></td>
-                <td> <img src="{{ asset('icons/cross.svg') }}" alt="cross"></td>
-                <td><img src="{{ asset('icons/table_check_white.svg') }}" alt="checked"></td>
+                <td class="text-start align-content-center fw-light">{{ 'table.send_event' |trans }}</td>
+                <td>
+                    <twig:ux:icon name="charm:cross" width="40" height="40"/>
+                </td>
+                <td>
+                    <twig:ux:icon name="charm:cross" width="40" height="40"/>
+                </td>
+                <td>
+                    <twig:ux:icon name="ic:round-check" width="40" height="40"/>
+                </td>
             </tr>
             <tr>
-                <td class="text-start fw-light">{{ 'table.events_react' |trans }}</td>
-                <td><img src="{{ asset('icons/table_check_white.svg') }}" alt="checked"></td>
-                <td><img src="{{ asset('icons/table_check_white.svg') }}" alt="checked"></td>
-                <td><img src="{{ asset('icons/table_check_white.svg') }}" alt="checked"></td>
+                <td class="text-start align-content-center fw-light">{{ 'table.events_react' |trans }}</td>
+                <td>
+                    <twig:ux:icon name="ic:round-check" width="40" height="40"/>
+                </td>
+                <td>
+                    <twig:ux:icon name="ic:round-check" width="40" height="40"/>
+                </td>
+                <td>
+                    <twig:ux:icon name="ic:round-check" width="40" height="40"/>
+                </td>
             </tr>
             <tr>
-                <td class="text-start fw-light">{{ 'table.events_comment' |trans }}</td>
-                <td> <img src="{{ asset('icons/cross.svg') }}" alt="cross"></td>
-                <td><img src="{{ asset('icons/table_check_white.svg') }}" alt="checked"></td>
-                <td><img src="{{ asset('icons/table_check_white.svg') }}" alt="checked"></td>
+                <td class="text-start align-content-center fw-light">{{ 'table.events_comment' |trans }}</td>
+                <td>
+                    <twig:ux:icon name="charm:cross" width="40" height="40"/>
+                </td>
+                <td>
+                    <twig:ux:icon name="ic:round-check" width="40" height="40"/>
+                </td>
+                <td>
+                    <twig:ux:icon name="ic:round-check" width="40" height="40"/>
+                </td>
             </tr>
             <tr>
-                <td class="text-start fw-light">{{ 'table.events_moderation' |trans }}</td>
-                <td> <img src="{{ asset('icons/cross.svg') }}" alt="cross"></td>
-                <td> <img src="{{ asset('icons/cross.svg') }}" alt="cross"></td>
-                <td><img src="{{ asset('icons/table_check_white.svg') }}" alt="checked"></td>
+                <td class="text-start align-content-center fw-light">{{ 'table.events_moderation' |trans }}</td>
+                <td>
+                    <twig:ux:icon name="charm:cross" width="40" height="40"/>
+                </td>
+                <td>
+                    <twig:ux:icon name="charm:cross" width="40" height="40"/>
+                </td>
+                <td>
+                    <twig:ux:icon name="ic:round-check" width="40" height="40"/>
+                </td>
             </tr>
             <tr>
-                <td class="text-start fw-light">{{ 'table.profil_subs' |trans }} <br> {{ 'table.fees' |trans }}</td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td class="text-start align-content-center fw-light border-0">{{ 'table.profil_subs' |trans }}
+                    <br> {{ 'table.fees' |trans }}</td>
+                <td class="border-0 text-primary">0€<br>/</td>
+                <td class="border-0 text-primary text-uppercase">{{ 'table.premium_subs' |trans }}<br>/</td>
+                <td class="border-0 text-primary text-uppercase">{{ 'table.vendors_subs' |trans }}<br>
+                    <span class="text-light text-decoration-line-through">2500€</span>
+                    <span class="text-primary">1000€</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="border-0"></td>
+                <td class="border-0"><a class="btn bg-light text-primary text-uppercase fw-bold py-2 px-4 rounded-5">je m'abonne</a></td>
+                <td class="border-0"><a class="btn bg-light text-primary text-uppercase fw-bold py-2 px-4 rounded-5">je m'abonne</a></td>
+                <td class="border-0"><a class="btn bg-light text-primary text-uppercase fw-bold py-2 px-4 rounded-5">je m'abonne</a></td>
             </tr>
             </tbody>
         </table>
