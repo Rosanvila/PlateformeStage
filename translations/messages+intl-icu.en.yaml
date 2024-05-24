@@ -103,3 +103,13 @@ table:
   relation_limited: Limited
   premium_subs: 7€ exclu. Tax / month
   vendors_subs: 1049€ exclu. Tax / month
+  subs: subscribe
+
+hello_en:
+  message1: "
+    You want to contact us or recommend a cybersecurity solution ?
+    "
+  message2: "
+  Fill out this form, and we'll get in touch on your behalf.
+  "
+

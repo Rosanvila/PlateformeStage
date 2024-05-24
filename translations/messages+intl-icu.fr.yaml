@@ -99,3 +99,12 @@ table:
   relation_limited: Limitée
   premium_subs: 7€ ht / mois
   vendors_subs: 1049€ HT / mois
+  subs: je m'abonne
+
+hello:
+  message1: "
+  Vous souhaitez nous contacter ou nous recommander une solution de cybersécurité ?
+  "
+  message2: "
+  Remplissez ce formulaire et nous le contacterons de votre part.
+  "
