@@ -22,8 +22,8 @@ class PasswordConfirmType extends AbstractType
                 'toggle' => true,
                 'use_toggle_form_theme' => false,
                 'always_empty' => false,
-                'hidden_label' => 'Hide',
-                'visible_label' => 'Show',
+                'hidden_label' => null,
+                'visible_label' => null,
                 'attr' => [
                     'autocomplete' => 'new-password',
                 ],
@@ -43,12 +43,12 @@ class PasswordConfirmType extends AbstractType
                     new NotCompromisedPassword(),
                 ],
                 'label' => 'New password',
-                'attr' => ['placeholder' => 'plainPasswordFirst'],
+                'attr' => ['placeholder' => 'New password'],
                 'translation_domain' => 'security'
             ],
             'second_options' => [
                 'label' => 'Repeat Password',
-                'attr' => ['placeholder' => 'plainPasswordSecond'],
+                'attr' => ['placeholder' => 'Repeat Password'],
                 'translation_domain' => 'security'
             ],
             'invalid_message' => 'The password fields must match.',

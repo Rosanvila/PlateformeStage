@@ -38,7 +38,8 @@ mailer:
 register:
   title: Inscription
   lastname: Nom
-  picture: Photo
+  picture: Télécharger un fichier
+  picture_format: Photo (format jpg ou png, 5mo max.)
   firstname: Prénom
   email: Email
   email_already_used: Il existe déjà un compte avec cette adresse email

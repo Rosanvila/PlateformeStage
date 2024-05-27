@@ -45,7 +45,7 @@ mailer:
 register:
   title: Register
   lastname: Lastname
-  picture: Picture
+  picture: download a file
   firstname: Firstname
   email: Email
   password: Password
