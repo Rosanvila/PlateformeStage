@@ -59,9 +59,12 @@
         </nav>
     </header>
 {% endblock %}
-    {% block body %}
 
-    {% endblock %}
+{% block blueBanner %}{% endblock %}
+
+{% block body %}
+{% endblock %}
+
 </div>
 {% block footer %}
     {% set _route = app.request.get('_route') %}
@@ -80,8 +83,8 @@
                 {% for link in footerLinks %}
                     <li class="text-light px-4">
                         <a class="text-light text-decoration-none text-reset {{ _route == link.route ? 'active' : '' }}"
-                                {% if not is_granted('IS_AUTHENTICATED_FULLY') %} data-bs-toggle="modal" data-bs-target="#modalLogin" href="#" {% else %}
-                                    href="{{ path(link.route) }}" {% endif %}
+                                {#                                {% if not is_granted('IS_AUTHENTICATED_FULLY') %} data-bs-toggle="modal" data-bs-target="#modalLogin" href="#" {% else %}
+                                    href="{{ path(link.route) }}" {% endif %} #}
                         >{{ link.title|trans }}</a>
                     </li>
                 {% endfor %}

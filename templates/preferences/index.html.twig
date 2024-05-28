@@ -1,20 +1,43 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PreferencesController!{% endblock %}
+{% block blueBanner %}
+    <div class="bg-primary">
+        <div class="container">
+            <h1 class="text-uppercase text-light fs-4 py-2">
+                {{ 'preferences.banner' |trans }}
+            </h1>
+        </div>
+    </div>
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/mnt/c/Users/robin.sanchez/my_secu/plateforme/src/Controller/PreferencesController.php</code></li>
-        <li>Your template at <code>/mnt/c/Users/robin.sanchez/my_secu/plateforme/templates/preferences/index.html.twig</code></li>
-    </ul>
-</div>
-{% endblock %}
+{{ form_start(form) }}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6">
+            {% include 'components/PreferencesDelete.html.twig' %}
+        </div>
+        <div class="col-md-6">
+            {% include 'components/PreferencesAccount.html.twig' %}
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card my-2">
+                    <div class="card-body">
+                        Contenu de la deuxième ligne
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card my-2">
+                    <div class="card-body">
+                        Contenu de la troisième ligne
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ form_end(form) }}
+    {% endblock %}

@@ -3,7 +3,7 @@ reset_password:
   send_email: Send email
   password_reset_email_sent_title: Password Reset Email Sent
   password_reset_email_sent: If an account with this email address exists, then a password reset link has been sent to you.
-        The link will expire in { expiresAt }.
+    The link will expire in { expiresAt }.
   check_your_spam: If you don't receive an email please check your spam folder or <a class="link-dark" href="{ href }">try again</a>.
   email: "<h1>Hi!</h1>
 
@@ -18,3 +18,11 @@ New password: New password
 Repeat Password: Repeat Password
 Hide: Hide
 Show: Show
+
+preferences:
+  banner: account preferences
+  email: Email adress
+  account: Your account
+  password: Password
+  btnDelete: Delete my account
+  pref: Preferences
