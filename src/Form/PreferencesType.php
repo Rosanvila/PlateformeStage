@@ -15,22 +15,6 @@ class PreferencesType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email', EmailType::class, [
-                'label' => 'Email address',
-                'attr' => ['placeholder' => 'example@example.com'],
-                'required' => true,
-                'translation_domain' => 'security',
-                'mapped' => false,
-                'autocomplete' => true,
-            ])
-            ->add('password', PasswordType::class, [
-                'label' => 'Password',
-                'toggle' => true,
-                'attr' => ['placeholder' => 'Enter your password'],
-                'required' => true,
-                'translation_domain' => 'security',
-                'mapped' => false,
-            ])
             ->add('fullVisibility', CheckboxType::class, [
                 'label' => 'Any user',
             ])
@@ -50,9 +34,8 @@ class PreferencesType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults([
-            'data_class' => User::class,
-        ]);
+        $resolver->setDefaults([]);
+
     }
 }
 
