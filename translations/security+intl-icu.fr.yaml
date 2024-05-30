@@ -27,5 +27,5 @@ preferences:
   email: Adresse mail
   account: Votre compte
   password: Mot de passe
-  btnDelete: Supprimer mon compte
+  btnChange: Changer mon mot de passe
   pref: Préférences

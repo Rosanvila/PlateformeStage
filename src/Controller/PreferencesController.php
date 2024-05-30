@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\ChartBuilders\FreemiumChart;
 use App\ChartBuilders\PremiumChart;
-use App\Form\DeleteAccountType;
+use App\Form\ChangeAccountPasswordType;
 use App\Form\PreferencesType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,7 +19,7 @@ class PreferencesController extends AbstractController
     public function index(Request $request, TranslatorInterface $translator, ChartBuilderInterface $chartBuilder): Response
     {
         $preferencesForm = $this->createForm(PreferencesType::class);
-        $deleteAccountForm = $this->createForm(DeleteAccountType::class);
+        $ChangeAccountPasswordForm = $this->createForm(ChangeAccountPasswordType::class);
 
         $chartsFreemium = FreemiumChart::buildChart($chartBuilder);
         $chartsPremium = PremiumChart::buildChart($chartBuilder);
@@ -32,7 +32,7 @@ class PreferencesController extends AbstractController
         return $this->render('preferences/index.html.twig', [
             'controller_name' => 'PreferencesController',
             'preferences_form' => $preferencesForm->createView(),
-            'delete_account_form' => $deleteAccountForm->createView(),
+            'changeAccountPassword_form' => $ChangeAccountPasswordForm->createView(),
             'chart1' => $chartViewProfil,
             'chart2' => $chartViewInvitations,
             'chart3' => $chartViewEvents,
