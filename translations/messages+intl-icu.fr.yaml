@@ -109,3 +109,17 @@ hello:
   message2: "
   Remplissez ce formulaire et nous le contacterons de votre part.
   "
+
+preferences:
+  banner: paramètres du compte
+  statistics: Statistique
+  email: Adresse mail
+  account: Votre compte
+  password: Mot de passe
+  btnChange: Changer mon mot de passe
+  pref: Préférences
+  Nb_quote: "Nombres de demande de devis : "
+  Nb_mentoring: "Nombre de demandes de mentorat : "
+  who_contact: Qui peut vous contacter ?
+  manage_subs: Gérer mon abonnement
+  actual_subs: "Abonnement actuel : "

@@ -113,3 +113,16 @@ hello_en:
   Fill out this form, and we'll get in touch on your behalf.
   "
 
+preferences:
+  banner: account preferences
+  statistics: Statistics
+  email: Email adress
+  account: Your account
+  password: Password
+  btnChange: Change my password
+  pref: Preferences
+  Nb_quote: "Number of quote requests : "
+  Nb_mentoring: "Number of mentoring requests : "
+  who_contact: Who can contact you ?
+  manage_subs: Manage my subscription
+  actual_subs: "Actual subscription : "
