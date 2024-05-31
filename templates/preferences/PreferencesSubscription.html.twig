@@ -1,6 +1,6 @@
 <div class="card-body px-5">
-    <h2 class="fs-5">Gérer mon abonnement</h2>
-    <p>Abonnement actuel :
+    <h2 class="fs-5">{{ 'preferences.manage_subs' |trans }}</h2>
+    <p>{{ 'preferences.actual_subs' |trans }}
         {% if is_granted('ROLE_FREEMIUM') %}
             Freemium
         {% elseif is_granted('ROLE_PREMIUM') %}

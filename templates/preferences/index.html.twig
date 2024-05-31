@@ -13,39 +13,43 @@
 {% block body %}
     {{ form_start(changePasswordForm, {'method': 'POST'}) }}
 
-    {% include 'preferences/tab.html.twig' %}
 
-    <div class="card my-5 container">
-        <div class="card-body">
-            <h2 class="fs-5">Statistiques</h2>
-            <div class="d-flex justify-content-around flex-wrap">
-                <div class="w-auto">
-                    <div class="chart-container">
-                        {{ render_chart(chart1) }}
+    {{ form_start(changeAccountPassword_form) }}
+    <div class="container mt-4">
+        {% include 'preferences/tab.html.twig' %}
+
+        <div class="card my-5">
+            <div class="card-body">
+                <h2 class="fs-5">{{ 'preferences.statistics' |trans }}</h2>
+                <div class="d-flex justify-content-around flex-wrap">
+                    <div class="w-auto">
+                        <div class="chart-container">
+                            {{ render_chart(chart1) }}
+                        </div>
+                    </div>
+                    <div class="w-auto">
+                        <div class="chart-container">
+                            {{ render_chart(chart2) }}
+                        </div>
+                    </div>
+                    <div class="w-auto">
+                        <div class="chart-container">
+                            {{ render_chart(chart3) }}
+                        </div>
                     </div>
                 </div>
-                <div class="w-auto">
-                    <div class="chart-container">
-                        {{ render_chart(chart2) }}
+
+                {% if is_granted('ROLE_PREMIUM') %}
+
+                {% endif %}
+
+                {% if is_granted('ROLE_FREEMIUM') %}
+                    <div>
+                        <p>{{ 'preferences.Nb_quote' |trans}}23</p>
+                        <p>{{ 'preferences.Nb_mentoring' |trans}} 06</p>
                     </div>
-                </div>
-                <div class="w-auto">
-                    <div class="chart-container">
-                        {{ render_chart(chart3) }}
-                    </div>
-                </div>
+                {% endif %}
             </div>
-
-            {% if is_granted('ROLE_PREMIUM') %}
-
-            {% endif %}
-
-            {% if is_granted('ROLE_FREEMIUM') %}
-                <div>
-                    <p>Nombres de demande de devis : 23</p>
-                    <p>Nombre de demandes de mentorat : 06</p>
-                </div>
-            {% endif %}
         </div>
     </div>
     {{ form_end(changePasswordForm) }}
