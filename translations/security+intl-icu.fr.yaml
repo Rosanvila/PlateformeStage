@@ -22,10 +22,3 @@ Repeat Password: Confirmation du mot de passe
 Hide: Cacher
 Show: Afficher
 
-preferences:
-  banner: paramètres du compte
-  email: Adresse mail
-  account: Votre compte
-  password: Mot de passe
-  btnChange: Changer mon mot de passe
-  pref: Préférences

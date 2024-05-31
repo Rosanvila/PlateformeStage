@@ -11,11 +11,11 @@
 {% endblock %}
 
 {% block body %}
-    {{ form_start(changeAccountPassword_form) }}
+    {{ form_start(changePasswordForm, {'method': 'POST'}) }}
 
     {% include 'preferences/tab.html.twig' %}
 
-    <div class="card my-5">
+    <div class="card my-5 container">
         <div class="card-body">
             <h2 class="fs-5">Statistiques</h2>
             <div class="d-flex justify-content-around flex-wrap">
@@ -48,5 +48,5 @@
             {% endif %}
         </div>
     </div>
-    {{ form_end(changeAccountPassword_form) }}
+    {{ form_end(changePasswordForm) }}
 {% endblock %}

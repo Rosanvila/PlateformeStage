@@ -109,3 +109,10 @@ hello:
   message2: "
   Remplissez ce formulaire et nous le contacterons de votre part.
   "
+preferences:
+  banner: paramètres du compte
+  email: Adresse mail
+  account: Votre compte
+  password: Mot de passe
+  btnChange: Changer mon mot de passe
+  pref: Préférences

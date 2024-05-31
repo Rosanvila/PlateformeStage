@@ -1,0 +1,29 @@
+{% trans_default_domain 'security' %}
+
+<div class="container col-10">
+    <h3 class="fs-6">{{ 'reset_password.reset_your_password'|trans }}</h3>
+
+    <div class="row position-relative mb-3">
+        {{ form_label(changePasswordForm.currentPassword) }}
+        {{ form_widget(changePasswordForm.currentPassword) }}
+    </div>
+
+    <div class="row form-floating mb-3">
+        {{ form_label(changePasswordForm.plainPassword.password.first) }}
+        {{ form_widget(changePasswordForm.plainPassword.password.first) }}
+        {{ form_errors(changePasswordForm.plainPassword.password.first) }}
+        {{ form_help(changePasswordForm.plainPassword.password.first) }}
+    </div>
+
+    <div class="row form-floating mb-3">
+        {{ form_label(changePasswordForm.plainPassword.password.second) }}
+        {{ form_widget(changePasswordForm.plainPassword.password.second) }}
+        {{ form_errors(changePasswordForm.plainPassword.password.second) }}
+        {{ form_help(changePasswordForm.plainPassword.password.second) }}
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-10 d-flex mb-3">
+            <button type="submit" class="flex-fill btn btn-mysecu">{{ 'reset_password.reset_your_password'|trans }}</button>
+        </div>
+    </div>
+</div>

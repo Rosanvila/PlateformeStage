@@ -19,10 +19,3 @@ Repeat Password: Repeat Password
 Hide: Hide
 Show: Show
 
-preferences:
-  banner: account preferences
-  email: Email adress
-  account: Your account
-  password: Password
-  btnChange: Change my password
-  pref: Preferences

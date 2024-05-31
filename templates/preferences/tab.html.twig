@@ -28,16 +28,16 @@
     <div class="tab-content" id="nav-tabContent">
         <div class="tab-pane show active card" id="nav-profile" role="tabpanel"
              aria-labelledby="nav-profile-tab">
-            {% include 'components/PreferencesAccount.html.twig' with {'form': preferences_form} %}
+            {% include 'preferences/PreferencesAccount.html.twig' with {'form': preferences_form} %}
         </div>
         <div class="tab-pane card" id="nav-security" role="tabpanel" aria-labelledby="nav-security-tab">
-            {% include 'components/PreferencesPassword.html.twig' with {'form': changeAccountPassword_form} %}
+            {% include 'preferences/PreferencesPassword.html.twig' with {'form': changePasswordForm} %}
         </div>
         <div class="tab-pane card" id="nav-preferences" role="tabpanel" aria-labelledby="nav-preferences-tab">
-            {% include 'components/PreferencesLanguage.html.twig' %}
+            {% include 'preferences/PreferencesLanguage.html.twig' %}
         </div>
         <div class="tab-pane card" id="nav-subs" role="tabpanel" aria-labelledby="nav-subs-tab">
-            {% include 'components/PreferencesSubscription.html.twig' %}
+            {% include 'preferences/PreferencesSubscription.html.twig' %}
         </div>
     </div>
 </div>
