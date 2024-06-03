@@ -12,8 +12,6 @@
 
 {% block body %}
 
-    {{ form_start(changePasswordForm, {'method': 'POST'}) }}
-
     {% for message in app.flashes('success') %}
         <div class="alert alert-success" role="alert">
             {{ message }}
@@ -63,5 +61,4 @@
             </div>
         </div>
     </div>
-    {{ form_end(changePasswordForm) }}
 {% endblock %}
