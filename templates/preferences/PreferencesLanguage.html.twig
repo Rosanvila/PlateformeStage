@@ -1,6 +1,7 @@
 <div class="card-body px-5">
+    {{ form_start(languages_form) }}
     <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" id="languageSwitch">
-        <label class="form-check-label" for="languageSwitch">Français / English</label>
+        {{ form_widget(languages_form.language, {'class': 'form-check-input'}) }}
     </div>
+    {{ form_end(languages_form) }}
 </div>

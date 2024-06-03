@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\ChartBuilders\FreemiumChart;
 use App\ChartBuilders\PremiumChart;
 use App\Form\ChangePasswordFormType;
+use App\Form\LanguagesFormType;
 use App\Form\PreferencesType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -28,16 +29,30 @@ class PreferencesController extends AbstractController
     {
         $preferencesForm = $this->createForm(PreferencesType::class);
         $changePasswordForm = $this->createForm(ChangePasswordFormType::class);
+        $languagesForm = $this->createForm(LanguagesFormType::class);
 
         $user = $this->getUser();
-        $changePasswordForm->handleRequest($request);
 
+        // Language switch form
+        $languagesForm->handleRequest($request);
+        if ($languagesForm->isSubmitted() && $languagesForm->isValid()) {
+            $language = $languagesForm->getData()['language'];
+            $user->setLanguage($language);
+
+            $this->entityManager->persist($user);
+            $this->entityManager->flush();
+            $request->setLocale($language);
+
+            $this->addFlash('success', 'Language changed successfully.');
+            return $this->redirectToRoute('app_preferences');
+        }
+
+        // Password reset form
+        $changePasswordForm->handleRequest($request);
         if ($changePasswordForm->isSubmitted() && $changePasswordForm->isValid()) {
             $email = $changePasswordForm->get('email')->getData();
             $currentPassword = $changePasswordForm->get('currentPassword')->getData();
             $plainPassword = $changePasswordForm->get('plainPassword')->get('password')->getData();
-
-            $user = $this->getUser();
 
             // Vérifier si l'email correspond à celui de l'utilisateur en session
             if ($email !== $user->getEmail()) {
@@ -74,6 +89,7 @@ class PreferencesController extends AbstractController
             'controller_name' => 'PreferencesController',
             'preferences_form' => $preferencesForm->createView(),
             'changePasswordForm' => $changePasswordForm->createView(),
+            'languages_form' => $languagesForm->createView(),
             'chart1' => $chartViewProfil,
             'chart2' => $chartViewInvitations,
             'chart3' => $chartViewEvents,
