@@ -2,25 +2,22 @@
 
 namespace App\Controller;
 
-use Doctrine\ORM\EntityManagerInterface;
 use App\ChartBuilders\FreemiumChart;
 use App\ChartBuilders\PremiumChart;
 use App\Form\ChangePasswordFormType;
 use App\Form\PreferencesType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
 
 class PreferencesController extends AbstractController
 {
+    private $entityManager;
 
-    private $entityManager; // Déclaration de la variable
-
-    // Injection de EntityManagerInterface dans le constructeur
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
@@ -36,18 +33,34 @@ class PreferencesController extends AbstractController
         $changePasswordForm->handleRequest($request);
 
         if ($changePasswordForm->isSubmitted() && $changePasswordForm->isValid()) {
-
+            $email = $changePasswordForm->get('email')->getData();
+            $currentPassword = $changePasswordForm->get('currentPassword')->getData();
             $plainPassword = $changePasswordForm->get('plainPassword')->get('password')->getData();
 
+            $user = $this->getUser();
+
+            // Vérifier si l'email correspond à celui de l'utilisateur en session
+            if ($email !== $user->getEmail()) {
+                $this->addFlash('error', 'The email address does not match our records.');
+                return $this->redirectToRoute('app_preferences');
+            }
+
+            // Vérifier si le mot de passe actuel est correct
+            if (!$userPasswordHasher->isPasswordValid($user, $currentPassword)) {
+                $this->addFlash('error', 'The current password is incorrect.');
+                return $this->redirectToRoute('app_preferences');
+            }
+
+            // Si tout est bon, procédez au changement de mot de passe
             $hashedPassword = $userPasswordHasher->hashPassword($user, $plainPassword);
             $user->setPassword($hashedPassword);
 
             $this->entityManager->persist($user);
             $this->entityManager->flush();
 
+            $this->addFlash('success', 'Your password has been changed successfully.');
             return $this->redirectToRoute('app_preferences');
         }
-
 
         $chartsFreemium = FreemiumChart::buildChart($chartBuilder);
         $chartsPremium = PremiumChart::buildChart($chartBuilder);

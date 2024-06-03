@@ -1,8 +1,6 @@
 {% trans_default_domain 'security' %}
 
 <div class="container col-10">
-    <h3 class="fs-6">{{ 'reset_password.reset_your_password'|trans }}</h3>
-
     <div class="row position-relative mb-3">
         {{ form_label(changePasswordForm.currentPassword) }}
         {{ form_widget(changePasswordForm.currentPassword) }}

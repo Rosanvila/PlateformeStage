@@ -11,11 +11,22 @@
 {% endblock %}
 
 {% block body %}
+
     {{ form_start(changePasswordForm, {'method': 'POST'}) }}
 
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
 
-    {{ form_start(changeAccountPassword_form) }}
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-danger" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
     <div class="container mt-4">
+
         {% include 'preferences/tab.html.twig' %}
 
         <div class="card my-5">
