@@ -2,6 +2,7 @@
     {{ form_start(languages_form) }}
     <div class="form-check form-switch">
         {{ form_widget(languages_form.language, {'class': 'form-check-input'}) }}
+        {{ form_widget(languages_form.submit) }}
     </div>
     {{ form_end(languages_form) }}
 </div>
