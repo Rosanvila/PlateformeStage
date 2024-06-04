@@ -87,9 +87,9 @@ class PreferencesController extends AbstractController
 
         return $this->render('preferences/index.html.twig', [
             'controller_name' => 'PreferencesController',
-            'preferences_form' => $preferencesForm->createView(),
-            'changePasswordForm' => $changePasswordForm->createView(),
-            'languages_form' => $languagesForm->createView(),
+            'preferences_form' => $preferencesForm,
+            'changePasswordForm' => $changePasswordForm,
+            'languages_form' => $languagesForm,
             'chart1' => $chartViewProfil,
             'chart2' => $chartViewInvitations,
             'chart3' => $chartViewEvents,

@@ -1,9 +1,8 @@
-{% trans_default_domain 'security' %}
-
 <div class="container col-10">
     <div class="row position-relative mb-3">
         {{ form_label(changePasswordForm.currentPassword) }}
         {{ form_widget(changePasswordForm.currentPassword) }}
+        {{ form_errors(changePasswordForm.currentPassword) }}
     </div>
 
     <div class="row form-floating mb-3">
@@ -21,7 +20,7 @@
     </div>
     <div class="row justify-content-center">
         <div class="col-10 d-flex mb-3">
-            <button type="submit" class="flex-fill btn btn-mysecu">{{ 'reset_password.reset_your_password'|trans }}</button>
+            {{ form_widget(changePasswordForm.submit) }}
         </div>
     </div>
 </div>
