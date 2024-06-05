@@ -16,9 +16,10 @@ class LanguagesFormType extends AbstractType
             ->add('language', ChoiceType::class, [
                 'label' => 'Language',
                 'choices' => [
-                    'French' => 'fr',
                     'English' => 'en',
+                    'French' => 'fr',
                 ],
+                'attr' => ['class' => 'form-select form-select-lg my-3'],
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Submit',
@@ -30,6 +31,7 @@ class LanguagesFormType extends AbstractType
     {
         $resolver->setDefaults([
             'method' => 'POST',
+            'supported_locales' => [],
         ]);
     }
 }

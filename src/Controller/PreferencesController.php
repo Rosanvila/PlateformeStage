@@ -17,7 +17,7 @@ use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
 
 class PreferencesController extends AbstractController
 {
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
     public function __construct(EntityManagerInterface $entityManager)
     {
@@ -25,16 +25,20 @@ class PreferencesController extends AbstractController
     }
 
     #[Route(
-        path:'/{_locale}/preferences',
+        path: '/{_locale}/preferences',
         name: 'app_preferences',
         requirements: ['_locale' => 'en|fr'])]
     public function index(Request $request, UserPasswordHasherInterface $userPasswordHasher, ChartBuilderInterface $chartBuilder): Response
     {
-        $preferencesForm = $this->createForm(PreferencesType::class);
-        $changePasswordForm = $this->createForm(ChangePasswordFormType::class);
-        $languagesForm = $this->createForm(LanguagesFormType::class);
 
         $user = $this->getUser();
+        $supportedLocales = $this->getParameter('app.supported_locales');
+
+        $preferencesForm = $this->createForm(PreferencesType::class);
+        $changePasswordForm = $this->createForm(ChangePasswordFormType::class);
+        $languagesForm = $this->createForm(LanguagesFormType::class, null, [
+            'supported_locales' => $supportedLocales
+        ]);
 
         // Language switch form
         $languagesForm->handleRequest($request);
@@ -47,7 +51,7 @@ class PreferencesController extends AbstractController
             $request->setLocale($language);
 
             $this->addFlash('success', 'Language changed successfully.');
-            return $this->redirectToRoute('app_preferences');
+            return $this->redirectToRoute('app_preferences', ['_locale' => $language]);
         }
 
         // Password reset form
