@@ -24,7 +24,10 @@ class PreferencesController extends AbstractController
         $this->entityManager = $entityManager;
     }
 
-    #[Route('/preferences', name: 'app_preferences')]
+    #[Route(
+        path:'/{_locale}/preferences',
+        name: 'app_preferences',
+        requirements: ['_locale' => 'en|fr'])]
     public function index(Request $request, UserPasswordHasherInterface $userPasswordHasher, ChartBuilderInterface $chartBuilder): Response
     {
         $preferencesForm = $this->createForm(PreferencesType::class);
