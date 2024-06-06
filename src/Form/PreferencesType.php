@@ -13,7 +13,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class PreferencesType extends AbstractType
 {
-    private $translator;
+    private TranslatorInterface $translator;
 
     public function __construct(TranslatorInterface $translator)
     {
@@ -24,23 +24,23 @@ class PreferencesType extends AbstractType
     {
         $builder
             ->add('fullVisibility', CheckboxType::class, [
-                'label' => $this->translator->trans('preferences.visibility.any_user'),
+                'label' => $this->translator->trans('visibility.any_user'),
                 'required' => false,
             ])
             ->add('onlyContact', CheckboxType::class, [
-                'label' => $this->translator->trans('preferences.visibility.only_contacts'),
+                'label' => $this->translator->trans('visibility.only_contacts'),
                 'required' => false,
             ])
             ->add('nobody', CheckboxType::class, [
-                'label' => $this->translator->trans('preferences.visibility.nobody'),
+                'label' => $this->translator->trans('visibility.nobody'),
                 'required' => false,
             ])
             ->add('notification', CheckboxType::class, [
-                'label' => $this->translator->trans('preferences.notifications.activate'),
+                'label' => $this->translator->trans('notifications.activate'),
                 'required' => false,
             ])
             ->add('availability', CheckboxType::class, [
-                'label' => $this->translator->trans('preferences.notifications.availability'),
+                'label' => $this->translator->trans('notifications.availability'),
                 'required' => false,
             ]);
     }

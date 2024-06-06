@@ -123,10 +123,15 @@ preferences:
   who_contact: Qui peut vous contacter ?
   manage_subs: Gérer mon abonnement
   actual_subs: "Abonnement actuel : "
-  visibility:
-    any_user: "Tout utilisateur"
-    only_contacts: "Seulement les utilisateurs dans ma liste de contacts"
-    nobody: "Personne"
-  notifications:
-    activate: "Activer les notifications"
-    availability: "Activer ma disponibilité"
+visibility:
+  any_user: "Tout utilisateur"
+  only_contacts: "Seulement les utilisateurs dans ma liste de contacts"
+  nobody: "Personne"
+notifications:
+  activate: "Activer les notifications"
+  availability: "Activer ma disponibilité"
+account_secu:
+  email: Votre adresse email
+  current_password: Mot de passe actuel
+  enter_email: Entrez votre adresse email
+  validate: Valider

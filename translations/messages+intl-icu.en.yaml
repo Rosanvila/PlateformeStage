@@ -126,10 +126,15 @@ preferences:
   who_contact: Who can contact you?
   manage_subs: Manage my subscription
   actual_subs: "Actual subscription: "
-  visibility:
-    any_user: "Any user"
-    only_contacts: "Only users in my contact list"
-    nobody: "Nobody"
-  notifications:
-    activate: "Activates notifications"
-    availability: "Activates my availability"
+visibility:
+  any_user: "Any user"
+  only_contacts: "Only users in my contact list"
+  nobody: "Nobody"
+notifications:
+  activate: "Activates notifications"
+  availability: "Activates my availability"
+account_secu:
+  email: Your email address
+  current_password: Current password
+  enter_email: Enter your email address
+  validate: Validate

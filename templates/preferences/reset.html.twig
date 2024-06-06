@@ -1,20 +1,20 @@
-<div class="container col-10">
-    <div class="row position-relative mb-3">
-        {{ form_label(changePasswordForm.currentPassword) }}
+<div class="row align-items-center flex-column">
+    <div class="gx-1 form-floating col-10 mb-3">
         {{ form_widget(changePasswordForm.currentPassword) }}
+        {{ form_label(changePasswordForm.currentPassword) }}
         {{ form_errors(changePasswordForm.currentPassword) }}
     </div>
 
-    <div class="row form-floating mb-3">
-        {{ form_label(changePasswordForm.plainPassword.password.first) }}
+    <div class="gx-1 form-floating col-10 mb-3">
         {{ form_widget(changePasswordForm.plainPassword.password.first) }}
+        {{ form_label(changePasswordForm.plainPassword.password.first) }}
         {{ form_errors(changePasswordForm.plainPassword.password.first) }}
         {{ form_help(changePasswordForm.plainPassword.password.first) }}
     </div>
 
-    <div class="row form-floating mb-3">
-        {{ form_label(changePasswordForm.plainPassword.password.second) }}
+    <div class="gx-1 form-floating col-10 mb-3">
         {{ form_widget(changePasswordForm.plainPassword.password.second) }}
+        {{ form_label(changePasswordForm.plainPassword.password.second) }}
         {{ form_errors(changePasswordForm.plainPassword.password.second) }}
         {{ form_help(changePasswordForm.plainPassword.password.second) }}
     </div>

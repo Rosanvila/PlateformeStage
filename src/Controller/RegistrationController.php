@@ -96,7 +96,8 @@ class RegistrationController extends AbstractController
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user, $templatedEmail
             );
 
-            return $security->login($user, 'form_login', 'main');
+            /*return $security->login($user, 'form_login', 'main');*/
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->render('registration/register.html.twig', [

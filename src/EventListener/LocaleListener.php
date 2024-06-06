@@ -30,7 +30,7 @@ class LocaleListener
             if ($user) {
                 $locale = $user->getLanguage();
             } else {
-                // Sinon, utilisez une valeur par défaut
+                // Default language
                 $locale = 'fr';
             }
 
