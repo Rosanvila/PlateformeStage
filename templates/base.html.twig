@@ -59,10 +59,13 @@
         </nav>
     </header>
 {% endblock %}
+
+<div class="container body-container mt-3">
     {% block body %}
 
     {% endblock %}
 </div>
+
 {% block footer %}
     {% set _route = app.request.get('_route') %}
     {% set footerLinks = [
