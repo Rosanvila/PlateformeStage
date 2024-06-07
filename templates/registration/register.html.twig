@@ -3,7 +3,6 @@
 {% block javascripts %}
     {{ parent() }}
     <script type="module">
-        import '{{ asset('js/index.js') }}';
         import '{{ asset('js/register.js') }}';
     </script>
 {% endblock %}
@@ -11,7 +10,6 @@
 {% block title %}{{ 'register.title'|trans }}{% endblock %}
 
 {% block body %}
-    {% include 'login/modal.html.twig' %}
     {% for flash_error in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
     {% endfor %}
@@ -21,7 +19,7 @@
             <h3 class="card-title d-flex justify-content-center text-uppercase mb-4">{{ 'register.title'|trans }}</h3>
 
             {# {{ component('RegisterForm', {form: registrationForm}) }} #}
-            <twig:RegisterForm initialFormData="{{ registrationForm.vars.value }}" />
+            <twig:RegisterForm initialFormData="{{ registrationForm.vars.value }}"/>
 
         </div>
     </div>

@@ -109,6 +109,15 @@ hello:
   message2: "
   Remplissez ce formulaire et nous le contacterons de votre part.
   "
+  name: Nom complet
+  email: Adresse mail
+  motif: Motif
+  motif_choices:
+    contact: Contact
+    recommendation: Recommendation
+    other: Autre
+  message: Message
+  submit: Envoyer
 
 preferences:
   banner: paramètres du compte
@@ -135,3 +144,8 @@ account_secu:
   current_password: Mot de passe actuel
   enter_email: Entrez votre adresse email
   validate: Valider
+
+form:
+  language:
+    english: Anglais
+    french: Français

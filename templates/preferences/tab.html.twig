@@ -1,5 +1,10 @@
+{% block javascripts %}
+<script type="module">
+    import '{{ asset('js/tabs.js') }}';
+    </script>
+{% endblock %}
 
-<div class="container mt-4">
+
     <nav>
         <ul class="nav nav-tabs border-0" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
@@ -41,4 +46,4 @@
             {% include 'preferences/PreferencesSubscription.html.twig' %}
         </div>
     </div>
-</div>
+

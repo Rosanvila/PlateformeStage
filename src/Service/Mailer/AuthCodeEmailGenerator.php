@@ -40,7 +40,7 @@ final class AuthCodeEmailGenerator implements AuthCodeEmailGeneratorInterface
             ->to($user->getEmailAuthRecipient())
             ->subject($this->translator->trans($this->subject, ['expiresAt' => $expiresAt]))
             ->htmlTemplate('security/email/authcode.html.twig')
-            ->locale('fr')
+            ->locale($user->getLanguage())
             ->context([
                 'authCode' => $authCode,
                 'expiresAt' => $expiresAt,

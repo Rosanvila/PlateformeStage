@@ -16,9 +16,10 @@ class LanguagesFormType extends AbstractType
             ->add('language', ChoiceType::class, [
                 'label' => 'Language',
                 'choices' => [
-                    'English' => 'en',
-                    'French' => 'fr',
+                    'form.language.english' => 'en',
+                    'form.language.french' => 'fr',
                 ],
+                'choice_translation_domain' => 'messages',
                 'attr' => ['class' => 'form-select form-select-lg my-3'],
             ])
             ->add('submit', SubmitType::class, [

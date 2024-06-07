@@ -1,13 +1,6 @@
 {% extends 'base.html.twig' %}
-{% block javascripts %}
-    {{ parent() }}
-    <script type="module">
-        import '{{ asset('js/index.js') }}';
-    </script>
-{% endblock %}
 
 {% block body %}
-    {% include 'login/modal.html.twig' %}
     <section>
         <div class="container my-5">
             <ul class="list-unstyled d-inline-block">
@@ -217,7 +210,7 @@
     </section>
     <section class="container mt-5">
         <div class="row">
-            <div class="col-md-6 d-flex flex-column justify-content-center align-items-start">
+            <div class="col-md-6 d-flex flex-column align-items-start">
                 <h2 class="text-center text-primary text-uppercase mb-3">hello !</h2>
                 <p class="text-light lh-lg mb-0">{{ 'hello.message1' |trans }}</p>
                 <p class="text-light lh-lg mb-0">{{ 'hello.message2' |trans }}</p>
@@ -225,41 +218,28 @@
 
             <!-- Right column with the form -->
             <div class="col-md-6">
-                <h2 class="text-center">Contact</h2>
-                <form action="#" method="post" class="text-center">
-                    <div class="row mb-3">
-                        <div class="col">
-                            <label>
-                                <input type="text" name="name" class="form-control" placeholder="Nom complet" required>
-                            </label>
-                        </div>
-                        <div class="col">
-                            <label>
-                                <input type="email" name="email" class="form-control" placeholder="Adresse mail" required>
-                            </label>
-                        </div>
+                <h2 class="text-center d-none">Contact</h2>
+                {{ form_start(form, {'attr': {'class': 'text-center'}}) }}
+                <div class="row mb-3">
+                    <div class="col">
+                        {{ form_row(form.name) }}
                     </div>
-                    <div class="row mb-3">
-                        <div class="col">
-                            <label>
-                                <select name="motif" class="form-control" required>
-                                    <option value="" disabled selected>Motif</option>
-                                    <option value="contact">Contact</option>
-                                    <option value="recommendation">Recommendation</option>
-                                    <option value="autre">Autre</option>
-                                </select>
-                            </label>
-                        </div>
+                    <div class="col">
+                        {{ form_row(form.email) }}
                     </div>
-                    <div class="row mb-3">
-                        <div class="col">
-                            <label>
-                                <textarea name="message" class="form-control" placeholder="Message" rows="4" required></textarea>
-                            </label>
-                        </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col">
+                        {{ form_row(form.motif) }}
                     </div>
-                    <button type="submit" class="btn btn-primary">Envoyer</button>
-                </form>
+                </div>
+                <div class="row mb-3">
+                    <div class="col">
+                        {{ form_row(form.message) }}
+                    </div>
+                </div>
+                {{ form_row(form.submit) }}
+                {{ form_end(form) }}
             </div>
         </div>
     </section>

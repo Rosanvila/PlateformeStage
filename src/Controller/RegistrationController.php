@@ -25,10 +25,10 @@ class RegistrationController extends AbstractController
     private Address|string|null $senderAddress;
 
     public function __construct(
-        private EmailVerifier $emailVerifier,
+        private EmailVerifier                                              $emailVerifier,
         #[Autowire(env: 'RESET_PASSWORD_SUBJECT')] private readonly string $subject,
-        #[Autowire(env: 'AUTH_CODE_SENDER_EMAIL')] string|null $senderEmail,
-        #[Autowire(env: 'AUTH_CODE_SENDER_NAME')] ?string $senderName = null,)
+        #[Autowire(env: 'AUTH_CODE_SENDER_EMAIL')] string|null             $senderEmail,
+        #[Autowire(env: 'AUTH_CODE_SENDER_NAME')] ?string                  $senderName = null,)
     {
         if (null !== $senderEmail && null !== $senderName) {
             $this->senderAddress = new Address($senderEmail, $senderName);
@@ -37,7 +37,11 @@ class RegistrationController extends AbstractController
         }
     }
 
-    #[Route('/register', name: 'app_register')]
+    #[Route(
+        path: '/{_locale}/register',
+        name: 'app_register',
+        requirements: ['_locale' => '%app.supported_locales%']
+    )]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, Security $security, EntityManagerInterface $entityManager, TranslatorInterface $translator): Response
     {
         $user = new User();
@@ -54,19 +58,18 @@ class RegistrationController extends AbstractController
             );
 
             // Photo
-            if(!is_null($form->get('picture')->getData())) {
+            if (!is_null($form->get('picture')->getData())) {
                 $user->setPhoto(base64_encode($form->get('picture')->getData()->getContent()));
             }
 
             // Role
-            $user->addRole('ROLE_'.$form->get('function')->getData());
+            $user->addRole('ROLE_' . $form->get('function')->getData());
 
             // Si on est pas vendeur
-            if(in_array($form->get('function')->getData(), ['freemium', 'premium'])) {
+            if (in_array($form->get('function')->getData(), ['freemium', 'premium'])) {
                 // Company champ libre
                 $user->setCompany($form->get('company')->getData());
-            }
-            else{
+            } else {
                 // Il va falloir créer une entreprise
                 $user->setBusinessAddress(null);
 
@@ -84,9 +87,9 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
 
             $templatedEmail = (new TemplatedEmail())
-            ->to($user->getEmail())
-            ->subject($translator->trans('mailer.register.subject', [], 'messages'))
-            ->htmlTemplate('registration/confirmation_email.html.twig');
+                ->to($user->getEmail())
+                ->subject($translator->trans('mailer.register.subject', [], 'messages'))
+                ->htmlTemplate('registration/confirmation_email.html.twig');
 
             if (null !== $this->senderAddress) {
                 $templatedEmail->from($this->senderAddress);
@@ -96,8 +99,8 @@ class RegistrationController extends AbstractController
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user, $templatedEmail
             );
 
-            /*return $security->login($user, 'form_login', 'main');*/
-            return $this->redirectToRoute('app_login');
+            $security->login($user, 'form_login', 'main');
+            return $this->redirectToRoute('app_index');
         }
 
         return $this->render('registration/register.html.twig', [
@@ -105,7 +108,10 @@ class RegistrationController extends AbstractController
         ]);
     }
 
-    #[Route('/verify/email', name: 'app_verify_email')]
+    #[Route(path: '/{_locale}/verify/email',
+        name: 'app_verify_email',
+        requirements: ['_locale' => '%app.supported_locales%']
+    )]
     public function verifyUserEmail(Request $request, TranslatorInterface $translator, UserRepository $userRepository): Response
     {
         $id = $request->query->get('id');

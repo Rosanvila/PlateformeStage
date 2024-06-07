@@ -105,13 +105,22 @@ table:
   vendors_subs: 1049€ exclu. Tax / month
   subs: subscribe
 
-hello_en:
+hello:
   message1: "
     You want to contact us or recommend a cybersecurity solution ?
     "
   message2: "
   Fill out this form, and we'll get in touch on your behalf.
   "
+  name: Full name
+  email: Email address
+  motif: Reason
+  motif_choices:
+    contact: Contact
+    recommendation: Recommendation
+    other: Other
+  message: Message
+  submit: Send
 
 preferences:
   banner: account preferences
@@ -138,3 +147,8 @@ account_secu:
   current_password: Current password
   enter_email: Enter your email address
   validate: Validate
+
+form:
+  language:
+    english: English
+    french: French

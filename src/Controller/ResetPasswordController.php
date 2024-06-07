@@ -21,7 +21,14 @@ use SymfonyCasts\Bundle\ResetPassword\Exception\ResetPasswordExceptionInterface;
 use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
-#[Route('/reset-password')]
+#[Route(
+    path: '/{_locale}/reset-password',
+    /*name: 'app_reset_password',
+    J'ai retiré le nom de la route afin d'avoir des noms de routes fonctionnelles via
+     php bin/console debug:router */
+    name:'',
+    requirements: ['_locale' => '%app.supported_locales%']
+)]
 class ResetPasswordController extends AbstractController
 {
     use ResetPasswordControllerTrait;
@@ -137,8 +144,7 @@ class ResetPasswordController extends AbstractController
         }
 
         return $this->render('reset_password/reset.html.twig', [
-            '
-            resetForm' => $form,
+            'resetForm' => $form,
         ]);
     }
 
@@ -171,7 +177,7 @@ class ResetPasswordController extends AbstractController
 
         $email = (new TemplatedEmail())
             ->to($user->getEmail())
-            ->locale('fr')
+            ->locale($user->getLanguage())
             ->subject($translator->trans($this->subject, [], 'security'))
             ->htmlTemplate('reset_password/email.html.twig')
             ->context([
