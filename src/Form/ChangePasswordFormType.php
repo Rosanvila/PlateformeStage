@@ -30,7 +30,8 @@ class ChangePasswordFormType extends AbstractType
             ])
             ->add('currentPassword', PasswordType::class, [
                 'label' => $this->translator->trans('account_secu.current_password'),
-                'attr' => ['placeholder' => '******'],
+                'attr' => ['placeholder' => '',],
+                'translation_domain' => 'security',
                 'toggle' => true,
                 'use_toggle_form_theme' => false,
                 'always_empty' => false,

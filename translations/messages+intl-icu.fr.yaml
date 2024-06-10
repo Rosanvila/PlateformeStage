@@ -132,6 +132,10 @@ preferences:
   who_contact: Qui peut vous contacter ?
   manage_subs: Gérer mon abonnement
   actual_subs: "Abonnement actuel : "
+  profile: Profil
+  security: Sécurité
+  preferences: Préférences
+  subscription: Abonnement
 visibility:
   any_user: "Tout utilisateur"
   only_contacts: "Seulement les utilisateurs dans ma liste de contacts"

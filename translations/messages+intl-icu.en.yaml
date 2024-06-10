@@ -135,6 +135,10 @@ preferences:
   who_contact: Who can contact you?
   manage_subs: Manage my subscription
   actual_subs: "Actual subscription: "
+  profile: Profile
+  security: Security
+  preferences: Preferences
+  subscription: Subscription
 visibility:
   any_user: "Any user"
   only_contacts: "Only users in my contact list"
