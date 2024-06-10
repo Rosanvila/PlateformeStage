@@ -27,6 +27,9 @@ class Company
     #[ORM\Column(length: 255)]
     private ?string $vatNumber = null;
 
+    #[ORM\Column(length: 5000)]
+    private ?string $about = null;
+
     /**
      * @var Collection<int, User>
      */
@@ -90,6 +93,17 @@ class Company
 
         return $this;
     }
+
+    public function getAbout(): ?string
+    {
+        return $this->about;
+    }
+
+    public function setAbout(?string $about): void
+    {
+        $this->about = $about;
+    }
+
 
     /**
      * @return Collection<int, User>

@@ -6,7 +6,7 @@
         <div class="container col-3 d-flex flex-column m-2">
             <div class="container d-flex flex-column bg-white mb-3 rounded-4 p-2">
                 <img src="https://via.placeholder.com/200" alt="logo" class="rounded-5 m-3">
-                <p class="text-center m-0">Adresse</p>
+                <p class="text-center m-0">{{ company.name }}</p>
                 <p class="text-center m-0">Adresse</p>
                 <p class="text-center m-0 mb-4">Code postal Ville</p>
                 <a href="#" class="btn border border-primary text-danger text-uppercase mb-3 mt-3 p-0 pt-2 pb-2">
@@ -32,17 +32,13 @@
         <div class="container d-flex flex-column col-7 bg-white m-2 rounded-4 p-4 justify-content-between h-auto align-self-start">
             <div class="container mb-4">
                 <h5 class="fw-bold mb-3">A propos</h5>
-                <p class="lh-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Nam eleifend eleifend lorem, sed consectetur arcu lacinia eu.
-                    Nulla consequat arcu ut pharetra sagittis. Praesent pretium augue eget lectus
-                    tristique eleifend. Nam quis aliquet lectus. Phasellus et congue quam.
-                </p>
+                <p class="lh-sm">{{ company.about }}</p>
             </div>
             <div class="container mb-4">
                 <h5 class="fw-bold mb-3">Photos</h5>
-                <div class="d-flex flex-row flex-wrap justify-content-between">
+                <div class="d-flex flex-row flex-wrap justify-content-start">
                 {% for i in 0..9 %}
-                        <img src="https://via.placeholder.com/100" alt="photo" class="rounded-4 mb-3">
+                        <img src="https://via.placeholder.com/100" alt="photo" class="rounded-4 m-3">
                 {% endfor %}
                 </div>
             </div>
@@ -54,6 +50,7 @@
             </div>
             <div class="container mb-4 d-flex flex-column p">
                 <h5 class="fw-bold mb-3">Ils travaillent dans cette société</h5>
+                {% if company.users|length > 0 %}
                 {% for i in 0..2 %}
                 <div class="d-flex flex-row border border-dark-subtle shadow p-3 mb-4 rounded-4">
                     <div class="d-flex flex-column">
@@ -79,6 +76,9 @@
                     </div>
                 </div>
                 {% endfor %}
+                {% else %}
+                    <p class="text-center">Aucun utilisateur n'est enregistré dans cette société</p>
+                {% endif %}
             </div>
             <a href="#" class="btn border border-2 border-black text-uppercase fw-bold rounded-3">Voir plus</a>
         </div>
