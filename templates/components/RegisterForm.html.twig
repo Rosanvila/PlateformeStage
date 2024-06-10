@@ -74,11 +74,23 @@
     </div>
 
     <div class="row mb-3 justify-content-between">
-        <div class="gx-1 form-floating col-8">
+        <div class="gx-1 form-floating col-4">
             {{ form_widget(form.businessAddress) }}
             {{ form_label(form.businessAddress) }}
             {{ form_errors(form.businessAddress) }}
             {{ form_help(form.businessAddress) }}
+        </div>
+        <div class="gx-1 form-floating col-2">
+            {{ form_widget(form.city) }}
+            {{ form_label(form.city) }}
+            {{ form_errors(form.city) }}
+            {{ form_help(form.city) }}
+        </div>
+        <div class="gx-1 form-floating col-2">
+            {{ form_widget(form.postalCode) }}
+            {{ form_label(form.postalCode) }}
+            {{ form_errors(form.postalCode) }}
+            {{ form_help(form.postalCode) }}
         </div>
         <div class="gx-1 form-floating col-4">
             {{ form_widget(form.plainPassword.password.second) }}

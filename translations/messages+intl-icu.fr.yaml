@@ -50,6 +50,8 @@ register:
   function: Fonction
   company: Société
   businessAddress: Adresse professionnelle
+  city: Ville
+  postalCode: Code postal
   expertise: Expertises
   submit_not_freemium: S'inscrire et procéder au paiement
   submit_freemium: S'inscrire gratuitement
@@ -153,3 +155,7 @@ form:
   language:
     english: Anglais
     french: Français
+
+    # Vendor Edit page translations
+edit:
+  banner: modifier ma page

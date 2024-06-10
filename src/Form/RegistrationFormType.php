@@ -75,6 +75,16 @@ class RegistrationFormType extends AbstractType
                 'attr' => ['placeholder' => 'address'],
                 'required' => true,
             ])
+            ->add('city', TextType::class, [
+                'label' => 'register.city',
+                'attr' => ['placeholder' => 'city'],
+                'required' => true,
+            ])
+            ->add('postalCode', NumberType::class, [
+                'label' => 'register.postalCode',
+                'attr' => ['placeholder' => 'postalCode'],
+                'required' => true,
+            ])
             ->add('picture', FileType::class, [
                 'mapped' => false,
                 'label' => 'register.picture_format',
@@ -149,7 +159,7 @@ class RegistrationFormType extends AbstractType
     }
 }
 
-function buildForm(FormBuilderInterface $builder, array $options): void
+/*function buildForm(FormBuilderInterface $builder, array $options): void
 {
     $builder = new DynamicFormBuilder($builder);
 
@@ -159,4 +169,4 @@ function buildForm(FormBuilderInterface $builder, array $options): void
             'attr' => ['placeholder' => 'email'],
         ]);
     }
-}
+}*/

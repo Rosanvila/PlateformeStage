@@ -20,6 +20,10 @@ class Company
 
     #[ORM\Column(length: 255)]
     private ?string $businessAddress = null;
+    #[ORM\Column(length: 10)]
+    private ?string $postalCode = null;
+    #[ORM\Column(length: 255)]
+    private ?string $city = null;
 
     #[ORM\Column(length: 255)]
     private ?string $siretNumber = null;
@@ -27,7 +31,7 @@ class Company
     #[ORM\Column(length: 255)]
     private ?string $vatNumber = null;
 
-    #[ORM\Column(length: 5000)]
+    #[ORM\Column(length: 5000, nullable: true)]
     private ?string $about = null;
 
     /**
@@ -103,6 +107,28 @@ class Company
     {
         $this->about = $about;
     }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(?string $city): void
+    {
+        $this->city = $city;
+    }
+
+    public function getPostalCode(): ?string
+    {
+        return $this->postalCode;
+    }
+
+    public function setPostalCode(?string $postalCode): void
+    {
+        $this->postalCode = $postalCode;
+    }
+
+
 
 
     /**

@@ -64,6 +64,10 @@ class User implements UserInterface, TwoFactorEmailInterface, PasswordAuthentica
 
     #[ORM\Column(type: "text", nullable: true)]
     private ?string $businessAddress;
+    #[ORM\Column(type: "text", nullable: true)]
+    private ?string $postalCode;
+    #[ORM\Column(type: "text", nullable: true)]
+    private ?string $city;
 
     #[ORM\Column(type: "text", nullable: true)]
     private ?string $company;
@@ -350,5 +354,25 @@ class User implements UserInterface, TwoFactorEmailInterface, PasswordAuthentica
     public function setLanguage(?string $language): void
     {
         $this->language = $language;
+    }
+
+    public function getPostalCode(): ?string
+    {
+        return $this->postalCode;
+    }
+
+    public function setPostalCode(?string $postalCode): void
+    {
+        $this->postalCode = $postalCode;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(?string $city): void
+    {
+        $this->city = $city;
     }
 }
