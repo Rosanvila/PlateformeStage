@@ -162,3 +162,6 @@ form:
     # Vendor Edit page translations
 edit:
   banner: edit my page
+  about: About my company
+  logo: Download a file
+  save: Save my changes
