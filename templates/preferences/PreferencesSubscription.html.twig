@@ -1,0 +1,20 @@
+<div class="card-body px-5">
+    <h2 class="fs-5">{{ 'preferences.manage_subs' |trans }}</h2>
+    <p>{{ 'preferences.actual_subs' |trans }}
+        {% if is_granted('ROLE_FREEMIUM') %}
+            Freemium
+        {% elseif is_granted('ROLE_PREMIUM') %}
+            Premium
+        {% elseif is_granted('ROLE_VENDOR') %}
+            Vendor
+        {% endif %}
+    </p>
+    <div class="d-flex justify-content-around">
+        <a href="{# {{ path('change_subscription') }} #}" class="btn border-dark px-5">Changer d'offre</a>
+
+        {% if is_granted("ROLE_PREMIUM") %}
+            <a href="{# {{ path('change_subscription') }} #}" class="btn border-dark px-5">Résilier mon
+                abonnement</a>
+        {% endif %}
+    </div>
+</div>

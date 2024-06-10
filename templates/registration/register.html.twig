@@ -14,12 +14,12 @@
         <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
     {% endfor %}
 
-    <div class="card">
+    <div class="card container my-5">
         <div class="card-body">
-            <h3 class="card-title d-flex justify-content-center">{{ 'register.title'|trans }}</h3>
+            <h3 class="card-title d-flex justify-content-center text-uppercase mb-4">{{ 'register.title'|trans }}</h3>
 
             {# {{ component('RegisterForm', {form: registrationForm}) }} #}
-            <twig:RegisterForm initialFormData="{{ registrationForm.vars.value }}" />
+            <twig:RegisterForm initialFormData="{{ registrationForm.vars.value }}"/>
 
         </div>
     </div>

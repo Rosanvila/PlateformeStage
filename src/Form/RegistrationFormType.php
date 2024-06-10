@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -28,27 +29,34 @@ class RegistrationFormType extends AbstractType
                 'label' => 'login.email_adress',
                 'attr' => ['placeholder' => 'email'],
             ])
-            ->add('lastname', null, [
+            ->add('lastname', TextType::class, [
                 'label' => 'register.lastname',
                 'attr' => ['placeholder' => 'lastname'],
             ])
-            ->add('firstname', null, [
+            ->add('firstname', TextType::class, [
                 'label' => 'register.firstname',
                 'attr' => ['placeholder' => 'firstname'],
             ])
-            ->add('job', null, [
+            ->add('language', ChoiceType::class, [
+                'label' => 'Language',
+                'choices' => [
+                    'French' => 'fr',
+                    'English' => 'en',
+                ],
+            ])
+            ->add('job', TextType::class, [
                 'label' => 'register.job',
                 'attr' => ['placeholder' => 'job'],
                 'required' => true,
             ])
-            ->add('company', null, [
+            ->add('company', TextType::class, [
                 'label' => 'register.company',
                 'attr' => ['placeholder' => 'society'],
                 'mapped' => false,
                 'required' => true,
             ])
             ->add('expertise', ChoiceType::class, [
-                'choices'  => [
+                'choices' => [
                     "expertise.infrastructures" => "infrastructures",
                     "expertise.security" => "security",
                     "expertise.network" => "network",
@@ -62,14 +70,14 @@ class RegistrationFormType extends AbstractType
                 'autocomplete' => true,
                 'label' => 'register.expertise',
             ])
-            ->add('businessAddress', null, [
+            ->add('businessAddress', TextType::class, [
                 'label' => 'register.businessAddress',
                 'attr' => ['placeholder' => 'address'],
                 'required' => true,
             ])
             ->add('picture', FileType::class, [
                 'mapped' => false,
-                'label' => 'register.picture',
+                'label' => 'register.picture_format',
                 'required' => false,
             ])
             ->add('agreeTerms', CheckboxType::class, [
@@ -82,7 +90,7 @@ class RegistrationFormType extends AbstractType
             ->add('function', ChoiceType::class, [
                 'label' => 'register.function',
                 'mapped' => false,
-                'choices'  => [
+                'choices' => [
                     'Freemium' => "freemium",
                     'Premium' => "premium",
                     'Vendor' => "vendor",
@@ -92,27 +100,25 @@ class RegistrationFormType extends AbstractType
             ->add('plainPassword', PasswordConfirmType::class, [
                 'mapped' => false,
             ])
-            ->addDependent('submit', 'function', function(DependentField $field, ?string $function) {
-            $submitOptions = [
-                'attr' => ['class' => 'btn btn-mysecu'],
-            ];
+            ->addDependent('submit', 'function', function (DependentField $field, ?string $function) {
+                $submitOptions = [
+                    'attr' => ['class' => 'btn btn-mysecu'],
+                ];
 
-            if ($function === "freemium" || $function === null) {
-                $submitOptions["label"] = "register.submit_freemium";
-            }
-            else {
-                $submitOptions["label"] = "register.submit_not_freemium";
-            }
+                if ($function === "freemium" || $function === null) {
+                    $submitOptions["label"] = "register.submit_freemium";
+                } else {
+                    $submitOptions["label"] = "register.submit_not_freemium";
+                }
 
-            $field->add(SubmitType::class, $submitOptions);
+                $field->add(SubmitType::class, $submitOptions);
             });
 
         // Partie entreprise si vendor
-        $builder->addDependent('siretNumber', 'function', function(DependentField $field, ?string $function) {
+        $builder->addDependent('siretNumber', 'function', function (DependentField $field, ?string $function) {
             if (in_array($function, ["freemium", "premium"]) || $function === null) {
                 return;
-            }
-            else {
+            } else {
                 $field->add(NumberType::class, [
                     'label' => 'register.siretNumber',
                     'attr' => ['placeholder' => 'siretNumber'],
@@ -121,11 +127,10 @@ class RegistrationFormType extends AbstractType
                 ]);
             }
         });
-        $builder->addDependent('vatNumber', 'function', function(DependentField $field, ?string $function) {
+        $builder->addDependent('vatNumber', 'function', function (DependentField $field, ?string $function) {
             if (in_array($function, ["freemium", "premium"]) || $function === null) {
                 return;
-            }
-            else {
+            } else {
                 $field->add(null, [
                     'label' => 'register.vatNumber',
                     'attr' => ['placeholder' => 'vatNumber'],
@@ -140,6 +145,18 @@ class RegistrationFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+        ]);
+    }
+}
+
+function buildForm(FormBuilderInterface $builder, array $options): void
+{
+    $builder = new DynamicFormBuilder($builder);
+
+    for ($i = 1; $i <= 5; $i++) {
+        $builder->add('vendor' . $i, EmailType::class, [
+            'label' => 'Vendor ' . $i,
+            'attr' => ['placeholder' => 'email'],
         ]);
     }
 }

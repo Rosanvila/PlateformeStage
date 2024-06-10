@@ -1,11 +1,11 @@
-Too many failed login attempts, please try again in %minutes% minutes.:  Plusieurs tentatives de connexion ont échoué, veuillez réessayer dans {minutes} minutes.
+Too many failed login attempts, please try again in %minutes% minutes.: Plusieurs tentatives de connexion ont échoué, veuillez réessayer dans {minutes} minutes.
 reset_password:
   reset_your_password: Réinitialiser votre mot de passe
   send_email: Envoyer l'email
   password_reset_email_sent_title: Email envoyé
   password_reset_email_sent: Si un compte avec cette adresse email existe , alors un email de récupération de mot de passe vous a été envoyé.
-        Le lien fourni expirera dans { expiresAt }.
-  check_your_spam: Si vous ne recevez pas d'email, veuillez vérifier votre dossier de SPAM ou <a class="link-dark" href="{ href }">essayer à nouveau</a>.
+    Le lien fourni expirera dans { expiresAt }.
+  check_your_spam: Si vous ne recevez pas d'email, veuillez vérifier votre dossier de SPAM ou <a class="link-primary" href="{ href }">essayer à nouveau</a>.
   email: "Bonjour,
 
 
@@ -21,3 +21,4 @@ New password: Nouveau mot de passe
 Repeat Password: Confirmation du mot de passe
 Hide: Cacher
 Show: Afficher
+

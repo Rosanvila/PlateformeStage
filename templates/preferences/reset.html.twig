@@ -1,0 +1,26 @@
+<div class="row align-items-center flex-column">
+    <div class="gx-1 form-floating col-10 mb-3">
+        {{ form_widget(changePasswordForm.currentPassword) }}
+        {{ form_label(changePasswordForm.currentPassword) }}
+        {{ form_errors(changePasswordForm.currentPassword) }}
+    </div>
+
+    <div class="gx-1 form-floating col-10 mb-3">
+        {{ form_widget(changePasswordForm.plainPassword.password.first) }}
+        {{ form_label(changePasswordForm.plainPassword.password.first) }}
+        {{ form_errors(changePasswordForm.plainPassword.password.first) }}
+        {{ form_help(changePasswordForm.plainPassword.password.first) }}
+    </div>
+
+    <div class="gx-1 form-floating col-10 mb-3">
+        {{ form_widget(changePasswordForm.plainPassword.password.second) }}
+        {{ form_label(changePasswordForm.plainPassword.password.second) }}
+        {{ form_errors(changePasswordForm.plainPassword.password.second) }}
+        {{ form_help(changePasswordForm.plainPassword.password.second) }}
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-10 d-flex mb-3">
+            {{ form_widget(changePasswordForm.submit) }}
+        </div>
+    </div>
+</div>

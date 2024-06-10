@@ -1,0 +1,44 @@
+<div class="card-body px-5">
+    <h2 class="text-secondary fs-5">{{ app.user.email }}</h2>
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="d-flex flex-column gy-1">
+                <ul class="list-unstyled">
+                    <li>
+                        <p>{{ 'preferences.who_contact' |trans }}</p>
+                    </li>
+                    <li>
+                        <div class="form-check py-1">
+                            {{ form_widget(form.fullVisibility) }}
+                            {{ form_label(form.fullVisibility) }}
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="form-check py-1">
+                            {{ form_widget(form.onlyContact) }}
+                            {{ form_label(form.onlyContact) }}
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="form-check py-1">
+                            {{ form_widget(form.nobody) }}
+                            {{ form_label(form.nobody) }}
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6 align-self-center">
+            <div class="form-check-reverse form-switch py-1">
+                {{ form_label(form.notification) }}
+                {{ form_widget(form.notification) }}
+            </div>
+            <div class="form-check-reverse form-switch py-1">
+                {{ form_label(form.availability) }}
+                {{ form_widget(form.availability) }}
+            </div>
+        </div>
+    </div>
+</div>
