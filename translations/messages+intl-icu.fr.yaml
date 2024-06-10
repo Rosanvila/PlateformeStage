@@ -153,3 +153,15 @@ form:
   language:
     english: Anglais
     french: Français
+
+company:
+  event: Événement
+  see_all: Voir tout les événements
+  about: À propos
+  photos: Photos
+  videos: Vidéos
+  employees: Ils travaillent dans cette société
+  see_more: Voir plus
+  no_employees: Aucun utilisateur n'est enregistré dans cette société
+  no_events: Aucun événement n'est enregistré pour cette société
+  learn_more: En savoir +
