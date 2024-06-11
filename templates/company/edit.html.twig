@@ -35,10 +35,14 @@
                             </div>
                         </div>
                         <div class="col-md-4 form-group my-3">
-                            {{ form_label(form.name) }}
-                            {{ form_widget(form.name) }}
-                            {{ form_label(form.about) }}
-                            {{ form_widget(form.about) }}
+                            <div class="d-flex flex-column">
+                                {{ form_label(form.name) }}
+                                {{ form_widget(form.name) }}
+                            </div>
+                            <div class="d-flex flex-column">
+                                {{ form_label(form.about) }}
+                                {{ form_widget(form.about) }}
+                            </div>
                         </div>
                         <div class="col-md-4 form-group my-3">
                             {{ form_label(form.logo) }}
@@ -47,6 +51,9 @@
                     </div>
                 </div>
             </div>
-                    {{ form_end(form) }}
+            <div class="d-flex justify-content-center">
+                {{ form_row(form.save) }}
+            </div>
+            {{ form_end(form) }}
         </div>
     {% endblock %}

@@ -10,9 +10,18 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class CompanyController extends AbstractController
 {
+
+    private TranslatorInterface $translator;
+
+    public function __construct(TranslatorInterface $translator)
+    {
+        $this->translator = $translator;
+    }
+
     #[Route('/{_locale}/company/{id}', name: 'app_company',
         requirements: ['_locale' => '%app.supported_locales%'])]
     public function index(int $id, CompanyRepository $companyRepository): Response
@@ -44,6 +53,10 @@ class CompanyController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($company);
             $entityManager->flush();
+
+            // Si formulaire valide, on redirige vers la page de l'entreprise
+            // avec un message de succès
+            $this->addFlash('success', $this->translator->trans('edit.success'));
 
             return $this->redirectToRoute('app_company', ['id' => $company->getId()]);
         }
