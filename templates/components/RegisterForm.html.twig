@@ -75,22 +75,22 @@
 
     <div class="row mb-3 justify-content-between">
         <div class="gx-1 form-floating col-4">
-            {{ form_widget(form.businessAddress) }}
-            {{ form_label(form.businessAddress) }}
-            {{ form_errors(form.businessAddress) }}
-            {{ form_help(form.businessAddress) }}
+            {{ form_widget(form.companyAddress.businessAddress) }}
+            {{ form_label(form.companyAddress.businessAddress) }}
+            {{ form_errors(form.companyAddress.businessAddress) }}
+            {{ form_help(form.companyAddress.businessAddress) }}
         </div>
         <div class="gx-1 form-floating col-2">
-            {{ form_widget(form.city) }}
-            {{ form_label(form.city) }}
-            {{ form_errors(form.city) }}
-            {{ form_help(form.city) }}
+            {{ form_widget(form.companyAddress.city) }}
+            {{ form_label(form.companyAddress.city) }}
+            {{ form_errors(form.companyAddress.city) }}
+            {{ form_help(form.companyAddress.city) }}
         </div>
         <div class="gx-1 form-floating col-2">
-            {{ form_widget(form.postalCode) }}
-            {{ form_label(form.postalCode) }}
-            {{ form_errors(form.postalCode) }}
-            {{ form_help(form.postalCode) }}
+            {{ form_widget(form.companyAddress.postalcode) }}
+            {{ form_label(form.companyAddress.postalcode) }}
+            {{ form_errors(form.companyAddress.postalcode) }}
+            {{ form_help(form.companyAddress.postalcode) }}
         </div>
         <div class="gx-1 form-floating col-4">
             {{ form_widget(form.plainPassword.password.second) }}

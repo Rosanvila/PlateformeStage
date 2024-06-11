@@ -46,6 +46,7 @@ register:
   title: Register
   lastname: Lastname
   picture: download a file
+  picture_format: Photo (format jpg or png, 5mo max.)
   firstname: Firstname
   email: Email
   password: Password
@@ -163,6 +164,6 @@ form:
 edit:
   banner: edit my page
   about: About my company
-  logo: Download a file
+  logo: Download a logo
   save: Save my changes
   success: Your changes have been saved
