@@ -25,9 +25,9 @@ class BusinessAddressType extends AbstractType
                 'attr' => ['placeholder' => 'city'],
                 'required' => true,
             ])
-            ->add('postalCode', NumberType::class, [
+            ->add('postalCode', TextType::class, [
                 'label' => 'register.postalCode',
-                'required' => false,
+                'required' => true,
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Le code postal ne peut pas être vide.',
