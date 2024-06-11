@@ -2,7 +2,7 @@
 
 <div class="d-flex flex-row border border-dark-subtle shadow p-3 mb-4 rounded-4 user-item">
     <a href="#">
-    <div class="d-flex flex-column">
+    <div class="d-flex flex-column ms-2">
         <img src="{{ user.getSrcPhoto() }}" alt="photo" class="rounded-4 mb-2" height="80" width="80">
         <div class="d-flex flex-row justify-content-center">
             <a href="#">
@@ -20,10 +20,15 @@
     </div>
     </a>
     <a href="#" class="text-decoration-none">
-    <div class="d-flex flex-column ms-5">
+    <div class="d-flex flex-column ms-4">
         <p class="text-primary text-uppercase m-0">{{ user.lastname }} {{ user.firstname }} - {{ user.job }}</p>
         <p class="m-0 text-black">{{ 'company.work_here'|trans }}</p>
-        <p class="m-0 text-black">{{ user.businessAddress }}</p>
+        <p class="m-0 text-black mt-1">{{ user.businessAddress }} {% if not user.businessAddress %} address here {% endif %}</p>
+        <div class="d-flex flex-row mt-3">
+            {% for e in user.expertise %}
+                <span class="badge bg-primary me-2">{{ e }}</span>
+            {% endfor %}
+        </div>
     </div>
     </a>
 </div>

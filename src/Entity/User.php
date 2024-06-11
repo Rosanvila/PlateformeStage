@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Scheb\TwoFactorBundle\Model\Email\TwoFactorInterface;
 use danielburger1337\SchebTwoFactorBundle\Model\TwoFactorEmailInterface;
@@ -74,6 +76,17 @@ class User implements UserInterface, TwoFactorEmailInterface, PasswordAuthentica
     #[ORM\ManyToOne(inversedBy: 'users')]
     #[ORM\JoinColumn(nullable: true)]
     private ?Company $vendorCompany = null;
+
+    /**
+     * @var Collection<int, Company>
+     */
+    #[ORM\OneToMany(targetEntity: Company::class, mappedBy: 'owner')]
+    private Collection $companies;
+
+    public function __construct()
+    {
+        $this->companies = new ArrayCollection();
+    }
 
     public function __toString(): string
     {
@@ -350,5 +363,35 @@ class User implements UserInterface, TwoFactorEmailInterface, PasswordAuthentica
     public function setLanguage(?string $language): void
     {
         $this->language = $language;
+    }
+
+    /**
+     * @return Collection<int, Company>
+     */
+    public function getCompanies(): Collection
+    {
+        return $this->companies;
+    }
+
+    public function addCompany(Company $company): static
+    {
+        if (!$this->companies->contains($company)) {
+            $this->companies->add($company);
+            $company->setOwner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCompany(Company $company): static
+    {
+        if ($this->companies->removeElement($company)) {
+            // set the owning side to null (unless already changed)
+            if ($company->getOwner() === $this) {
+                $company->setOwner(null);
+            }
+        }
+
+        return $this;
     }
 }

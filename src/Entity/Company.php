@@ -35,7 +35,7 @@ class Company
     #[ORM\Column(length: 255)]
     private ?string $vatNumber = null;
 
-    #[ORM\Column(length: 5000)]
+    #[ORM\Column(length: 5000, nullable: true)]
     private ?string $about = null;
 
     #[ORM\Column(type: "text", length: 65535, nullable: true)]
@@ -46,6 +46,9 @@ class Company
      */
     #[ORM\OneToMany(targetEntity: User::class, mappedBy: 'vendorCompany')]
     private Collection $users;
+
+    #[ORM\ManyToOne(inversedBy: 'companies')]
+    private ?User $owner = null;
 
     public function __construct()
     {
@@ -186,6 +189,18 @@ class Company
                 $user->setVendorCompany(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getOwner(): ?User
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(?User $owner): static
+    {
+        $this->owner = $owner;
 
         return $this;
     }
