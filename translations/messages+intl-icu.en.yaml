@@ -160,6 +160,24 @@ form:
     english: English
     french: French
 
+company:
+  event: Event
+  see_all: See all events
+  about: About
+  photos: Photos
+  videos: Videos
+  employees: They work in this company
+  see_more: See more
+  no_employees: No employees are registered for this company
+  no_event: No events are registered for this company
+  no_photos: No photos are registered for this company
+  no_videos: No videos are registered for this company
+  no_description: No description is registered for this company
+  no_live_meetings: No live meetings are registered for this company
+  learn_more: Learn
+  work_here: Work in this company
+  our_solutions: Our online solutions
+
     # Vendor Edit page translations
 edit:
   banner: edit my page

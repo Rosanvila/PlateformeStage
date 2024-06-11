@@ -81,6 +81,7 @@ class RegistrationController extends AbstractController
                 $company->setCity($form->get('city')->getData());
                 $company->setSiretNumber($form->get('siretNumber')->getData());
                 $company->setVatNumber($form->get('vatNumber')->getData());
+                $company->setOwner($user);
                 $entityManager->persist($company);
 
                 $user->setVendorCompany($company);
