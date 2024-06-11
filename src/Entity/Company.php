@@ -21,7 +21,13 @@ class Company
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $businessAddress = null;
+    private ?string $address = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $postalCode = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $city = null;
 
     #[ORM\Column(length: 255)]
     private ?string $siretNumber = null;
@@ -63,17 +69,37 @@ class Company
         return $this;
     }
 
-    public function getBusinessAddress(): ?string
+    public function getAddress(): ?string
     {
-        return $this->businessAddress;
+        return $this->address;
     }
 
-    public function setBusinessAddress(string $businessAddress): static
+    public function setAddress(?string $address): void
     {
-        $this->businessAddress = $businessAddress;
-
-        return $this;
+        $this->address = $address;
     }
+
+    public function getPostalCode(): ?string
+    {
+        return $this->postalCode;
+    }
+
+    public function setPostalCode(?string $postalCode): void
+    {
+        $this->postalCode = $postalCode;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(?string $city): void
+    {
+        $this->city = $city;
+    }
+
+
 
     public function getSiretNumber(): ?string
     {
