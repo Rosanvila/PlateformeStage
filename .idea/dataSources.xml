@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="mysecu" uuid="f1633242-0b1b-4cba-8dba-f6257f96aece">
+    <data-source source="LOCAL" name="myscu" uuid="f1633242-0b1b-4cba-8dba-f6257f96aece">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>

@@ -70,15 +70,16 @@ class Company
         return $this;
     }
 
-    public function getAddress(): ?string
+    public function getBusinessAddress(): ?string
     {
-        return $this->address;
+        return $this->businessAddress;
     }
 
-    public function setAddress(?string $address): void
+    public function setBusinessAddress(?string $businessAddress): void
     {
-        $this->address = $address;
+        $this->businessAddress = $businessAddress;
     }
+
 
     public function getPostalCode(): ?string
     {
