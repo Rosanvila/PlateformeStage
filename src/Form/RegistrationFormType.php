@@ -4,6 +4,11 @@ namespace App\Form;
 
 use App\Entity\User;
 use App\Form\Type\BusinessAddressType;
+use App\Form\Type\CityType;
+use App\Form\Type\CompanyNameType;
+use App\Form\Type\FirstnameType;
+use App\Form\Type\LastnameType;
+use App\Form\Type\PostalCodeType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -15,6 +20,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Translation\TranslatableMessage;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Regex;
 use Symfonycasts\DynamicForms\DynamicFormBuilder;
 use Symfonycasts\DynamicForms\DependentField;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -30,13 +38,13 @@ class RegistrationFormType extends AbstractType
                 'label' => 'login.email_adress',
                 'attr' => ['placeholder' => 'email'],
             ])
-            ->add('lastname', TextType::class, [
-                'label' => 'register.lastname',
-                'attr' => ['placeholder' => 'lastname'],
+            ->add('lastname', LastnameType::class, [
+                'required' => true,
+                'mapped' => false,
             ])
-            ->add('firstname', TextType::class, [
-                'label' => 'register.firstname',
-                'attr' => ['placeholder' => 'firstname'],
+            ->add('firstname', FirstnameType::class, [
+                'required' => true,
+                'mapped' => false,
             ])
             ->add('language', ChoiceType::class, [
                 'label' => 'Language',
@@ -50,11 +58,9 @@ class RegistrationFormType extends AbstractType
                 'attr' => ['placeholder' => 'job'],
                 'required' => true,
             ])
-            ->add('company', TextType::class, [
-                'label' => 'register.company',
-                'attr' => ['placeholder' => 'society'],
-                'mapped' => false,
+            ->add('company', CompanyNameType::class, [
                 'required' => true,
+                'mapped' => false,
             ])
             ->add('expertise', ChoiceType::class, [
                 'choices' => [
@@ -71,11 +77,18 @@ class RegistrationFormType extends AbstractType
                 'autocomplete' => true,
                 'label' => 'register.expertise',
             ])
-            ->add('companyAddress', BusinessAddressType::class,
-                ['label' => false,
-                    'required' => true,
-                    'mapped' => false,
-                ])
+            ->add('businessAddress', BusinessAddressType::class, [
+                'required' => true,
+                'mapped' => false,
+            ])
+            ->add('city', CityType::class, [
+                'required' => true,
+                'mapped' => false,
+            ])
+            ->add('postalCode', PostalCodeType::class, [
+                'required' => true,
+                'mapped' => false,
+            ])
             ->add('picture', FileType::class, [
                 'mapped' => false,
                 'label' => 'register.picture_format',
@@ -125,6 +138,20 @@ class RegistrationFormType extends AbstractType
                     'attr' => ['placeholder' => 'siretNumber'],
                     'mapped' => false,
                     'required' => true,
+                    'constraints' => [
+                        new NotBlank([
+                            'message' => 'Le numéro de SIRET ne peut pas être vide.',
+                        ]),
+                        new Length([
+                            'min' => 14,
+                            'max' => 14,
+                            'exactMessage' => 'Le numéro de SIRET doit comporter exactement {{ limit }} chiffres.',
+                        ]),
+                        new Regex([
+                            'pattern' => '/^[0-9]*$/',
+                            'message' => 'Le numéro de SIRET ne peut contenir que des chiffres.',
+                        ]),
+                    ],
                 ]);
             }
         });
@@ -137,6 +164,15 @@ class RegistrationFormType extends AbstractType
                     'attr' => ['placeholder' => 'vatNumber'],
                     'mapped' => false,
                     'required' => true,
+                    'constraints' => [
+                        new NotBlank([
+                            'message' => 'Le numéro de TVA ne peut pas être vide.',
+                        ]),
+                        new Regex([
+                            'pattern' => '/^FR[A-Z0-9]{2}[0-9]{9}$/',
+                            'message' => 'Le numéro de TVA doit suivre le format FRXX999999999.',
+                        ]),
+                    ]
                 ]);
             }
         });

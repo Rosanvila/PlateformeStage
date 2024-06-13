@@ -48,7 +48,23 @@ class RegistrationController extends AbstractController
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
+
+        $lastnameField = $form->get('lastname')->get('lastnameField')->getData();
+        $firstnameField = $form->get('firstname')->get('firstnameField')->getData();
+        $companyField = $form->get('company')->get('companyField')->getData();
+        $businessAddressField = $form->get('businessAddress')->get('businessAddressField')->getData();
+        $postalCodeField = $form->get('postalCode')->get('postalCodeField')->getData();
+        $cityField = $form->get('city')->get('cityField')->getData();
+
+        $user->setLastname($lastnameField);
+        $user->setFirstname($firstnameField);
+        $user->setCompany($companyField);
+        $user->setBusinessAddress($businessAddressField);
+        $user->setPostalCode($postalCodeField);
+        $user->setCity($cityField);
+
             // Mot de passe
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
@@ -74,11 +90,11 @@ class RegistrationController extends AbstractController
                 $user->setBusinessAddress(null);
 
                 $company = new Company();
-                $company->setName($form->get('company')->getData());
-                $company->setBusinessAddress($form->get('companyAddress')->get('businessAddress')->getData());
+                $company->setName($form->get('company')->get('companyField')->getData());
+                $company->setBusinessAddress($form->get('businessAddress')->get('businessAddressField')->getData());
                 // ajout des champs city et postalCode
-                $company->setPostalCode($form->get('companyAddress')->get('postalCode')->getData());
-                $company->setCity($form->get('companyAddress')->get('city')->getData());
+                $company->setPostalCode($form->get('postalCode')->get('postalCodeField')->getData());
+                $company->setCity($form->get('city')->get('cityField')->getData());
                 $company->setSiretNumber($form->get('siretNumber')->getData());
                 $company->setVatNumber($form->get('vatNumber')->getData());
                 $company->setOwner($user);
@@ -103,8 +119,9 @@ class RegistrationController extends AbstractController
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user, $templatedEmail
             );
 
+            $locale = $user->getLanguage();
             $security->login($user, 'form_login', 'main');
-            return $this->redirectToRoute('app_index');
+            return $this->redirectToRoute('app_index', ['_locale' => $locale]);
         }
 
         return $this->render('registration/register.html.twig', [

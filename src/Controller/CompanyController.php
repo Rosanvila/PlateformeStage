@@ -51,6 +51,17 @@ class CompanyController extends AbstractController
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $nameField = $form->get('name')->get('companyField')->getData();
+            $businessAddressField = $form->get('businessAddress')->get('businessAddressField')->getData();
+            $postalCodeField = $form->get('postalCode')->get('postalCodeField')->getData();
+            $cityField = $form->get('city')->get('cityField')->getData();
+
+            $company->setName($nameField);
+            $company->setBusinessAddress($businessAddressField);
+            $company->setPostalCode($postalCodeField);
+            $company->setCity($cityField);
+
             $entityManager->persist($company);
             $entityManager->flush();
 

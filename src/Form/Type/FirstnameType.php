@@ -8,24 +8,22 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class UserEditType extends AbstractType{
+class FirstnameType extends AbstractType
+{
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('firstName', TextType::class, [
+            ->add('firstnameField', TextType::class, [
                 'label' => 'register.firstname',
                 'attr' => ['placeholder' => 'register.firstname'],
-            ])
-            ->add('lastName', TextType::class, [
-                'label' => 'register.lastname',
-                'attr' => ['placeholder' => 'register.lastname'],
             ]);
     }
+    //data_class is set to User because the form is used to update the User entity
 
-    public function configureOptions(OptionsResolver $resolver): void
+/*    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => User::class,
         ]);
-    }
+    }*/
 }

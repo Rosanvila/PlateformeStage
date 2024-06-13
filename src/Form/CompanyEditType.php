@@ -3,11 +3,16 @@
 namespace App\Form;
 
 use App\Entity\Company;
+use App\Form\Type\BusinessAddressType;
+use App\Form\Type\CityType;
+use App\Form\Type\CompanyNameType;
+use App\Form\Type\FirstnameType;
+use App\Form\Type\LastnameType;
+use App\Form\Type\PostalCodeType;
 use App\Form\Type\UserEditType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -19,36 +24,40 @@ class CompanyEditType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class, [
-                'label' => 'register.company',
+/*            ->add('name', CompanyNameType::class, [
                 'required' => false,
+                'mapped' => false,
             ])
-            ->add('users', CollectionType::class, [
-                'entry_type' => UserEditType::class,
-                'entry_options' => ['label' => false],
-                'allow_add' => true,
-                'allow_delete' => true,
-                'by_reference' => false,
+            ->add('lastname', LastnameType::class, [
                 'required' => false,
+                'mapped' => false,
+            ])*/
+            ->add('name', CompanyNameType::class, [
+                'required' => false,
+                'mapped' => false,
             ])
-            ->add('businessAddress', TextType::class, [
-                'label' => 'register.businessAddress',
+            ->add('firstname', FirstnameType::class, [
                 'required' => false,
+                'mapped' => false,
             ])
-            ->add('postalCode', NumberType::class, [
-                'label' => 'register.postalCode',
+            ->add('businessAddress', BusinessAddressType::class, [
                 'required' => false,
+                'mapped' => false,
             ])
-            ->add('city', TextType::class, [
-                'label' => 'register.city',
+            ->add('postalCode', PostalCodeType::class, [
                 'required' => false,
+                'mapped' => false,
+            ])
+            ->add('city', CityType::class, [
+                'required' => false,
+                'mapped' => false,
             ])
             ->add('about', TextareaType::class, [
                 'label' => 'edit.about',
                 'label_attr' => ['style' => 'margin-top: 1rem;'],
                 'attr' => [
                     'rows' => '1',
-                    'style' => 'resize: vertical; max-height: 15rem;'
+                    'style' => 'resize: vertical; max-height: 12.5rem;'
                 ],
                 'required' => false,
             ])
