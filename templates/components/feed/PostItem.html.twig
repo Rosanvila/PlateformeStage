@@ -1,0 +1,112 @@
+<div {{ attributes }}>
+    {% block javascripts %}
+        <script type="module">
+            import '{{ asset('js/postItem.js') }}';
+        </script>
+    {% endblock %}
+    <div class="card mb-2">
+        <div class="card-body d-flex flex-column">
+            <div class="d-flex flex-row">
+                {# Photo de profil #}
+                <div class="col-1 p-1 me-1 align-self-center">
+                    <img src="{{ item.author.srcPhoto }}" class="rounded-circle img-fluid" alt="profile picture">
+                </div>
+                {# Auteur et date du post #}
+                <div class="col-10 p-1 me-1 align-self-center">
+                    <div class="fw-bold">
+                        {{ item.author.firstname ~ ' ' ~ item.author.lastname }}
+                    </div>
+                    <div class="fw-light text-black-50" title="{{ item.creationDate|date('Y-m-d H:i:s') }}">
+                        {{ item.creationDate|date('j F Y') }}
+                    </div>
+                </div>
+                {# Actions sur le post #}
+                <div class="col-1 d-flex flex-row justify-content-end pe-2">
+                    <twig:Feed:PostActions post="{{ item }}" key="{{ 'postActions-' ~ item.id }}"/>
+                </div>
+            </div>
+            {# Contenu du post #}
+            <div class="d-flex flex-column">
+                {{ item.content }}
+            </div>
+            {# Médias du post #}
+            <div class="d-flex flex-row col-8 align-self-center flex-wrap">
+                {% for media in item.getPostMedias%}
+                    {% if loop.index == 6 and loop.length > 6 %}
+                        <div class="col-4 p-1 d-flex align-items-center justify-content-center">
+                                <span
+                                    data-bs-toggle="modal"
+                                    data-bs-target="{{ '#modalCarouselPostMedias-' ~ item.id }}"
+                                    style="cursor: pointer;"
+                                >
+                                    {{ loop.length - (loop.index -1) }} more
+                                </span>
+                        </div>
+                    {% elseif loop.index <= 5 %}
+                        <div class="d-flex col-4 p-1">
+                            <img
+                                style="cursor: pointer;"
+                                src="{{ media.getHtmlSrc }}"
+                                class="img-thumbnail object-fit-cover"
+                                alt="media"
+                                data-bs-toggle="modal"
+                                data-bs-target="{{ '#modalCarouselPostMedias-' ~ item.id }}">
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                {% if item.getPostMedias|length > 0 %}
+                    <twig:feed:ModalCarouselPostMedias post="{{ item }}" key="{{ 'modalCarouselPostMedias-' ~ item.id }}"/>
+                {% endif %}
+            </div>
+            {# Statistiques du post #}
+            {% if likesCount > 0 or commentsCount > 0 %}
+                <div class="row d-flex flex-row border-bottom pt-2 pb-2">
+                    <div class="col-2 d-flex flex-row align-items-center justify-content-start">
+                        {% if likesCount > 0 %}
+                                <div class="me-2 p-1 rounded-circle border d-flex align-items-center border-primary bg-primary text-white">
+                                    <twig:ux:icon name="mdi:like" />
+                                </div>
+                                <div class="text-black-50">
+                                    {{ likesCount }}
+                                </div>
+                        {% endif %}
+                    </div>
+                    <div class="col-10 d-flex flex-row align-items-center justify-content-end">
+                        {% if commentsCount > 0 %}
+                            <div>
+                                <a class="link-secondary" data-bs-toggle="collapse" href="#collapse-comments-{{ item.id }}">
+                                    {{ commentsCount }} {{ 'feed.num_of_comments'|trans({'comments': commentsCount}) }}
+                                </a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+            {# Boutons d'intéraction #}
+            <div class="row d-flex flex-row border-bottom pt-2 pb-2 justify-content-evenly">
+                <div class="col-6 d-flex flex-row align-items-center justify-content-center">
+                    <button type="button"
+                        data-action="live#action"
+                        data-live-action-param="like"
+                        class="d-flex btn btn-outline-dark-light-hover border-0 align-items-center {{ isLikedByUser == true ? 'text-primary': '' }}">
+                        <twig:ux:icon name="mdi:like-outline"/> &nbsp; {{ 'feed.like'|trans }}
+                    </button>
+                </div>
+                <div class="col-6 d-flex flex-row align-items-center justify-content-center">
+                    <button type="button" data-bs-toggle="collapse" data-bs-target="#collapse-comments-{{ item.id }}" class="d-flex btn btn-outline-dark-light-hover border-0 align-items-center"><twig:ux:icon name="mdi:chat-bubble-outline" /> &nbsp; {{ 'feed.comment'|trans }}</button>
+                </div>
+            </div>
+            {# Liste des commentaires #}
+            <div id="collapse-comments-{{ item.id }}" class="collapse" style="transition: none !important;">
+                {# Input pour ajouter un commentaire #}
+                <div class="row d-flex flex-row border-bottom pt-2 pb-2">
+                    <twig:Feed:CommentInput post="{{ item }}" key="{{ 'commentInput-' ~ item.id }}"/>
+                </div>
+                {# Liste des commentaires #}
+                <div class="row d-flex flex-column pt-2 pb-2">
+                    <twig:Feed:CommentList post="{{ item }}" key="{{ 'commentList-' ~ item.id }}"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

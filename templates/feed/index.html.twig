@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <div class="container my-5">
+        <div class="row">
+            <section class="col-2 h-25">
+                <div class="w-75">
+                    <twig:ProfileCard 
+                    photo="{{ app.user.getSrcPhoto }}" 
+                    firstname="{{ app.user.firstname }}" 
+                    lastname="{{ app.user.lastname }}" 
+                    isVendor="true"
+                    expertise="{{ app.user.expertise }}"/>
+                </div>
+            </section>
+
+            <section class="col-8 h-25">
+                <div class="card">
+                    <div class="card-body d-flex flex-column">
+                        <twig:feed:ShareBox photo="{{ app.user.getSrcPhoto }}" />
+                        <twig:Feed:PostList />
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+{% endblock %}

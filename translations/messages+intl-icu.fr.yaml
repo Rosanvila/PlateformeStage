@@ -99,3 +99,18 @@ table:
   relation_limited: Limitée
   premium_subs: 7€ ht / mois
   vendors_subs: 1049€ HT / mois
+
+feed:
+  num_of_comments: >-
+    {comments, plural,
+        =0    {commentaire}
+        =1    {commentaire}
+        other {commentaires}
+    }
+  comment: Commenter
+  like: Aimer
+  delete: Supprimer
+  post:
+    create: Commencer un post
+    post: Poster
+    your_post: Votre post

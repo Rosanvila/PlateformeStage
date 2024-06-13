@@ -103,3 +103,18 @@ table:
   relation_limited: Limited
   premium_subs: 7€ exclu. Tax / month
   vendors_subs: 1049€ exclu. Tax / month
+
+feed:
+  num_of_comments: >-
+    {comments, plural,
+        =0    {comment}
+        =1    {comments}
+        other {comments}
+    }
+  comment: Comment
+  like: Like
+  delete: Delete
+  post:
+    create: Start your post
+    post: Post
+    your_post: Your post
