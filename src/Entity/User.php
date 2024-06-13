@@ -70,6 +70,9 @@ class User implements UserInterface, TwoFactorEmailInterface, PasswordAuthentica
     #[ORM\Column(type: "text", nullable: true)]
     private ?string $company;
 
+    #[ORM\Column(type: "string", nullable: true)]
+    private ?string $language;
+
     #[ORM\ManyToOne(inversedBy: 'users')]
     #[ORM\JoinColumn(nullable: true)]
     private ?Company $vendorCompany = null;
@@ -101,7 +104,7 @@ class User implements UserInterface, TwoFactorEmailInterface, PasswordAuthentica
 
     public function __toString(): string
     {
-        return (string) $this->email;
+        return (string)$this->email;
     }
 
     #[ORM\PrePersist]
@@ -116,7 +119,8 @@ class User implements UserInterface, TwoFactorEmailInterface, PasswordAuthentica
         $this->setDhUpdate(new \DateTime('now'));
     }
 
-    public function eraseCredentials(){
+    public function eraseCredentials()
+    {
 
     }
 
@@ -125,14 +129,16 @@ class User implements UserInterface, TwoFactorEmailInterface, PasswordAuthentica
         return $this->id;
     }
 
-    public function getEmail(): string {
+    public function getEmail(): string
+    {
         return $this->email;
     }
 
-    public function setEmail(string $email): void {
+    public function setEmail(string $email): void
+    {
         $this->email = $email;
     }
-    
+
     public function getRoles(): array
     {
         $roles = $this->roles;
@@ -151,26 +157,26 @@ class User implements UserInterface, TwoFactorEmailInterface, PasswordAuthentica
     public function addRole($role)
     {
         $role = strtoupper($role);
-    
+
         if (!in_array($role, $this->roles, true)) {
             $this->roles[] = $role;
         }
-    
+
         return $this;
     }
-    
+
     public function hasRole($role)
     {
         return in_array(strtoupper($role), $this->getRoles(), true);
     }
-    
+
     public function removeRole($role)
     {
         if (false !== $key = array_search(strtoupper($role), $this->roles, true)) {
             unset($this->roles[$key]);
             $this->roles = array_values($this->roles);
         }
-    
+
         return $this;
     }
 
@@ -185,10 +191,10 @@ class User implements UserInterface, TwoFactorEmailInterface, PasswordAuthentica
 
         return $this;
     }
-    
+
     public function getUserIdentifier(): string
     {
-        return (string) $this->email;
+        return (string)$this->email;
     }
 
     public function isEmailAuthEnabled(): bool
@@ -238,11 +244,14 @@ class User implements UserInterface, TwoFactorEmailInterface, PasswordAuthentica
 
         return $this;
     }
-    public function getEmailAuthCodeExpiresAt(): \DateTimeImmutable|null{
+
+    public function getEmailAuthCodeExpiresAt(): \DateTimeImmutable|null
+    {
         return new \DateTimeImmutable($this->email_auth_code_expires_at->format('Y-m-d H:i:s'));
     }
 
-    public function setEmailAuthCodeExpiresAt(\DateTimeImmutable $expiresAt): void{
+    public function setEmailAuthCodeExpiresAt(\DateTimeImmutable $expiresAt): void
+    {
         $this->email_auth_code_expires_at = $expiresAt;
     }
 
@@ -262,47 +271,45 @@ class User implements UserInterface, TwoFactorEmailInterface, PasswordAuthentica
     {
         return $this->firstname;
     }
-    
+
     public function setFirstname(string $firstname): self
     {
         $this->firstname = $firstname;
-    
+
         return $this;
     }
-    
+
     public function getLastname(): ?string
     {
         return $this->lastname;
     }
-    
+
     public function setLastname(?string $lastname): self
     {
         $this->lastname = $lastname;
-    
+
         return $this;
     }
 
     public function getPhoto(): ?string
     {
-        if(!is_null($this->photo)) {
+        if (!is_null($this->photo)) {
             return $this->photo;
-        }
-        else
-        {
+        } else {
             return self::DEFAULT_PHOTO;
         }
     }
+
     public function getSrcPhoto(): ?string
     {
-        return "data:image/jpeg;base64,".$this->getPhoto();
+        return "data:image/jpeg;base64," . $this->getPhoto();
     }
+
     public function setPhoto(?string $photo): self
     {
-        if(!is_null($photo)) {
+        if (!is_null($photo)) {
             $this->photo = $photo;
-        }
-        else
-        {
+        } else {
             $this->photo = self::DEFAULT_PHOTO;
         }
         return $this;
@@ -312,11 +319,11 @@ class User implements UserInterface, TwoFactorEmailInterface, PasswordAuthentica
     {
         return $this->job;
     }
-    
+
     public function setJob(?string $job): self
     {
         $this->job = $job;
-    
+
         return $this;
     }
 
@@ -324,7 +331,7 @@ class User implements UserInterface, TwoFactorEmailInterface, PasswordAuthentica
     {
         return $this->expertise;
     }
-    
+
     public function setExpertise(?array $expertise): void
     {
         $this->expertise = $expertise;
@@ -344,7 +351,7 @@ class User implements UserInterface, TwoFactorEmailInterface, PasswordAuthentica
     {
         return $this->company;
     }
-    
+
     public function setCompany(?string $company): void
     {
         $this->company = $company;
@@ -360,6 +367,16 @@ class User implements UserInterface, TwoFactorEmailInterface, PasswordAuthentica
         $this->vendorCompany = $vendorCompany;
 
         return $this;
+    }
+
+    public function getLanguage(): ?string
+    {
+        return $this->language;
+    }
+
+    public function setLanguage(?string $language): void
+    {
+        $this->language = $language;
     }
 
     /**

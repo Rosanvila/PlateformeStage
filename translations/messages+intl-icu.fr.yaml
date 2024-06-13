@@ -38,7 +38,8 @@ mailer:
 register:
   title: Inscription
   lastname: Nom
-  picture: Photo
+  picture: Télécharger un fichier
+  picture_format: Photo (format jpg ou png, 5mo max.)
   firstname: Prénom
   email: Email
   email_already_used: Il existe déjà un compte avec cette adresse email
@@ -99,6 +100,59 @@ table:
   relation_limited: Limitée
   premium_subs: 7€ ht / mois
   vendors_subs: 1049€ HT / mois
+  subs: je m'abonne
+
+hello:
+  message1: "
+  Vous souhaitez nous contacter ou nous recommander une solution de cybersécurité ?
+  "
+  message2: "
+  Remplissez ce formulaire et nous le contacterons de votre part.
+  "
+  name: Nom complet
+  email: Adresse mail
+  motif: Motif
+  motif_choices:
+    contact: Contact
+    recommendation: Recommendation
+    other: Autre
+  message: Message
+  submit: Envoyer
+
+preferences:
+  banner: paramètres du compte
+  statistics: Statistique
+  email: Adresse mail
+  account: Votre compte
+  password: Mot de passe
+  btnChange: Changer mon mot de passe
+  pref: Préférences
+  Nb_quote: "Nombres de demande de devis : "
+  Nb_mentoring: "Nombre de demandes de mentorat : "
+  who_contact: Qui peut vous contacter ?
+  manage_subs: Gérer mon abonnement
+  actual_subs: "Abonnement actuel : "
+  profile: Profil
+  security: Sécurité
+  preferences: Préférences
+  subscription: Abonnement
+visibility:
+  any_user: "Tout utilisateur"
+  only_contacts: "Seulement les utilisateurs dans ma liste de contacts"
+  nobody: "Personne"
+notifications:
+  activate: "Activer les notifications"
+  availability: "Activer ma disponibilité"
+account_secu:
+  email: Votre adresse email
+  current_password: Mot de passe actuel
+  enter_email: Entrez votre adresse email
+  validate: Valider
+
+form:
+  language:
+    english: Anglais
+    french: Français
 
 feed:
   num_of_comments: >-

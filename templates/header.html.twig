@@ -1,0 +1,51 @@
+{% block javascripts %}
+    <script type="module">
+        import '{{ asset('js/menu.js') }}';
+    </script>
+{% endblock %}
+<header>
+    {% set _route = app.request.get('_route') %}
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        {% set navItems =  [{'route': 'app_feed', 'title': 'menu.home'}] %}
+    {% else %}
+        {% set navItems =  [{'route': 'app_index', 'title': 'menu.home'}] %}
+    {% endif %}
+    {% set navItems =  navItems|merge([
+        {'route': 'app_search', 'title': 'menu.search'},
+        {'route': 'app_contacts', 'title': 'menu.contacts'},
+        {'route': 'app_events', 'title': 'menu.events'},
+    ]) %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+        <div class="container">
+            {% for navItem in navItems|filter(navItem => navItem.title == "menu.home") %}
+                <a class="navbar-brand" href="{{ path(navItem.route) }}">
+                    <img src="{{ asset('images/mysecu.png') }}" alt="logo" width="54" height="60">
+                </a>
+            {% endfor %}
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    {% for navItem in navItems %}
+                        <li class="nav-item">
+                            <a class="nav-link text-light {{ _route == navItem.route ? 'active' : '' }}"
+                                    {% if not is_granted('IS_AUTHENTICATED_FULLY') %} data-bs-toggle="modal" data-bs-target="#modalLogin" href="#" {% else %}
+                                        href="#" {% endif %}
+                            > {{ navItem.title|trans }} </a>
+                        </li>
+                    {% endfor %}
+                    <a href="#" class="btn " role="button">
+                                    <span class="badge rounded-pill bg-light text-dark border border-dark pe-3 ps-2 d-flex align-items-center">
+                                        <twig:UX:Icon name="flowbite:user-solid" width="20px" height="20px"/>
+                                        {% if is_granted('IS_AUTHENTICATED_FULLY') %} {{ app.user.firstname ~ ' ' ~ app.user.lastname }} {% else %} {{ 'menu.my_account'|trans }} {% endif %}
+                                    </span>
+                    </a>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    {% include 'login/modal.html.twig' %}
+</header>

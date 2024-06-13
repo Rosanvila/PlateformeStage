@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block blueBanner %}
+    <div class="bg-primary">
+        <div class="container">
+            <h1 class="text-uppercase text-light fs-4 py-2">
+                {{ 'preferences.banner' |trans }}
+            </h1>
+        </div>
+    </div>
+{% endblock %}
+
+{% block body %}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-danger" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+    <div class="container mt-4">
+
+        {% include 'preferences/tab.html.twig' %}
+
+        <div class="card my-5">
+            <div class="card-body">
+                <h2 class="fs-5">{{ 'preferences.statistics' |trans }}</h2>
+                <div class="d-flex justify-content-around flex-wrap">
+                    <div class="w-auto">
+                        <div class="chart-container">
+                            {{ render_chart(chart1) }}
+                        </div>
+                    </div>
+                    <div class="w-auto">
+                        <div class="chart-container">
+                            {{ render_chart(chart2) }}
+                        </div>
+                    </div>
+                    <div class="w-auto">
+                        <div class="chart-container">
+                            {{ render_chart(chart3) }}
+                        </div>
+                    </div>
+                </div>
+
+                {% if is_granted('ROLE_PREMIUM') %}
+
+                {% endif %}
+
+                {% if is_granted('ROLE_FREEMIUM') %}
+                    <div>
+                        <p>{{ 'preferences.Nb_quote' |trans}}23</p>
+                        <p>{{ 'preferences.Nb_mentoring' |trans}} 06</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

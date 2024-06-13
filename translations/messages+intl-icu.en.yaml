@@ -45,7 +45,7 @@ mailer:
 register:
   title: Register
   lastname: Lastname
-  picture: Picture
+  picture: download a file
   firstname: Firstname
   email: Email
   password: Password
@@ -103,6 +103,59 @@ table:
   relation_limited: Limited
   premium_subs: 7€ exclu. Tax / month
   vendors_subs: 1049€ exclu. Tax / month
+  subs: subscribe
+
+hello:
+  message1: "
+    You want to contact us or recommend a cybersecurity solution ?
+    "
+  message2: "
+  Fill out this form, and we'll get in touch on your behalf.
+  "
+  name: Full name
+  email: Email address
+  motif: Reason
+  motif_choices:
+    contact: Contact
+    recommendation: Recommendation
+    other: Other
+  message: Message
+  submit: Send
+
+preferences:
+  banner: account preferences
+  statistics: Statistics
+  email: Email address
+  account: Your account
+  password: Password
+  btnChange: Change my password
+  pref: Preferences
+  Nb_quote: "Number of quote requests: "
+  Nb_mentoring: "Number of mentoring requests: "
+  who_contact: Who can contact you?
+  manage_subs: Manage my subscription
+  actual_subs: "Actual subscription: "
+  profile: Profile
+  security: Security
+  preferences: Preferences
+  subscription: Subscription
+visibility:
+  any_user: "Any user"
+  only_contacts: "Only users in my contact list"
+  nobody: "Nobody"
+notifications:
+  activate: "Activates notifications"
+  availability: "Activates my availability"
+account_secu:
+  email: Your email address
+  current_password: Current password
+  enter_email: Enter your email address
+  validate: Validate
+
+form:
+  language:
+    english: English
+    french: French
 
 feed:
   num_of_comments: >-

@@ -1,0 +1,49 @@
+{% block javascripts %}
+<script type="module">
+    import '{{ asset('js/tabs.js') }}';
+    </script>
+{% endblock %}
+
+
+    <nav>
+        <ul class="nav nav-tabs border-0" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="preference nav-link text-light active" id="nav-profile-tab" data-bs-toggle="tab"
+                        data-bs-target="#nav-profile"
+                        type="button" role="tab" aria-controls="nav-profile" aria-selected="true">{{ 'preferences.profile' |trans }}
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="preference nav-link text-light" id="nav-security-tab" data-bs-toggle="tab" data-bs-target="#nav-security"
+                        type="button" role="tab" aria-controls="nav-security" aria-selected="false">{{ 'preferences.security' |trans}}
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="preference nav-link text-light" id="nav-preferences-tab" data-bs-toggle="tab"
+                        data-bs-target="#nav-preferences"
+                        type="button" role="tab" aria-controls="nav-preferences" aria-selected="false">{{'preferences.preferences' |trans}}
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="preference nav-link text-light" id="nav-subs-tab" data-bs-toggle="tab" data-bs-target="#nav-subs"
+                        type="button" role="tab" aria-controls="nav-subs" aria-selected="false">{{ 'preferences.subscription' |trans}}
+                </button>
+            </li>
+        </ul>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane show active card" id="nav-profile" role="tabpanel"
+             aria-labelledby="nav-profile-tab">
+            {% include 'preferences/PreferencesAccount.html.twig' with {'form': preferences_form} %}
+        </div>
+        <div class="tab-pane card" id="nav-security" role="tabpanel" aria-labelledby="nav-security-tab">
+            {% include 'preferences/PreferencesPassword.html.twig' with {'form': changePasswordForm} %}
+        </div>
+        <div class="tab-pane card" id="nav-preferences" role="tabpanel" aria-labelledby="nav-preferences-tab">
+            {% include 'preferences/PreferencesLanguage.html.twig' %}
+        </div>
+        <div class="tab-pane card" id="nav-subs" role="tabpanel" aria-labelledby="nav-subs-tab">
+            {% include 'preferences/PreferencesSubscription.html.twig' %}
+        </div>
+    </div>
+

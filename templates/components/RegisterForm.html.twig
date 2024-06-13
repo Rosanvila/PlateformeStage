@@ -10,11 +10,17 @@
             {{ form_errors(form.lastname) }}
             {{ form_help(form.lastname) }}
         </div>
-        <div class="gx-1 form-floating col-4">
+        <div class="gx-1 form-floating col-2">
             {{ form_widget(form.function) }}
             {{ form_label(form.function) }}
             {{ form_errors(form.function) }}
             {{ form_help(form.function) }}
+        </div>
+        <div class="gx-1 form-floating col-2">
+            {{ form_widget(form.language) }}
+            {{ form_label(form.language) }}
+            {{ form_errors(form.language) }}
+            {{ form_help(form.language) }}
         </div>
         <div class="gx-1 d-flex col-4">
             <img class="form-control img-fluid" style="max-width: 30%; padding: 0" src="" alt="" id="picturePreview">
@@ -100,7 +106,7 @@
     {% endif %}
 
     <div class="row mb-3">
-            {{ form_row(form.agreeTerms) }}
+        {{ form_row(form.agreeTerms) }}
     </div>
     <div class="row mb-3 d-flex justify-content-center">
         <div class="col-4 d-flex justify-content-center">
@@ -115,3 +121,4 @@
     {{ form_row(form._token) }}
     {{ form_end(form, {render_rest: false}) }}
 </div>
+
