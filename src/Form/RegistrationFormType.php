@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\User;
+use App\Form\Type\BusinessAddressType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -70,11 +71,11 @@ class RegistrationFormType extends AbstractType
                 'autocomplete' => true,
                 'label' => 'register.expertise',
             ])
-            ->add('businessAddress', TextType::class, [
-                'label' => 'register.businessAddress',
-                'attr' => ['placeholder' => 'address'],
-                'required' => true,
-            ])
+            ->add('companyAddress', BusinessAddressType::class,
+                ['label' => false,
+                    'required' => true,
+                    'mapped' => false,
+                ])
             ->add('picture', FileType::class, [
                 'mapped' => false,
                 'label' => 'register.picture_format',
@@ -149,7 +150,7 @@ class RegistrationFormType extends AbstractType
     }
 }
 
-function buildForm(FormBuilderInterface $builder, array $options): void
+/*function buildForm(FormBuilderInterface $builder, array $options): void
 {
     $builder = new DynamicFormBuilder($builder);
 
@@ -159,4 +160,4 @@ function buildForm(FormBuilderInterface $builder, array $options): void
             'attr' => ['placeholder' => 'email'],
         ]);
     }
-}
+}*/

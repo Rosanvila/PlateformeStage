@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+    <div class="container d-flex flex-row justify-content-center">
+        <div class="container col-3 d-flex flex-column m-2">
+            <div class="container d-flex flex-column bg-white mb-3 rounded-4 p-2">
+                {% include 'company/company_infos.html.twig' %}
+            </div>
+            <div class="container d-flex flex-column bg-white p-4 rounded-4">
+                <h5 class="text-center fw-bold mb-3">{{ 'company.event'|trans }}</h5>
+                <p class="text-center">{{ 'company.no_event'|trans }}</p>
+                {#
+                {% for i in 0..2 %}
+                    {% include 'company/event.html.twig' %}
+                {% endfor %}
+                <a href="#" class="btn border border-2 border-black text-uppercase fw-bold mt-2 rounded-3">{{ 'company.see_all'|trans }}</a>
+                #}
+            </div>
+        </div>
+        <div class="container d-flex flex-column col-7 bg-white m-2 rounded-4 p-4 justify-content-between h-auto align-self-start">
+            <div class="container mb-4">
+                <h5 class="fw-bold mb-3">{{ 'company.about'|trans }}</h5>
+                {% if company.about %}
+                    <p class="lh-sm">{{ company.about }}</p>
+                {% else %}
+                    <p>{{ 'company.no_description'|trans }}</p>
+                {% endif %}
+            </div>
+            <div class="container mb-4">
+                <h5 class="fw-bold mb-3">{{ 'company.photos'|trans }}</h5>
+                <p>{{ 'company.no_photos'|trans }}</p>
+                {#
+                <div class="d-flex flex-row flex-wrap justify-content-start">
+                    {% for i in 0..9 %}
+                        <img src="https://via.placeholder.com/100" alt="photo" class="rounded-4 m-3" height="100" width="100">
+                    {% endfor %}
+                </div>
+                #}
+            </div>
+            <div class="container mb-4 d-flex flex-column">
+                <h5 class="fw-bold mb-3">{{ 'company.videos'|trans }}</h5>
+                <p>{{ 'company.no_videos'|trans }}</p>
+                {#
+                {% for i in 0..3 %}
+                    <a href="#" class="text-secondary">https://link/to/the/video</a>
+                {% endfor %}
+                #}
+            </div>
+            <div class="container d-flex flex-column p">
+                <h5 class="fw-bold mb-4">{{ 'company.employees'|trans }}</h5>
+                {% if company.users|length > 0 %}
+                    <div id="user-list">
+                        {% for user in company.users %}
+                            {% include 'company/employee.html.twig' %}
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="text-center">{{ 'company.no_employees'|trans }}</p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="container d-flex flex-column col-2 bg-white m-2 ms-3 rounded-4 p-4 h-auto align-self-start align-items-center">
+            <h5 class="text-center fw-bold mb-3">Live meetings</h5>
+            <p class="text-center">{{ 'company.no_live_meetings'|trans }}</p>
+            {#
+            {% for i in 0..5 %}
+                <video controls class="m-2 rounded-2" width="100%" height="auto">
+                    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                </video>
+            {% endfor %}
+            #}
+        </div>
+    </div>
+
+{% endblock %}
