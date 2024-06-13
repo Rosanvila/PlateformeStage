@@ -50,6 +50,8 @@ register:
   function: Fonction
   company: Société
   businessAddress: Adresse professionnelle
+  city: Ville
+  postalCode: Code postal
   expertise: Expertises
   submit_not_freemium: S'inscrire et procéder au paiement
   submit_freemium: S'inscrire gratuitement
@@ -153,6 +155,32 @@ form:
   language:
     english: Anglais
     french: Français
+
+    # Vendor Edit page translations
+edit:
+  banner: modifier ma page
+  about: À propos de ma société
+  logo: Télécharger votre logo
+  save: Enregistrer mes modifications
+  success: Vos modifications ont été enregistrées
+
+company:
+  event: Événement
+  see_all: Voir tout les événements
+  about: À propos
+  photos: Photos
+  videos: Vidéos
+  employees: Ils travaillent dans cette société
+  see_more: Voir plus
+  no_employees: Aucun utilisateur n'est enregistré dans cette société
+  no_event: Aucun événement n'est enregistré pour cette société
+  no_photos: Aucune photo n'est enregistrée pour cette société
+  no_videos: Aucune vidéo n'est enregistrée pour cette société
+  no_description: Aucune description n'est enregistrée pour cette société
+  no_live_meetings: Aucun live meeting n'est enregistré pour cette société
+  learn_more: En savoir +
+  work_here: Travaille dans cette société
+  our_solutions: Nos solutions en ligne
 
 feed:
   num_of_comments: >-

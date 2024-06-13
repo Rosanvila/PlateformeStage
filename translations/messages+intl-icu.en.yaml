@@ -46,6 +46,7 @@ register:
   title: Register
   lastname: Lastname
   picture: download a file
+  picture_format: Photo (format jpg or png, 5mo max.)
   firstname: Firstname
   email: Email
   password: Password
@@ -55,6 +56,8 @@ register:
   function: Function
   company: Company
   businessAddress: Business Adress
+  city: City
+  postalCode: Postal Code
   expertise: Expertise
   submit_not_freemium: Sign up and proceed to payment
   submit_freemium: Sign up for free
@@ -156,6 +159,32 @@ form:
   language:
     english: English
     french: French
+
+company:
+  event: Event
+  see_all: See all events
+  about: About
+  photos: Photos
+  videos: Videos
+  employees: They work in this company
+  see_more: See more
+  no_employees: No employees are registered for this company
+  no_event: No events are registered for this company
+  no_photos: No photos are registered for this company
+  no_videos: No videos are registered for this company
+  no_description: No description is registered for this company
+  no_live_meetings: No live meetings are registered for this company
+  learn_more: Learn
+  work_here: Work in this company
+  our_solutions: Our online solutions
+
+    # Vendor Edit page translations
+edit:
+  banner: edit my page
+  about: About my company
+  logo: Download a logo
+  save: Save my changes
+  success: Your changes have been saved
 
 feed:
   num_of_comments: >-
