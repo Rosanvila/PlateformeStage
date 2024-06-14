@@ -185,3 +185,18 @@ edit:
   logo: Download a logo
   save: Save my changes
   success: Your changes have been saved
+
+feed:
+  num_of_comments: >-
+    {comments, plural,
+        =0    {comment}
+        =1    {comment}
+        other {comments}
+    }
+  comment: Comment
+  like: Like
+  delete: Delete
+  post:
+    create: Start your post
+    post: Post
+    your_post: Your post

@@ -38,9 +38,8 @@ class RegistrationController extends AbstractController
     }
 
     #[Route(
-        path: '/{_locale}/register',
+        path: '/register',
         name: 'app_register',
-        requirements: ['_locale' => '%app.supported_locales%']
     )]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, Security $security, EntityManagerInterface $entityManager, TranslatorInterface $translator): Response
     {
@@ -112,9 +111,8 @@ class RegistrationController extends AbstractController
         ]);
     }
 
-    #[Route(path: '/{_locale}/verify/email',
+    #[Route(path: '/verify/email',
         name: 'app_verify_email',
-        requirements: ['_locale' => '%app.supported_locales%']
     )]
     public function verifyUserEmail(Request $request, TranslatorInterface $translator, UserRepository $userRepository): Response
     {

@@ -164,9 +164,6 @@ edit:
   save: Enregistrer mes modifications
   success: Vos modifications ont été enregistrées
 
-
-
-
 company:
   event: Événement
   see_all: Voir tout les événements
@@ -184,3 +181,18 @@ company:
   learn_more: En savoir +
   work_here: Travaille dans cette société
   our_solutions: Nos solutions en ligne
+
+feed:
+  num_of_comments: >-
+    {comments, plural,
+        =0    {commentaire}
+        =1    {commentaire}
+        other {commentaires}
+    }
+  comment: Commenter
+  like: Aimer
+  delete: Supprimer
+  post:
+    create: Commencer un post
+    post: Poster
+    your_post: Votre post

@@ -1,0 +1,26 @@
+<div {{ attributes }}>
+
+    {% for item in this.newItems %}
+        <twig:Feed:PostItem item="{{ item }}" key="{{ 'postItem-' ~ item.id }}"/>
+    {% endfor %}
+
+    {% if this.page > 1 %}
+        <div id="postListPage--{{ page - 1 }}" data-live-ignore="true"></div>
+    {% endif %}
+
+    {# Current page #}
+    <div id="postListPage--{{ page }}" data-live-ignore="true">
+        {% for item in this.items %}
+            <twig:Feed:PostItem item="{{ item }}" key="{{ 'postItem-' ~ item.id }}"/>
+        {% endfor %}
+    </div>
+
+    {% if this.hasMore %}
+        <div style="display: grid; place-content: center;padding: 4rem;">
+            <button data-action="live#action"
+                    data-live-action-param="more"
+                    class="btn btn-mysecu text-white"><twig:ux:icon name="bx:down-arrow-alt" height='25px' width='25px' /></button>
+        </div>
+    {% endif %}
+
+</div>

@@ -5,17 +5,23 @@
 {% endblock %}
 <header>
     {% set _route = app.request.get('_route') %}
-    {% set navItems =  [
-        {'route': 'app_index', 'title': 'menu.home'},
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        {% set navItems =  [{'route': 'app_feed', 'title': 'menu.home'}] %}
+    {% else %}
+        {% set navItems =  [{'route': 'app_index', 'title': 'menu.home'}] %}
+    {% endif %}
+    {% set navItems =  navItems|merge([
         {'route': 'app_search', 'title': 'menu.search'},
         {'route': 'app_contacts', 'title': 'menu.contacts'},
         {'route': 'app_events', 'title': 'menu.events'},
-    ] %}
+    ]) %}
     <nav class="navbar navbar-expand-lg navbar-light bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="{{ path('app_index') }}">
-                <img src="{{ asset('images/mysecu.png') }}" alt="logo" width="54" height="60">
-            </a>
+            {% for navItem in navItems|filter(navItem => navItem.title == "menu.home") %}
+                <a class="navbar-brand" href="{{ path(navItem.route) }}">
+                    <img src="{{ asset('images/mysecu.png') }}" alt="logo" width="54" height="60">
+                </a>
+            {% endfor %}
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -31,7 +37,7 @@
                             > {{ navItem.title|trans }} </a>
                         </li>
                     {% endfor %}
-                    <a href="#" class="btn " role="button">
+                    <a href={% if is_granted('IS_AUTHENTICATED_FULLY') %}{{ path('app_preferences') }}{% else %}"#"{% endif %} class="btn " role="button">
                                     <span class="badge rounded-pill bg-light text-dark border border-dark pe-3 ps-2 d-flex align-items-center">
                                         <twig:UX:Icon name="flowbite:user-solid" width="20px" height="20px"/>
                                         {% if is_granted('IS_AUTHENTICATED_FULLY') %} {{ app.user.firstname ~ ' ' ~ app.user.lastname }} {% else %} {{ 'menu.my_account'|trans }} {% endif %}

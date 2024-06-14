@@ -1,0 +1,25 @@
+<div class="flex-fill card">
+  <div class="card-body">
+    <img src="{{ photo }}" class="rounded-circle img-fluid" alt="profile picture">
+    <div class="row">
+      <div class="col d-flex justify-content-center">
+            {{ firstname }} {{ lastname }}
+      </div>
+    </div>
+    {% if isVendor %}
+    <div class="row">
+      <div class="col d-flex justify-content-center">
+            Vendor
+      </div>
+    </div>
+    {% endif %}
+
+    {% if expertise is not empty %}
+      <div class="row">
+        {% for item in expertise %}
+          <span class="badge rounded-pill bg-secondary">{{ item|trans|capitalize }}</span>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</div>
