@@ -22,12 +22,11 @@ use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 #[Route(
-    path: '/{_locale}/reset-password',
+    path: '/reset-password',
     /*name: 'app_reset_password',
     J'ai retiré le nom de la route afin d'avoir des noms de routes fonctionnelles via
      php bin/console debug:router */
     name:'',
-    requirements: ['_locale' => '%app.supported_locales%']
 )]
 class ResetPasswordController extends AbstractController
 {

@@ -39,15 +39,17 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: ^/logout, role: PUBLIC_ACCESS }
-        - { path: ^/login, roles: PUBLIC_ACCESS }
-        - { path: ^/register, roles: PUBLIC_ACCESS }
-        - { path: ^/reset-password, roles: PUBLIC_ACCESS }
-        - { path: ^/_components, roles: PUBLIC_ACCESS }
-        # This ensures that the form can only be accessed when two-factor authentication is in progress.
-        - { path: ^/2fa, role: IS_AUTHENTICATED_2FA_IN_PROGRESS }
-        - { path: ^/$, roles: PUBLIC_ACCESS }
-        - { path: ^/(.+), roles: IS_AUTHENTICATED_FULLY }
+        # - { path: ^/%app.supported_locales%/logout, role: PUBLIC_ACCESS }
+        - { path: '^/([a-z]{2}/)login', role: PUBLIC_ACCESS }
+        - { path: '^/([a-z]{2}/)register', role: PUBLIC_ACCESS }
+        - { path: '^/([a-z]{2}/)reset-password', role: PUBLIC_ACCESS }
+        - { path: '^/([a-z]{2}/)_components', role: PUBLIC_ACCESS }
+        # # This ensures that the form can only be accessed when two-factor authentication is in progress.
+        - { path: '^/([a-z]{2}/)2fa', role: IS_AUTHENTICATED_2FA_IN_PROGRESS }
+        - { path: '^/([a-z]{2}/)logout', role: PUBLIC_ACCESS }
+        - { path: '^/en/?$', role: PUBLIC_ACCESS }
+        - { path: '^/$', role: PUBLIC_ACCESS }
+        - { path: '^/', role: IS_AUTHENTICATED_FULLY }
 
 when@test:
     security:

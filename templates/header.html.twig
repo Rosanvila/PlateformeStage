@@ -37,7 +37,7 @@
                             > {{ navItem.title|trans }} </a>
                         </li>
                     {% endfor %}
-                    <a href="#" class="btn " role="button">
+                    <a href={% if is_granted('IS_AUTHENTICATED_FULLY') %}{{ path('app_preferences') }}{% else %}"#"{% endif %} class="btn " role="button">
                                     <span class="badge rounded-pill bg-light text-dark border border-dark pe-3 ps-2 d-flex align-items-center">
                                         <twig:UX:Icon name="flowbite:user-solid" width="20px" height="20px"/>
                                         {% if is_granted('IS_AUTHENTICATED_FULLY') %} {{ app.user.firstname ~ ' ' ~ app.user.lastname }} {% else %} {{ 'menu.my_account'|trans }} {% endif %}

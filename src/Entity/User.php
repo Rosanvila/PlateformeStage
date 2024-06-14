@@ -86,12 +86,6 @@ class User implements UserInterface, TwoFactorEmailInterface, PasswordAuthentica
      */
     #[ORM\OneToMany(targetEntity: Company::class, mappedBy: 'owner')]
     private Collection $companies;
-
-    public function __construct()
-    {
-        $this->companies = new ArrayCollection();
-    }
-
     /**
      * @var Collection<int, Post>
      */
@@ -112,6 +106,7 @@ class User implements UserInterface, TwoFactorEmailInterface, PasswordAuthentica
 
     public function __construct()
     {
+        $this->companies = new ArrayCollection();
         $this->posts = new ArrayCollection();
         $this->postsLikes = new ArrayCollection();
         $this->postsComments = new ArrayCollection();

@@ -3,3 +3,12 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+    prefix: /{_locale}
+    requirements:
+        _locale: '%app.supported_locales%'
+    defaults:
+        _locale: 'en'
+
+redirect:
+   path: /
+   controller: App\Controller\IndexController::index

@@ -25,9 +25,8 @@ class PreferencesController extends AbstractController
     }
 
     #[Route(
-        path: '/{_locale}/preferences',
+        path: '/preferences',
         name: 'app_preferences',
-        requirements: ['_locale' => '%app.supported_locales%']
     )]
     public function index(Request $request, UserPasswordHasherInterface $userPasswordHasher, ChartBuilderInterface $chartBuilder): Response
     {

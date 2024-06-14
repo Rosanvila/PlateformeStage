@@ -10,15 +10,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class IndexController extends AbstractController
 {
-    #[Route(
-        path: '/{_locale}/',
+    #[Route('/',
         name: 'app_index',
-        requirements: ['_locale' => '%app.supported_locales%']
     )]
     public function index(Request $request): Response
     {
         // TODO - Reprendre le nom HelloType et rendre fonctionnel le form de contact
-        // $form = $this->createForm(HelloType::class);
+        $form = $this->createForm(HelloType::class);
 
         // $form->handleRequest($request);
         // if ($form->isSubmitted() && $form->isValid()) {
@@ -27,7 +25,9 @@ class IndexController extends AbstractController
         // }
 
         if(!$this->getUser()) {
-            return $this->render('index/index.html.twig');
+            return $this->render('index/index.html.twig', [
+                'form' => $form->createView(),
+            ]);
         }
         // On redirige vers le feed si on est connecté
         else if($this->getUser()) {

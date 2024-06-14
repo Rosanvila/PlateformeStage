@@ -190,7 +190,7 @@ feed:
   num_of_comments: >-
     {comments, plural,
         =0    {comment}
-        =1    {comments}
+        =1    {comment}
         other {comments}
     }
   comment: Comment
