@@ -21,12 +21,12 @@
                 <div class="row">
                     <div class="col-md-4 form-group my-3">
                         <div class="form-floating my-3">
-{#                            {{ form_widget(form.lastname.lastnameField) }}
-                            {{ form_label(form.lastname.lastnameField) }}#}
+                            {{ form_widget(form.owner.firstname.firstnameField) }}
+                            {{ form_label(form.owner.firstname.firstnameField) }}
                         </div>
                         <div class="form-floating my-3">
-{#                            {{ form_widget(form.firstname.firstnameField) }}
-                            {{ form_label(form.firstname.firstnameField) }}#}
+                            {{ form_widget(form.owner.lastname.lastnameField) }}
+                            {{ form_label(form.owner.lastname.lastnameField) }}
                         </div>
                         <div class="form-floating my-3">
                             {{ form_widget(form.businessAddress.businessAddressField) }}
@@ -63,6 +63,6 @@
         <div class="d-flex justify-content-center">
             {{ form_row(form.save) }}
         </div>
-        {{ form_end(form) }}
     </div>
+        {{ form_end(form) }}
 {% endblock %}

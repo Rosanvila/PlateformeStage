@@ -40,15 +40,10 @@ class CompanyController extends AbstractController
     #[Route('/{_locale}/company/{id}/edit', name: 'app_company_edit',
         requirements: ['_locale' => '%app.supported_locales%'],
         methods: ['GET', 'POST'])]
-    public function edit(int $id,Request $request, Company $company, EntityManagerInterface $entityManager, CompanyRepository $companyRepository): Response
+    public function edit(Request $request, Company $company, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(CompanyEditType::class, $company);
         $form->handleRequest($request);
-        $company = $companyRepository->find($id);
-
-        if (!$company) {
-            throw $this->createNotFoundException('The company does not exist');
-        }
 
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -56,11 +51,15 @@ class CompanyController extends AbstractController
             $businessAddressField = $form->get('businessAddress')->get('businessAddressField')->getData();
             $postalCodeField = $form->get('postalCode')->get('postalCodeField')->getData();
             $cityField = $form->get('city')->get('cityField')->getData();
+            $firstnameField = $form->get('owner')->get('firstname')->get('firstnameField')->getData();
+            $lastnameField = $form->get('owner')->get('lastname')->get('lastnameField')->getData();
 
             $company->setName($nameField);
             $company->setBusinessAddress($businessAddressField);
             $company->setPostalCode($postalCodeField);
             $company->setCity($cityField);
+            $company->getOwner()->setFirstname($firstnameField);
+            $company->getOwner()->setLastname($lastnameField);
 
             $entityManager->persist($company);
             $entityManager->flush();

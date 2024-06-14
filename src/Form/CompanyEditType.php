@@ -9,13 +9,10 @@ use App\Form\Type\CompanyNameType;
 use App\Form\Type\FirstnameType;
 use App\Form\Type\LastnameType;
 use App\Form\Type\PostalCodeType;
-use App\Form\Type\UserEditType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -24,19 +21,14 @@ class CompanyEditType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-/*            ->add('name', CompanyNameType::class, [
-                'required' => false,
-                'mapped' => false,
-            ])
-            ->add('lastname', LastnameType::class, [
-                'required' => false,
-                'mapped' => false,
-            ])*/
             ->add('name', CompanyNameType::class, [
                 'required' => false,
                 'mapped' => false,
             ])
-            ->add('firstname', FirstnameType::class, [
+            ->add('owner', UsernameEditFormType::class, [
+                'required' => false,
+            ])
+            ->add('name', CompanyNameType::class, [
                 'required' => false,
                 'mapped' => false,
             ])

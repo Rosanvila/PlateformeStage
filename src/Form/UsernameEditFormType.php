@@ -1,24 +1,24 @@
 <?php
 
-namespace App\Form\Type;
+namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use App\Form\Type\FirstnameType;
+use App\Form\Type\LastnameType;
 
-class UserEditType extends AbstractType{
+class UsernameEditFormType extends AbstractType
+{
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('firstName', TextType::class, [
-                'label' => 'register.firstname',
-                'attr' => ['placeholder' => 'register.firstname'],
+            ->add('firstname', FirstnameType::class,[
+                'mapped' => false,
             ])
-            ->add('lastName', TextType::class, [
-                'label' => 'register.lastname',
-                'attr' => ['placeholder' => 'register.lastname'],
+            ->add('lastname', LastnameType::class,[
+                'mapped' => false,
             ]);
     }
 
