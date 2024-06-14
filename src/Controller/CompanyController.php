@@ -43,29 +43,48 @@ class CompanyController extends AbstractController
     public function edit(Request $request, Company $company, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(CompanyEditType::class, $company);
+
+        // Définition des champs du formulaire et de leur correspondance avec les propriétés de l'entité Company
+        $fields = [
+            'name' => 'companyField',
+            'businessAddress' => 'businessAddressField',
+            'postalCode' => 'postalCodeField',
+            'city' => 'cityField',
+            'owner' => [
+                'firstname' => 'firstnameField',
+                'lastname' => 'lastnameField'
+            ]
+        ];
+
+        // Les champs du formulaire sont annotés avec les valeurs de l'entité Company
+        foreach ($fields as $key => $value) {
+            // Si tableau (champ 'owner' qui contient plusieurs sous-champs)
+            if (is_array($value)) {
+                foreach ($value as $subKey => $subValue) {
+                    $form->get($key)->get($subKey)->get($subValue)->setData($company->getOwner()->{"get" . ucfirst($subKey)}());
+                }
+            } else {
+                $form->get($key)->get($value)->setData($company->{"get" . ucfirst($key)}());
+            }
+        }
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-            $nameField = $form->get('name')->get('companyField')->getData();
-            $businessAddressField = $form->get('businessAddress')->get('businessAddressField')->getData();
-            $postalCodeField = $form->get('postalCode')->get('postalCodeField')->getData();
-            $cityField = $form->get('city')->get('cityField')->getData();
-            $firstnameField = $form->get('owner')->get('firstname')->get('firstnameField')->getData();
-            $lastnameField = $form->get('owner')->get('lastname')->get('lastnameField')->getData();
-
-            $company->setName($nameField);
-            $company->setBusinessAddress($businessAddressField);
-            $company->setPostalCode($postalCodeField);
-            $company->setCity($cityField);
-            $company->getOwner()->setFirstname($firstnameField);
-            $company->getOwner()->setLastname($lastnameField);
+            foreach ($fields as $key => $value) {
+                if (is_array($value)) {
+                    foreach ($value as $subKey => $subValue) {
+                        // On récupère la valeur du sous-champ dans le formulaire et on la met à jour dans l'entité Company
+                        $company->getOwner()->{"set" . ucfirst($subKey)}($form->get($key)->get($subKey)->get($subValue)->getData());
+                    }
+                } else {
+                    $company->{"set" . ucfirst($key)}($form->get($key)->get($value)->getData());
+                }
+            }
 
             $entityManager->persist($company);
             $entityManager->flush();
 
-            // Si formulaire valide, on redirige vers la page de l'entreprise
-            // avec un message de succès
             $this->addFlash('success', $this->translator->trans('edit.success'));
 
             return $this->redirectToRoute('app_company', ['id' => $company->getId()]);
@@ -77,3 +96,4 @@ class CompanyController extends AbstractController
         ]);
     }
 }
+

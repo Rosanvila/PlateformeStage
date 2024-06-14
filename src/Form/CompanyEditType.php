@@ -6,8 +6,6 @@ use App\Entity\Company;
 use App\Form\Type\BusinessAddressType;
 use App\Form\Type\CityType;
 use App\Form\Type\CompanyNameType;
-use App\Form\Type\FirstnameType;
-use App\Form\Type\LastnameType;
 use App\Form\Type\PostalCodeType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
