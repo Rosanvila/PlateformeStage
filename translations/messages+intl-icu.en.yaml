@@ -142,6 +142,10 @@ preferences:
   security: Security
   preferences: Preferences
   subscription: Subscription
+  language_change_success: Language changed successfully
+  email_mismatch_error: The email address does not match our records
+  incorrect_password_error: The current password is incorrect
+  password_change_success: Your password has been changed successfully
 visibility:
   any_user: "Any user"
   only_contacts: "Only users in my contact list"

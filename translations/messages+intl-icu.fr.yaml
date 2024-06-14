@@ -138,6 +138,10 @@ preferences:
   security: Sécurité
   preferences: Préférences
   subscription: Abonnement
+  language_change_success: Langue modifiée avec succès
+  email_mismatch_error: L'adresse e-mail ne correspond pas à nos enregistrements
+  incorrect_password_error: Le mot de passe actuel est incorrect
+  password_change_success: Votre mot de passe a été modifié avec succès
 visibility:
   any_user: "Tout utilisateur"
   only_contacts: "Seulement les utilisateurs dans ma liste de contacts"
