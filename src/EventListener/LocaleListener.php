@@ -38,11 +38,10 @@ class LocaleListener
                 $locale = $user->getLanguage();
             }
 
-            if($locale !== $request->getLocale()) {
+            if(!is_null($locale) && ($locale !== $request->getLocale())) {
 
                 $oldLocale = $request->getLocale();
                 $request->setLocale($locale);
-                $this->logger->info('Locale set to ' . $locale);
 
                 $response = new RedirectResponse(str_replace($oldLocale, $locale, $path));
                 $response->send();
