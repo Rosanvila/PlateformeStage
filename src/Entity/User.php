@@ -264,7 +264,7 @@ class User implements UserInterface, TwoFactorEmailInterface, PasswordAuthentica
         return $this->firstname;
     }
 
-    public function setFirstname(?string $firstname): self
+    public function setFirstname(string $firstname): self
     {
         $this->firstname = $firstname;
 

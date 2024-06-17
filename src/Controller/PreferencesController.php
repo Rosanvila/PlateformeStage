@@ -40,14 +40,14 @@ class PreferencesController extends AbstractController
 
         $preferencesForm = $this->createForm(PreferencesType::class);
         $changePasswordForm = $this->createForm(ChangePasswordFormType::class);
-        $languagesForm = $this->createForm(LanguagesFormType::class, ['language' => $user->getLanguage()], [
+        $languagesForm = $this->createForm(LanguagesFormType::class, $user, [
             'supported_locales' => $supportedLocales
         ]);
 
         // Language switch form
         $languagesForm->handleRequest($request);
         if ($languagesForm->isSubmitted() && $languagesForm->isValid()) {
-            $language = $languagesForm->getData()['language'];
+            $language = $languagesForm->getData()->getLanguage();
             $user->setLanguage($language);
 
             $this->entityManager->persist($user);

@@ -44,10 +44,9 @@ class CompanyEditType extends AbstractType
             ])
             ->add('about', TextareaType::class, [
                 'label' => 'edit.about',
-                'label_attr' => ['style' => 'margin-top: 1rem;'],
                 'attr' => [
-                    'rows' => '1',
-                    'style' => 'resize: vertical; max-height: 12.5rem;'
+                    'style' => 'height: 6.25rem; max-height: 13rem; resize: vertical;',
+                    'placeholder' => 'edit.about_placeholder',
                 ],
                 'required' => false,
             ])

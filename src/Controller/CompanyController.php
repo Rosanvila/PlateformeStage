@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Company;
 use App\Form\CompanyEditType;
 use App\Repository\CompanyRepository;
+use App\Service\CompanyFormHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,9 +18,12 @@ class CompanyController extends AbstractController
 
     private TranslatorInterface $translator;
 
-    public function __construct(TranslatorInterface $translator)
+    private CompanyFormHelper $companyFormHelper;
+
+    public function __construct(TranslatorInterface $translator, CompanyFormHelper $companyFormHelper)
     {
         $this->translator = $translator;
+        $this->companyFormHelper = $companyFormHelper;
     }
 
     #[Route('/{_locale}/company/{id}', name: 'app_company',
@@ -44,43 +48,11 @@ class CompanyController extends AbstractController
     {
         $form = $this->createForm(CompanyEditType::class, $company);
 
-        // Définition des champs du formulaire et de leur correspondance avec les propriétés de l'entité Company
-        $fields = [
-            'name' => 'companyField',
-            'businessAddress' => 'businessAddressField',
-            'postalCode' => 'postalCodeField',
-            'city' => 'cityField',
-            'owner' => [
-                'firstname' => 'firstnameField',
-                'lastname' => 'lastnameField'
-            ]
-        ];
-
-        // Les champs du formulaire sont annotés avec les valeurs de l'entité Company
-        foreach ($fields as $key => $value) {
-            // Si tableau (champ 'owner' qui contient plusieurs sous-champs)
-            if (is_array($value)) {
-                foreach ($value as $subKey => $subValue) {
-                    $form->get($key)->get($subKey)->get($subValue)->setData($company->getOwner()->{"get" . ucfirst($subKey)}());
-                }
-            } else {
-                $form->get($key)->get($value)->setData($company->{"get" . ucfirst($key)}());
-            }
-        }
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            foreach ($fields as $key => $value) {
-                if (is_array($value)) {
-                    foreach ($value as $subKey => $subValue) {
-                        // On récupère la valeur du sous-champ dans le formulaire et on la met à jour dans l'entité Company
-                        $company->getOwner()->{"set" . ucfirst($subKey)}($form->get($key)->get($subKey)->get($subValue)->getData());
-                    }
-                } else {
-                    $company->{"set" . ucfirst($key)}($form->get($key)->get($value)->getData());
-                }
-            }
+
+            $this->companyFormHelper->updateCompanyEntity($form, $company);
 
             $entityManager->persist($company);
             $entityManager->flush();
@@ -92,7 +64,7 @@ class CompanyController extends AbstractController
 
         return $this->render('company/edit.html.twig', [
             'company' => $company,
-            'form' => $form->createView(),
+            'editForm' => $form,
         ]);
     }
 }
