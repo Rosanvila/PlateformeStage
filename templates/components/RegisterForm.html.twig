@@ -1,7 +1,14 @@
-<div {{ attributes }}>
+<div {{ attributes.defaults(stimulus_controller('register')) }}>
     {{ form_errors(form) }}
 
-    {{ form_start(form) }}
+    {{ form_start(form, {
+        form: form ,
+        attr: {
+            'data-action': 'live#action:prevent',
+            'data-live-action-param': 'save'
+        }
+    }) 
+    }}
 
     <div class="row mb-3 justify-content-between">
         <div class="gx-1 form-floating col-4">
@@ -29,6 +36,11 @@
             {{ form_errors(form.picture) }}
             {# {{ form_help(form.picture) }} #}
         </div>
+        {% if photoUploadError %}
+            <div class="gx-1 d-flex col-12 align-items-end">
+                <div class="invalid-feedback d-flex justify-content-end">{{ photoUploadError }}</div>
+            </div>
+        {% endif %}
     </div>
 
     <div class="row mb-3 justify-content-between">

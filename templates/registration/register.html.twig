@@ -2,9 +2,6 @@
 
 {% block javascripts %}
     {{ parent() }}
-    <script type="module">
-        import '{{ asset('js/register.js') }}';
-    </script>
 {% endblock %}
 
 {% block title %}{{ 'register.title'|trans }}{% endblock %}
@@ -18,7 +15,6 @@
         <div class="card-body">
             <h3 class="card-title d-flex justify-content-center text-uppercase mb-4">{{ 'register.title'|trans }}</h3>
 
-            {# {{ component('RegisterForm', {form: registrationForm}) }} #}
             <twig:RegisterForm initialFormData="{{ registrationForm.vars.value }}"/>
 
         </div>
