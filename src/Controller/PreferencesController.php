@@ -13,15 +13,18 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
 
 class PreferencesController extends AbstractController
 {
     private EntityManagerInterface $entityManager;
+    private TranslatorInterface $translator;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, TranslatorInterface $translator)
     {
         $this->entityManager = $entityManager;
+        $this->translator = $translator;
     }
 
     #[Route(
@@ -36,21 +39,21 @@ class PreferencesController extends AbstractController
 
         $preferencesForm = $this->createForm(PreferencesType::class);
         $changePasswordForm = $this->createForm(ChangePasswordFormType::class);
-        $languagesForm = $this->createForm(LanguagesFormType::class, null, [
+        $languagesForm = $this->createForm(LanguagesFormType::class, $user, [
             'supported_locales' => $supportedLocales
         ]);
 
         // Language switch form
         $languagesForm->handleRequest($request);
         if ($languagesForm->isSubmitted() && $languagesForm->isValid()) {
-            $language = $languagesForm->getData()['language'];
+            $language = $languagesForm->getData()->getLanguage();
             $user->setLanguage($language);
 
             $this->entityManager->persist($user);
             $this->entityManager->flush();
             $request->setLocale($language);
 
-            $this->addFlash('success', 'Language changed successfully.');
+            $this->addFlash('success', $this->translator->trans('preferences.language_change_success'));
             return $this->redirectToRoute('app_preferences', ['_locale' => $language]);
         }
 
@@ -63,13 +66,13 @@ class PreferencesController extends AbstractController
 
             // Vérifier si l'email correspond à celui de l'utilisateur en session
             if ($email !== $user->getEmail()) {
-                $this->addFlash('error', 'The email address does not match our records.');
+                $this->addFlash('error', $this->translator->trans('preferences.email_mismatch_error'));
                 return $this->redirectToRoute('app_preferences');
             }
 
             // Vérifier si le mot de passe actuel est correct
             if (!$userPasswordHasher->isPasswordValid($user, $currentPassword)) {
-                $this->addFlash('error', 'The current password is incorrect.');
+                $this->addFlash('error', $this->translator->trans('preferences.incorrect_password_error'));
                 return $this->redirectToRoute('app_preferences');
             }
 
@@ -80,7 +83,7 @@ class PreferencesController extends AbstractController
             $this->entityManager->persist($user);
             $this->entityManager->flush();
 
-            $this->addFlash('success', 'Your password has been changed successfully.');
+            $this->addFlash('success', $this->translator->trans('preferences.password_change_success'));
             return $this->redirectToRoute('app_preferences');
         }
 

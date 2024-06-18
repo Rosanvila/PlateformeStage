@@ -12,10 +12,10 @@
 
     <div class="row mb-3 justify-content-between">
         <div class="gx-1 form-floating col-4">
-            {{ form_widget(form.lastname) }}
-            {{ form_label(form.lastname) }}
-            {{ form_errors(form.lastname) }}
-            {{ form_help(form.lastname) }}
+            {{ form_widget(form.lastname.lastnameField) }}
+            {{ form_label(form.lastname.lastnameField) }}
+            {{ form_errors(form.lastname.lastnameField) }}
+            {{ form_help(form.lastname.lastnameField) }}
         </div>
         <div class="gx-1 form-floating col-2">
             {{ form_widget(form.function) }}
@@ -45,10 +45,10 @@
 
     <div class="row mb-3 justify-content-between">
         <div class="gx-1 form-floating col-4">
-            {{ form_widget(form.firstname) }}
-            {{ form_label(form.firstname) }}
-            {{ form_errors(form.firstname) }}
-            {{ form_help(form.firstname) }}
+            {{ form_widget(form.firstname.firstnameField) }}
+            {{ form_label(form.firstname.firstnameField) }}
+            {{ form_errors(form.firstname.firstnameField) }}
+            {{ form_help(form.firstname.firstnameField) }}
         </div>
         <div class="gx-1 form-floating col-4">
             {{ form_widget(form.job) }}
@@ -66,10 +66,10 @@
 
     <div class="row mb-3 justify-content-between">
         <div class="gx-1 form-floating col-4">
-            {{ form_widget(form.company) }}
-            {{ form_label(form.company) }}
-            {{ form_errors(form.company) }}
-            {{ form_help(form.company) }}
+            {{ form_widget(form.company.companyField) }}
+            {{ form_label(form.company.companyField) }}
+            {{ form_errors(form.company.companyField) }}
+            {{ form_help(form.company.companyField) }}
         </div>
         <div class="gx-1 form-floating col-4">
             {{ form_widget(form.expertise) }}
@@ -87,22 +87,22 @@
 
     <div class="row mb-3 justify-content-between">
         <div class="gx-1 form-floating col-4">
-            {{ form_widget(form.companyAddress.businessAddress) }}
-            {{ form_label(form.companyAddress.businessAddress) }}
-            {{ form_errors(form.companyAddress.businessAddress) }}
-            {{ form_help(form.companyAddress.businessAddress) }}
+            {{ form_widget(form.businessAddress.businessAddressField) }}
+            {{ form_label(form.businessAddress.businessAddressField) }}
+            {{ form_errors(form.businessAddress.businessAddressField) }}
+            {{ form_help(form.businessAddress.businessAddressField) }}
         </div>
         <div class="gx-1 form-floating col-2">
-            {{ form_widget(form.companyAddress.city) }}
-            {{ form_label(form.companyAddress.city) }}
-            {{ form_errors(form.companyAddress.city) }}
-            {{ form_help(form.companyAddress.city) }}
+            {{ form_widget(form.city.cityField) }}
+            {{ form_label(form.city.cityField) }}
+            {{ form_errors(form.city.cityField) }}
+            {{ form_help(form.city.cityField) }}
         </div>
         <div class="gx-1 form-floating col-2">
-            {{ form_widget(form.companyAddress.postalCode) }}
-            {{ form_label(form.companyAddress.postalCode) }}
-            {{ form_errors(form.companyAddress.postalCode) }}
-            {{ form_help(form.companyAddress.postalCode) }}
+            {{ form_widget(form.postalCode.postalCodeField) }}
+            {{ form_label(form.postalCode.postalCodeField) }}
+            {{ form_errors(form.postalCode.postalCodeField) }}
+            {{ form_help(form.postalCode.postalCodeField) }}
         </div>
         <div class="gx-1 form-floating col-4">
             {{ form_widget(form.plainPassword.password.second) }}

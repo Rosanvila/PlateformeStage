@@ -26,7 +26,9 @@ class User implements UserInterface, TwoFactorEmailInterface, PasswordAuthentica
     private $id;
 
     #[ORM\Column(type: "string", unique: true)]
-    private string $email;
+    private ?string $email = null;
+    // Null is allowed because the email might not be verified yet when the user is creating an account
+    // Without null value allowed, an error would be thrown when the user is creating an account
 
     #[ORM\Column(type: "string", nullable: true)]
     private ?string $authCode;

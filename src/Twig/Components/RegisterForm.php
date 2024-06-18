@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Twig\Components;
 
 use App\Entity\User;
@@ -50,12 +51,12 @@ class RegisterForm extends AbstractController
     public string $photoUploadError = '';
 
     public function __construct(
-        private readonly ValidatorInterface $validator,
+        private readonly ValidatorInterface                                $validator,
         private EmailVerifier                                              $emailVerifier,
         #[Autowire(env: 'RESET_PASSWORD_SUBJECT')] private readonly string $subject,
         #[Autowire(env: 'AUTH_CODE_SENDER_EMAIL')] string|null             $senderEmail,
         #[Autowire(env: 'AUTH_CODE_SENDER_NAME')] ?string                  $senderName = null,
-        )
+    )
     {
         $this->user = new User();
         if (null !== $senderEmail && null !== $senderName) {
@@ -72,7 +73,8 @@ class RegisterForm extends AbstractController
     }
 
     #[LiveAction]
-    public function updatePicturePreview(Request $request){
+    public function updatePicturePreview(Request $request)
+    {
         $this->photoUploadError = '';
         $file = $request->files->get('registration_form')['picture'];
         if ($file instanceof UploadedFile) {
@@ -111,6 +113,10 @@ class RegisterForm extends AbstractController
         $this->submitForm();
         $this->user = $this->getForm()->getData();
 
+        //Firstname & Lastname
+        $this->user->setFirstname($this->getForm()->get('firstname')->get('firstnameField')->getData());
+        $this->user->setLastname($this->getForm()->get('lastname')->get('lastnameField')->getData());
+
         // Mot de passe
         $this->user->setPassword(
             $userPasswordHasher->hashPassword(
@@ -120,7 +126,7 @@ class RegisterForm extends AbstractController
         );
 
         // Photo
-        if(!is_null($this->base64Photo) && !empty($this->base64Photo)) {
+        if (!is_null($this->base64Photo) && !empty($this->base64Photo)) {
             $this->user->setPhoto($this->base64Photo);
         }
 
@@ -130,10 +136,10 @@ class RegisterForm extends AbstractController
         // Si on est pas vendeur
         if (in_array($this->getForm()->get('function')->getData(), ['freemium', 'premium'])) {
             // Company champ libre
-            $this->user->setCompany($this->getForm()->get('company')->getData());
-            $this->user->setBusinessAddress($this->getForm()->get('companyAddress')->get('businessAddress')->getData());
-            $this->user->setPostalCode($this->getForm()->get('companyAddress')->get('postalCode')->getData());
-            $this->user->setCity($this->getForm()->get('companyAddress')->get('city')->getData());
+            $this->user->setCompany($this->getForm()->get('company')->get('companyField')->getData());
+            $this->user->setBusinessAddress($this->getForm()->get('businessAddress')->get('businessAddressField')->getData());
+            $this->user->setPostalCode($this->getForm()->get('postalCode')->get('postalCodeField')->getData());
+            $this->user->setCity($this->getForm()->get('city')->get('cityField')->getData());
         } else {
             // Il va falloir créer une entreprise
             $this->user->setBusinessAddress(null);
@@ -141,11 +147,11 @@ class RegisterForm extends AbstractController
             $this->user->setCity(null);
 
             $company = new Company();
-            $company->setName($this->getForm()->get('company')->getData());
-            $company->setBusinessAddress($this->getForm()->get('companyAddress')->get('businessAddress')->getData());
+            $company->setName($this->getForm()->get('company')->get('companyField')->getData());
+            $company->setBusinessAddress($this->getForm()->get('businessAddress')->get('businessAddressField')->getData());
             // ajout des champs city et postalCode
-            $company->setPostalCode($this->getForm()->get('companyAddress')->get('postalCode')->getData());
-            $company->setCity($this->getForm()->get('companyAddress')->get('city')->getData());
+            $company->setPostalCode($this->getForm()->get('postalCode')->get('postalCodeField')->getData());
+            $company->setCity($this->getForm()->get('city')->get('cityField')->getData());
             $company->setSiretNumber($this->getForm()->get('siretNumber')->getData());
             $company->setVatNumber($this->getForm()->get('vatNumber')->getData());
             $company->setOwner($this->user);
