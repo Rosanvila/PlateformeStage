@@ -52,6 +52,7 @@ class RegistrationFormType extends AbstractType
                     'French' => 'fr',
                     'English' => 'en',
                 ],
+                'empty_data' => 'fr',
             ])
             ->add('job', TextType::class, [
                 'label' => 'register.job',
@@ -93,6 +94,10 @@ class RegistrationFormType extends AbstractType
                 'mapped' => false,
                 'label' => 'register.picture_format',
                 'required' => false,
+                'attr' => [
+                    'data-action' =>"change->live#action:prevent",
+                    'data-live-action-param' => "files|updatePicturePreview",
+                ],
             ])
             ->add('agreeTerms', CheckboxType::class, [
                 'label' => new TranslatableMessage('register.accept_terms', ['%href%' => '#']),

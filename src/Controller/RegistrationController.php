@@ -3,18 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Entity\Company;
 use App\Form\RegistrationFormType;
 use App\Repository\UserRepository;
 use App\Security\EmailVerifier;
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mime\Address;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
@@ -38,100 +33,22 @@ class RegistrationController extends AbstractController
     }
 
     #[Route(
-        path: '/{_locale}/register',
+        path: '/register',
         name: 'app_register',
-        requirements: ['_locale' => '%app.supported_locales%']
     )]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, Security $security, EntityManagerInterface $entityManager, TranslatorInterface $translator): Response
+    public function register(): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
-        $form->handleRequest($request);
 
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-        $lastnameField = $form->get('lastname')->get('lastnameField')->getData();
-        $firstnameField = $form->get('firstname')->get('firstnameField')->getData();
-        $companyField = $form->get('company')->get('companyField')->getData();
-        $businessAddressField = $form->get('businessAddress')->get('businessAddressField')->getData();
-        $postalCodeField = $form->get('postalCode')->get('postalCodeField')->getData();
-        $cityField = $form->get('city')->get('cityField')->getData();
-
-        $user->setLastname($lastnameField);
-        $user->setFirstname($firstnameField);
-        $user->setCompany($companyField);
-        $user->setBusinessAddress($businessAddressField);
-        $user->setPostalCode($postalCodeField);
-        $user->setCity($cityField);
-
-            // Mot de passe
-            $user->setPassword(
-                $userPasswordHasher->hashPassword(
-                    $user,
-                    $form->get('plainPassword')->get('password')->getData()
-                )
-            );
-
-            // Photo
-            if (!is_null($form->get('picture')->getData())) {
-                $user->setPhoto(base64_encode($form->get('picture')->getData()->getContent()));
-            }
-
-            // Role
-            $user->addRole('ROLE_' . $form->get('function')->getData());
-
-            // Si on est pas vendeur
-            if (in_array($form->get('function')->getData(), ['freemium', 'premium'])) {
-                // Company champ libre
-                $user->setCompany($form->get('company')->getData());
-            } else {
-                // Il va falloir créer une entreprise
-                $user->setBusinessAddress(null);
-
-                $company = new Company();
-                $company->setName($form->get('company')->get('companyField')->getData());
-                $company->setBusinessAddress($form->get('businessAddress')->get('businessAddressField')->getData());
-                // ajout des champs city et postalCode
-                $company->setPostalCode($form->get('postalCode')->get('postalCodeField')->getData());
-                $company->setCity($form->get('city')->get('cityField')->getData());
-                $company->setSiretNumber($form->get('siretNumber')->getData());
-                $company->setVatNumber($form->get('vatNumber')->getData());
-                $company->setOwner($user);
-                $entityManager->persist($company);
-
-                $user->setVendorCompany($company);
-            }
-
-            $entityManager->persist($user);
-            $entityManager->flush();
-
-            $templatedEmail = (new TemplatedEmail())
-                ->to($user->getEmail())
-                ->subject($translator->trans('mailer.register.subject', [], 'messages'))
-                ->htmlTemplate('registration/confirmation_email.html.twig');
-
-            if (null !== $this->senderAddress) {
-                $templatedEmail->from($this->senderAddress);
-            }
-
-            // generate a signed url and email it to the user
-            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user, $templatedEmail
-            );
-
-            $locale = $user->getLanguage();
-            $security->login($user, 'form_login', 'main');
-            return $this->redirectToRoute('app_index', ['_locale' => $locale]);
-        }
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form,
         ]);
     }
 
-    #[Route(path: '/{_locale}/verify/email',
+    #[Route(path: '/verify/email',
         name: 'app_verify_email',
-        requirements: ['_locale' => '%app.supported_locales%']
     )]
     public function verifyUserEmail(Request $request, TranslatorInterface $translator, UserRepository $userRepository): Response
     {

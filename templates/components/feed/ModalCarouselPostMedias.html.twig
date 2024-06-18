@@ -1,0 +1,36 @@
+<div class="modal fade" tabindex="-1" id="{{ key }}">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body d-flex justify-content-center">
+        <div id="carouselPostMedia-{{ key }}" class="carousel slide w-50" data-bs-theme="dark">
+          <ol class="carousel-indicators">
+            {% for media in post.getPostMedias%}
+              <button type="button" data-bs-target="#carouselPostMedia-{{ key }}" data-bs-slide-to="{{ loop.index0 }}" class="{{ loop.first ? 'active' : '' }}" "{{ loop.first ? 'aria-current="true"' : '' }}"></button>
+            {% endfor %}
+          </ol>
+          <div class="carousel-inner">
+            {% for media in post.getPostMedias%}
+              <div class="carousel-item {{ loop.first ? 'active' : '' }}">
+                <img
+                    src="{{ media.getHtmlSrc }}"
+                    class="d-block w-100"
+                    alt="media">
+              </div>
+            {% endfor %}
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselPostMedia-{{ key }}" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselPostMedia-{{ key }}" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,1 @@
+import { Collapse, Carousel } from 'bootstrap';

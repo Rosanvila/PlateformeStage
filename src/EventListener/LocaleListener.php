@@ -4,9 +4,10 @@ namespace App\EventListener;
 
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
-use Symfony\Component\HttpKernel\Event\RequestEvent;
+use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class LocaleListener
 {
@@ -24,9 +25,10 @@ class LocaleListener
         $this->supportedLocales = $params->get('app.supported_locales');
     }
 
-    public function onKernelRequest(RequestEvent $event): void
+    public function onKernelController(ControllerEvent $event): void
     {
         $request = $event->getRequest();
+        $path = $request->getPathInfo();
 
         $token = $this->tokenStorage->getToken();
         if ($token) {
@@ -34,16 +36,17 @@ class LocaleListener
             $user = $this->userProvider->loadUserByIdentifier($email);
             if ($user) {
                 $locale = $user->getLanguage();
-            } else {
-                // Default language
-                $locale = $request->getPreferredLanguage(explode('|', $this->supportedLocales));
             }
 
-            $request->setLocale($locale);
-            $this->logger->info('Locale set to ' . $locale);
-        } else {
-            // If there is no token, set the locale to the default language
-            $request->setLocale($request->getPreferredLanguage(explode('|', $this->supportedLocales)));
+            if(!is_null($locale) && ($locale !== $request->getLocale())) {
+
+                $oldLocale = $request->getLocale();
+                $request->setLocale($locale);
+
+                $response = new RedirectResponse(str_replace($oldLocale, $locale, $path));
+                $response->send();
+            }
         }
+
     }
 }

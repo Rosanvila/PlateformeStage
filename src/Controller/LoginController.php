@@ -9,9 +9,8 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class LoginController extends AbstractController
 {
     #[Route(
-        path: '/{_locale}/login',
+        path: '/login',
         name: 'app_login',
-        requirements: ['_locale' => '%app.supported_locales%']
     )]
     public function index(AuthenticationUtils $authenticationUtils): Response
     {
@@ -29,9 +28,8 @@ class LoginController extends AbstractController
     }
 
     #[Route(
-        path: '/{_locale}/logout',
+        path: '/logout',
         name: 'app_logout',
-        requirements: ['_locale' => '%app.supported_locales%']
     )]
     public function logout()
     {

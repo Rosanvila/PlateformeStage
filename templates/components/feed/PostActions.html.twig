@@ -1,0 +1,20 @@
+<div {{ attributes }}>
+    <button
+        class="btn btn-link link-dark"
+        type="button"
+        data-bs-toggle="dropdown"
+        aria-expanded="false">
+        <twig:ux:icon name="ph:dots-three-bold"
+            height="24px"
+            width="24px"
+        />
+    </button>
+    <ul class="dropdown-menu">
+        <li>
+            <button
+                class="dropdown-item"
+                type="button"
+                data-action="live#action"
+                data-live-action-param="delete">{{ 'feed.delete'|trans }}</button></li>
+    </ul>
+</div>

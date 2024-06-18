@@ -26,8 +26,8 @@ class CompanyController extends AbstractController
         $this->companyFormHelper = $companyFormHelper;
     }
 
-    #[Route('/{_locale}/company/{id}', name: 'app_company',
-        requirements: ['_locale' => '%app.supported_locales%'])]
+    #[Route('/company/{id}',
+        name: 'app_company')]
     public function index(int $id, CompanyRepository $companyRepository): Response
     {
         $company = $companyRepository->find($id);
@@ -41,8 +41,8 @@ class CompanyController extends AbstractController
         ]);
     }
 
-    #[Route('/{_locale}/company/{id}/edit', name: 'app_company_edit',
-        requirements: ['_locale' => '%app.supported_locales%'],
+    #[Route('/company/{id}/edit',
+        name: 'app_company_edit',
         methods: ['GET', 'POST'])]
     public function edit(Request $request, Company $company, EntityManagerInterface $entityManager): Response
     {

@@ -1,0 +1,17 @@
+<div class="d-flex flex-row" {{ attributes }} data-controller="comment-input">
+    <div class="col-1 p-1 me-1 align-self-center">
+        <img src="{{ post.author.srcPhoto }}" class="rounded-circle img-fluid" alt="profile picture">
+    </div>
+    <div key="{{ 'commentInput-' ~ post.id }}" class="col p-1 me-1 align-self-center">
+        <input
+        data-model="content"
+        type="text"
+        id="{{ 'commentContent-' ~ post.id }}"
+        key="{{ 'commentContent-' ~ post.id }}"
+        class="form-control"
+        name="comment_content"
+        data-action="keydown.enter->live#action:prevent"
+        data-live-action-param="saveComment"
+        placeholder="{{ 'feed.comment'|trans }}">
+    </div>
+</div>

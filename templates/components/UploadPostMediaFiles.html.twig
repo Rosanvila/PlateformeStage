@@ -1,0 +1,24 @@
+<div class="container" {{ attributes }}>
+    <div class="form-group mb-3">
+        <input type="file" name="multiple[]" accept="image/png, image/gif, image/jpeg, image/bmp" autocomplete="off" multiple="" id="multiple-files" class="form-control-file">
+        <div class="form-text text-muted">Current files:
+        {% if multipleUploadFilenames %}
+        <ul>
+            {% for file in multipleUploadFilenames %}
+                <li>{{ file.filename }} ({{ file.size }} bytes)</li>
+            {% endfor %}
+        </ul>
+        {% else %}
+            (none)
+        {% endif %}
+        </div>
+        {% if multipleFileUploadError %}
+            <div class="invalid-feedback" style="display: block">{{ multipleFileUploadError }}</div>
+        {% endif %}
+    </div>
+    <button
+        data-action="live#action"
+        data-live-action-param="files|uploadFiles"
+        class="btn btn-primary"
+    >Upload files!</button>
+</div>
