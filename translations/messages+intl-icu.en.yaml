@@ -4,6 +4,10 @@ menu:
   contacts: Contacts
   events: Events
   my_account: My account
+  preferences: My profile
+  my_company: My company
+  my_company_edit: Edit my company
+  logout: Logout
 login:
   connexion: Connexion
   email_adress: Email address

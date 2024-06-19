@@ -1,6 +1,7 @@
 {% block javascripts %}
     <script type="module">
         import '{{ asset('js/menu.js') }}';
+        import '{{ asset('js/dropdown.js') }}';
     </script>
 {% endblock %}
 <header>
@@ -37,15 +38,35 @@
                             > {{ navItem.title|trans }} </a>
                         </li>
                     {% endfor %}
-                    <a href={% if is_granted('IS_AUTHENTICATED_FULLY') %}{{ path('app_preferences') }}{% else %}"#"{% endif %}
-                        {% if not is_granted('IS_AUTHENTICATED_FULLY') %} data-bs-toggle="modal" data-bs-target="#modalLogin" {% endif %}
-                        class="btn"
-                        role="button">
-                                    <span class="badge rounded-pill bg-light text-dark border border-dark pe-3 ps-2 d-flex align-items-center">
-                                        <twig:UX:Icon name="flowbite:user-solid" width="20px" height="20px"/>
-                                        {% if is_granted('IS_AUTHENTICATED_FULLY') %} {{ app.user.firstname ~ ' ' ~ app.user.lastname }} {% else %} {{ 'menu.my_account'|trans }} {% endif %}
-                                    </span>
-                    </a>
+                    <div class="dropdown align-self-center">
+                        <a role="button"
+                           class="badge rounded-pill bg-light text-dark border border-dark pe-3 ps-2 d-flex align-items-center"
+                           href="{% if is_granted('IS_AUTHENTICATED_FULLY') %}{{ path('app_preferences') }}{% else %}#"{% endif %}
+                                {% if not is_granted('IS_AUTHENTICATED_FULLY') %} data-bs-toggle="modal" data-bs-target="#modalLogin" {% endif %}
+                           id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                            <twig:UX:Icon name="flowbite:user-solid" width="20px" height="20px"/>
+                            {% if is_granted('IS_AUTHENTICATED_FULLY') %} {{ app.user.firstname ~ ' ' ~ app.user.lastname }} {% else %} {{ 'menu.my_account'|trans }} {% endif %}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                                <a class="dropdown-item"
+                                   href="{{ path('app_preferences') }}">{{ 'menu.preferences'|trans }}</a>
+                                {% if is_granted('ROLE_VENDOR') %}
+                                    <a class="dropdown-item"
+                                       href="{{ path('app_company', {'id': app.user.vendorCompany.id}) }}">
+                                        {{ 'menu.my_company'|trans }}
+                                    </a>
+                                    {% if app.user == app.user.vendorCompany.owner %}
+                                        <a class="dropdown-item"
+                                           href="{{ path('app_company_edit', {'id': app.user.vendorCompany.id}) }}">
+                                            {{ 'menu.my_company_edit'|trans }}
+                                        </a>
+                                    {% endif %}
+                                {% endif %}
+                                <a class="dropdown-item" href="{{ path('app_logout') }}">{{ 'menu.logout'|trans }}</a>
+                            {% endif %}
+                        </div>
+                    </div>
                 </ul>
             </div>
         </div>
