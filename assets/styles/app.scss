@@ -76,6 +76,10 @@
   width: 100%;
 }
 
+.account.dropdown-menu{
+  --bs-dropdown-min-width: 0 !important;
+}
+
 .account.dropdown-menu.show {
   --bs-border-radius-xl: 0 0 1rem 1rem !important;
   --bs-dropdown-spacer: 0rem !important;
