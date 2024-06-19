@@ -204,3 +204,6 @@ feed:
     create: Commencer un post
     post: Poster
     your_post: Votre post
+
+shop:
+  banner: Boutique
