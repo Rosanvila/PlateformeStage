@@ -11,10 +11,10 @@ class CompanyFormHelper
         'businessAddress' => 'businessAddressField',
         'postalCode' => 'postalCodeField',
         'city' => 'cityField',
-        'owner' => [
+        /*'owner' => [
             'firstname' => 'firstnameField',
             'lastname' => 'lastnameField'
-        ]
+        ]*/
     ];
 
     public function EditFormFields(FormInterface $form, Company $company): void

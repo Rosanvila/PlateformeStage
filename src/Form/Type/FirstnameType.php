@@ -18,12 +18,4 @@ class FirstnameType extends AbstractType
                 'attr' => ['placeholder' => 'register.firstname'],
             ]);
     }
-    //data_class is set to User because the form is used to update the User entity
-
-/*    public function configureOptions(OptionsResolver $resolver): void
-    {
-        $resolver->setDefaults([
-            'data_class' => User::class,
-        ]);
-    }*/
 }

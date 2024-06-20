@@ -37,11 +37,34 @@ class PreferencesController extends AbstractController
         $user = $this->getUser();
         $supportedLocales = $this->getParameter('app.supported_locales');
 
-        $preferencesForm = $this->createForm(PreferencesType::class);
+        $preferencesForm = $this->createForm(PreferencesType::class, $user);
         $changePasswordForm = $this->createForm(ChangePasswordFormType::class);
         $languagesForm = $this->createForm(LanguagesFormType::class, $user, [
             'supported_locales' => $supportedLocales
         ]);
+
+        // Preferences & Username form
+        $fields = ['firstname', 'lastname'];
+        // Set the data of the form fields
+        foreach ($fields as $field) {
+            $preferencesForm->get($field)->get($field . 'Field')->setData($user->{"get" . ucfirst($field)}());
+        }
+
+        $preferencesForm->handleRequest($request);
+        if ($preferencesForm->isSubmitted() && $preferencesForm->isValid()) {
+            $firstname = $preferencesForm->get('firstname')->get('firstnameField')->getData();
+            $lastname = $preferencesForm->get('lastname')->get('lastnameField')->getData();
+
+            $user->setFirstname($firstname);
+            $user->setLastname($lastname);
+
+            $this->entityManager->persist($user);
+            $this->entityManager->flush();
+
+            $this->addFlash('success', $this->translator->trans('preferences.update_success'));
+            return $this->redirectToRoute('app_preferences');
+        }
+
 
         // Language switch form
         $languagesForm->handleRequest($request);
