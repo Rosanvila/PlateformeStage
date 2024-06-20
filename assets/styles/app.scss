@@ -21,18 +21,18 @@
 }
 
 .btn-post-feed {
-  --bs-btn-color: rgba(0,0,0,.5);
+  --bs-btn-color: rgba(0, 0, 0, .5);
   --bs-btn-bg: #e5e5e5;
   --bs-btn-border-color: #e5e5e5;
-  --bs-btn-hover-color: rgba(0,0,0,.5);
+  --bs-btn-hover-color: rgba(0, 0, 0, .5);
   --bs-btn-hover-bg: #5c636a27;
   --bs-btn-hover-border-color: #5c636a27;
   --bs-btn-focus-shadow-rgb: 130, 138, 145;
-  --bs-btn-active-color: rgba(0,0,0,.5);
+  --bs-btn-active-color: rgba(0, 0, 0, .5);
   --bs-btn-active-bg: #565e64;
   --bs-btn-active-border-color: #51585e;
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color: rgba(0,0,0,.5);
+  --bs-btn-disabled-color: rgba(0, 0, 0, .5);
   --bs-btn-disabled-bg: #e5e5e5;
   --bs-btn-disabled-border-color: #e5e5e5;
 }
@@ -67,3 +67,22 @@
   color: #FFFFFF !important;
   background-color: #0b5ed7 !important;
 }
+
+.rounded-pill.show {
+  --bs-border-radius-pill: 1rem 1rem 0 0 !important;
+}
+
+.account {
+  width: 100%;
+}
+
+.account.dropdown-menu{
+  --bs-dropdown-min-width: 0 !important;
+}
+
+.account.dropdown-menu.show {
+  --bs-border-radius-xl: 0 0 1rem 1rem !important;
+  --bs-dropdown-spacer: 0rem !important;
+}
+
+
