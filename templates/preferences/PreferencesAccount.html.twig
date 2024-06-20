@@ -1,5 +1,30 @@
 <div class="card-body px-5">
     <h2 class="text-secondary fs-5">{{ app.user.email }}</h2>
+    {{ form_start(preferences_form) }}
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <div class="form-floating my-3">
+                {{ form_widget(form.firstname.firstnameField) }}
+                {{ form_label(form.firstname.firstnameField) }}
+                {{ form_errors(form.firstname.firstnameField) }}
+                {{ form_help(form.firstname.firstnameField) }}
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-floating my-3">
+                {{ form_widget(form.lastname.lastnameField) }}
+                {{ form_label(form.lastname.lastnameField) }}
+                {{ form_errors(form.lastname.lastnameField) }}
+                {{ form_help(form.lastname.lastnameField) }}
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-floating my-3">
+                {{ form_widget(form.submit) }}
+                {{ form_label(form.submit) }}
+            </div>
+        </div>
+    </div>
     <div class="row mt-4">
         <div class="col-md-6">
             <div class="d-flex flex-column gy-1">
@@ -39,6 +64,7 @@
                 {{ form_label(form.availability) }}
                 {{ form_widget(form.availability) }}
             </div>
+            {{ form_end(preferences_form) }}
         </div>
     </div>
 </div>

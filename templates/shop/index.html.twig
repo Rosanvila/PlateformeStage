@@ -1,7 +1,83 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ShopController!{% endblock %}
+{% block blueBanner %}
+    <div class="bg-primary">
+        <div class="container">
+            <h1 class="text-uppercase text-light fs-4 py-2">
+                {{ 'shop.banner' |trans }}
+            </h1>
+        </div>
+    </div>
+{% endblock %}
 
 {% block body %}
+    <div class="row">
+        <div class="col-md-3">
+            <div class="container d-flex flex-column m-2">
+                <div class="container d-flex flex-column bg-white mb-3 rounded-4 p-2">
+                    {% include './company/company_infos.html.twig' %}
+                </div>
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Solutions Online</h5>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><img src="https://via.placeholder.com/24" alt="Ep Icon">
+                                Endpoint
+                            </li>
+                            <li class="list-group-item"><img src="https://via.placeholder.com/24" alt="Fw Icon"> Réseau
+                            </li>
+                            <li class="list-group-item"><img src="https://via.placeholder.com/24" alt="Em Icon">
+                                Messagerie
+                            </li>
+                            <li class="list-group-item"><img src="https://via.placeholder.com/24" alt="CNS Icon"> Cloud
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+        <div class="col-md-6">
+            <div class="card mb-4 main-card">
+                <img src="https://via.placeholder.com/600x200" class="card-img-top" alt="Endpoint">
+                <div class="card-body">
+                        {{ form_start(form) }}
+                        {{ form_label(form.quantity) }}
+                        {{ form_widget(form.quantity) }}
+                        {{ form_label(form.duration) }}
+                        {{ form_widget(form.duration) }}
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra lacus
+                            ut
+                            purus euismod, quis vehicula est ultricies. Donec tincidunt eros eget purus aliquam, in
+                            efficitur urna malesuada. Suspendisse auctor interdum pharetra. Nam gravida faucibus nisl,
+                            ut
+                            interdum dolor pharetra a. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris
+                            pharetra lectus lobortis, fermentum ex ut, bibendum eros. Quisque tincidunt fringilla
+                            pellentesque. Etiam maximus, ex ut tincidunt mattis, ipsum libero volutpat ex, in semper
+                            elit
+                            felis vitae felis. In erat enim, volutpat eu urna a, volutpat efficitur massa. Mauris
+                            molestie
+                            felis at euismod ultricies. Nulla laoreet, neque quis aliquam suscipit, risus velit posuere
+                            nulla, a maximus orci tortor sed metus. Aliquam erat volutpat. Aenean elementum congue purus
+                            at
+                            interdum. Donec at sem nec ante consequat eleifend a vitae risus.</p>
+                        {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Panier</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">-</li>
+                        <li class="list-group-item">-</li>
+                        <li class="list-group-item">-</li>
+                    </ul>
+                    <p class="card-text mt-2">Total : </p>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

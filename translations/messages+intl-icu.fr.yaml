@@ -6,7 +6,7 @@ menu:
   my_account: Mon compte
   preferences: Mon profil
   my_company: Ma société
-  my_company_edit: Modifier ma société
+  my_company_edit: Gérer ma société
   logout: Déconnexion
 login:
   connexion: Connexion
@@ -146,6 +146,8 @@ preferences:
   email_mismatch_error: L'adresse e-mail ne correspond pas à nos enregistrements
   incorrect_password_error: Le mot de passe actuel est incorrect
   password_change_success: Votre mot de passe a été modifié avec succès
+  username: Modifier mes informations
+  update_success: Vos informations ont été mises à jour avec succès
 visibility:
   any_user: "Tout utilisateur"
   only_contacts: "Seulement les utilisateurs dans ma liste de contacts"
@@ -204,3 +206,6 @@ feed:
     create: Commencer un post
     post: Poster
     your_post: Votre post
+
+shop:
+  banner: Boutique

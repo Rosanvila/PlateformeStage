@@ -23,9 +23,9 @@ class CompanyEditType extends AbstractType
                 'required' => false,
                 'mapped' => false,
             ])
-            ->add('owner', UsernameEditFormType::class, [
+            /*->add('owner', UsernameEditFormType::class, [
                 'required' => false,
-            ])
+            ])*/
             ->add('name', CompanyNameType::class, [
                 'required' => false,
                 'mapped' => false,
