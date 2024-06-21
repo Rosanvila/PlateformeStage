@@ -1,0 +1,14 @@
+<div {{ attributes }}>
+    <div>
+        <input type="text"
+            class="form-control me-2 align-self-center"
+            placeholder="{{ 'menu.search'|trans }}"
+            aria-label="{{ 'menu.search'|trans }}"
+            data-model="query" />
+    </div>
+    <div>
+        {% if results|length > 0 %}
+            <twig:header:SearchResults results="{{ results }}" key="{{ 'searchResults-' ~ random()}}" />
+        {% endif %}
+    </div>
+</div>

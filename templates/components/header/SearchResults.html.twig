@@ -1,0 +1,20 @@
+{% props results = null %}
+<div {{ attributes }}>
+    <div class="dropdown d-flex">
+        <ul class="dropdown-menu d-flex" aria-labelledby="dropdownSearchResults">
+            {% if results|length > 0 %}
+                <div class="list-group">
+                    {% for resultItem in results['users'] %}
+                        <twig:Header:SearchResultItem key="{{ 'searchResultItem-' ~ random() }}" user="{{ resultItem }}"/>
+                    {% endfor %}
+                    {% if results['companies']|length > 0 and results['users']|length > 0 %}
+                        <hr class="dropdown-divider">
+                    {% endif %}
+                    {% for resultItem in results['companies'] %}
+                        <twig:Header:SearchResultItem key="{{ 'searchResultItem-' ~ random() }}" company="{{ resultItem }}"/>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </ul>
+    </div>
+</div>
