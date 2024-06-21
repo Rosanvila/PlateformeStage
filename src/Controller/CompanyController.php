@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -46,6 +47,14 @@ class CompanyController extends AbstractController
         methods: ['GET', 'POST'])]
     public function edit(Request $request, Company $company, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
+
+        // Check if the user is the owner of the company
+        if ($user !== $company->getOwner()) {
+            // If not, throw a 403 Access Denied exception
+            throw new AccessDeniedHttpException();
+        }
+
         $form = $this->createForm(CompanyEditType::class, $company);
 
         $form->handleRequest($request);
@@ -68,4 +77,3 @@ class CompanyController extends AbstractController
         ]);
     }
 }
-
