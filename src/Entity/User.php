@@ -106,12 +106,26 @@ class User implements UserInterface, TwoFactorEmailInterface, PasswordAuthentica
     #[ORM\OneToMany(targetEntity: PostComment::class, mappedBy: 'author')]
     private Collection $postsComments;
 
+    /**
+     * @var Collection<int, self>
+     */
+    #[ORM\ManyToMany(targetEntity: self::class, inversedBy: 'followers')]
+    private Collection $follows;
+
+    /**
+     * @var Collection<int, self>
+     */
+    #[ORM\ManyToMany(targetEntity: self::class, mappedBy: 'follows')]
+    private Collection $followers;
+
     public function __construct()
     {
         $this->companies = new ArrayCollection();
         $this->posts = new ArrayCollection();
         $this->postsLikes = new ArrayCollection();
         $this->postsComments = new ArrayCollection();
+        $this->follows = new ArrayCollection();
+        $this->followers = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -523,6 +537,57 @@ class User implements UserInterface, TwoFactorEmailInterface, PasswordAuthentica
             if ($postsComment->getAuthor() === $this) {
                 $postsComment->setAuthor(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, self>
+     */
+    public function getFollows(): Collection
+    {
+        return $this->follows;
+    }
+
+    public function addFollow(self $follow): static
+    {
+        if (!$this->follows->contains($follow)) {
+            $this->follows->add($follow);
+        }
+
+        return $this;
+    }
+
+    public function removeFollow(self $follow): static
+    {
+        $this->follows->removeElement($follow);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, self>
+     */
+    public function getFollowers(): Collection
+    {
+        return $this->followers;
+    }
+
+    public function addFollower(self $follower): static
+    {
+        if (!$this->followers->contains($follower)) {
+            $this->followers->add($follower);
+            $follower->addFollow($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFollower(self $follower): static
+    {
+        if ($this->followers->removeElement($follower)) {
+            $follower->removeFollow($this);
         }
 
         return $this;

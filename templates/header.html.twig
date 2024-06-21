@@ -5,28 +5,25 @@
 {% endblock %}
 <header>
     {% set _route = app.request.get('_route') %}
-    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-        {% set navItems =  [{'route': 'app_feed', 'title': 'menu.home'}] %}
-    {% else %}
-        {% set navItems =  [{'route': 'app_index', 'title': 'menu.home'}] %}
-    {% endif %}
-    {% set navItems =  navItems|merge([
-        {'route': 'app_search', 'title': 'menu.search'},
+    {% set navItems =  [
         {'route': 'app_contacts', 'title': 'menu.contacts'},
         {'route': 'app_events', 'title': 'menu.events'},
-    ]) %}
+        ]
+    %}
     <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            {% set logoPath =  'app_feed' %}
+        {% else %}
+            {% set logoPath =  'app_index' %}
+        {% endif %}
         <div class="container">
-            {% for navItem in navItems|filter(navItem => navItem.title == "menu.home") %}
-                <a class="navbar-brand" href="{{ path(navItem.route) }}">
-                    <img src="{{ asset('images/mysecu.png') }}" alt="logo" width="54" height="60">
-                </a>
-            {% endfor %}
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            <a class="navbar-brand" href="{{ path(logoPath) }}">
+                <img src="{{ asset('images/mysecu.png') }}" alt="logo" width="54" height="60">
+            </a>
+            {# Champ de recherche #}
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                <twig:Header:SearchInput attributes='{{ {class: "col-4 d-flex flex-column"} }}' />
+            {% endif %}
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     {% for navItem in navItems %}
