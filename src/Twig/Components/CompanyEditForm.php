@@ -81,7 +81,7 @@ class CompanyEditForm extends AbstractController
     {
         $errors = $this->validator->validate($singleFileUpload, [
             new Image([
-                'maxSize' => '5M',
+                'maxSize' => '2M',
                 'mimeTypes' => [
                     'image/png',
                     'image/jpeg',
