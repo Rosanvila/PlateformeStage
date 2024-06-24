@@ -56,14 +56,6 @@ class CompanyEditType extends AbstractType
                     'data-action' =>"change->live#action:prevent",
                     'data-live-action-param' => "files|updatePicturePreview",
                 ],
-                'constraints' => [
-                    new Image([
-                        'maxSize' => '5M',
-                        'maxSizeMessage' => 'edit.max_size',
-                        'mimeTypes' => ['image/jpeg', 'image/png'],
-                        'mimeTypesMessage' => 'edit.mime_types',
-                    ]),
-                ],
             ])
             ->add('save', SubmitType::class, [
                 'label' => 'edit.save',
