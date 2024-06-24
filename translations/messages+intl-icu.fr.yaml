@@ -173,8 +173,7 @@ edit:
   logo: Télécharger votre logo
   save: Enregistrer mes modifications
   success: Vos modifications ont été enregistrées
-  max_size: Taille maximale 2mo
-  mime_types: Format jpg ou png uniquement
+
 
 
 company:

@@ -195,8 +195,7 @@ edit:
   logo: Download a logo
   save: Save my changes
   success: Your changes have been saved
-  max_size: The file size must be less than 2MB
-  mime_types: The file must be in jpg or png format
+
 
 feed:
   num_of_comments: >-
