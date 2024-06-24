@@ -1,4 +1,4 @@
-<div {{ attributes.defaults(stimulus_controller('register')) }}>
+<div {{ attributes.defaults(stimulus_controller('picture_preview')) }}>
     {{ form_errors(form) }}
 
     {{ form_start(form, {
@@ -7,8 +7,7 @@
             'data-action': 'live#action:prevent',
             'data-live-action-param': 'save'
         }
-    }) 
-    }}
+    }) }}
 
     <div class="row mb-3 justify-content-between">
         <div class="gx-1 form-floating col-4">
@@ -29,8 +28,9 @@
             {{ form_errors(form.language) }}
             {{ form_help(form.language) }}
         </div>
-        <div class="gx-1 d-flex col-4">
-            <img class="form-control img-fluid" style="max-width: 30%; padding: 0" src="" alt="" id="picturePreview">
+        <div class="gx-1 d-flex col-4" >
+            <img class="form-control img-fluid" style="max-width: 30%; padding: 0;" src="" alt=""
+                 id="picturePreview">
             {{ form_widget(form.picture,{'attr': {'class': 'd-none'}}) }}
             {{ form_label(form.picture, null, {'label_attr': {'style': 'height: 100%', 'class': 'input-group-text ms-1'}}) }}
             {{ form_errors(form.picture) }}
