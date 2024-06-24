@@ -59,17 +59,6 @@ class CompanyController extends AbstractController
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $this->companyFormHelper->updateCompanyEntity($form, $company);
-
-            $entityManager->persist($company);
-            $entityManager->flush();
-
-            $this->addFlash('success', $this->translator->trans('edit.success'));
-
-            return $this->redirectToRoute('app_company', ['id' => $company->getId()]);
-        }
 
         return $this->render('company/edit.html.twig', [
             'company' => $company,

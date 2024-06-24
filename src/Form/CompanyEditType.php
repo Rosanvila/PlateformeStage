@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Image;
 
 class CompanyEditType extends AbstractType
 {
@@ -23,9 +24,6 @@ class CompanyEditType extends AbstractType
                 'required' => false,
                 'mapped' => false,
             ])
-            /*->add('owner', UsernameEditFormType::class, [
-                'required' => false,
-            ])*/
             ->add('name', CompanyNameType::class, [
                 'required' => false,
                 'mapped' => false,
@@ -50,10 +48,22 @@ class CompanyEditType extends AbstractType
                 ],
                 'required' => false,
             ])
-            ->add('logo', FileType::class, [
+            ->add('picture', FileType::class, [
                 'label' => 'edit.logo',
                 'mapped' => false,
                 'required' => false,
+                'attr' => [
+                    'data-action' =>"change->live#action:prevent",
+                    'data-live-action-param' => "files|updatePicturePreview",
+                ],
+                'constraints' => [
+                    new Image([
+                        'maxSize' => '5M',
+                        'maxSizeMessage' => 'edit.max_size',
+                        'mimeTypes' => ['image/jpeg', 'image/png'],
+                        'mimeTypesMessage' => 'edit.mime_types',
+                    ]),
+                ],
             ])
             ->add('save', SubmitType::class, [
                 'label' => 'edit.save',

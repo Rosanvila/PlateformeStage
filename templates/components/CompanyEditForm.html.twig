@@ -1,4 +1,4 @@
-<div {{ attributes }}>
+<div {{ attributes.defaults(stimulus_controller('picture_preview')) }}>
     <div class="card">
         <div class="card-header">
             <h3>Informations</h3>
@@ -6,28 +6,22 @@
         <div class="card-body">
             {{ form_errors(form) }}
 
-            {{ form_start(form) }}
+            {{ form_start(form, {
+                form: form ,
+                attr: {
+                    'data-action': 'live#action:prevent',
+                    'data-live-action-param': 'save'
+                }
+            }) }}
             <div class="row">
                 <div class="col-md-4 form-group my-3">
-{#                    <div class="form-floating my-3">
-                        {{ form_widget(form.owner.firstname.firstnameField) }}
-                        {{ form_label(form.owner.firstname.firstnameField) }}
-                        {{ form_errors(form.owner.firstname.firstnameField) }}
-                        {{ form_help(form.owner.firstname.firstnameField) }}
-                    </div>
-                    <div class="form-floating my-3">
-                        {{ form_widget(form.owner.lastname.lastnameField) }}
-                        {{ form_label(form.owner.lastname.lastnameField) }}
-                        {{ form_errors(form.owner.lastname.lastnameField) }}
-                        {{ form_help(form.owner.lastname.lastnameField) }}
-                    </div>#}
-                    <div class="form-floating my-3">
+                    <div class="form-floating mb-3">
                         {{ form_widget(form.businessAddress.businessAddressField) }}
                         {{ form_label(form.businessAddress.businessAddressField) }}
                         {{ form_errors(form.businessAddress.businessAddressField) }}
                         {{ form_help(form.businessAddress.businessAddressField) }}
                     </div>
-                    <div class="col-md-4 form-group my-3 d-flex w-auto align-items-center gap-5">
+                    <div class="col-md-4 form-group mb-3 d-flex w-auto align-items-center gap-5">
                         <div class="d-flex flex-column form-floating">
                             {{ form_widget(form.postalCode.postalCodeField) }}
                             {{ form_label(form.postalCode.postalCodeField) }}
@@ -43,7 +37,7 @@
                     </div>
                 </div>
                 <div class="col-md-4 form-group my-3">
-                    <div class="d-flex flex-column form-floating my-3">
+                    <div class="d-flex flex-column form-floating mb-3">
                         {{ form_widget(form.name.companyField) }}
                         {{ form_label(form.name.companyField) }}
                         {{ form_errors(form.name.companyField) }}
@@ -56,15 +50,13 @@
                         {{ form_help(form.about) }}
                     </div>
                 </div>
-                <div class="col-md-4 d-flex my-3 py-3" style="max-height: 5.5rem;">
+                <div class="col-md-4 d-flex my-3" style="max-height: 5.5rem;">
                     <img class="form-control img-fluid" style="max-width: 30%; padding: 0;" src="" alt=""
                          id="picturePreview">
-                    {{ form_widget(form.logo, {'attr': {'class': 'd-none'}}) }}
-                    {{ form_label(form.logo, null, {'label_attr': {'style': 'height: 100%', 'class': 'input-group-text ms-1'}}) }}
-                    {{ form_errors(form.logo) }}
-                    {#
-                    {{ form_help(form.logo) }}
-                    #}
+                    {{ form_widget(form.picture,{'attr': {'class': 'd-none'}}) }}
+                    {{ form_label(form.picture, null, {'label_attr': {'style': 'height: 100%', 'class': 'input-group-text ms-1'}}) }}
+                    {{ form_errors(form.picture) }}
+                    {{ form_help(form.picture) }}
                 </div>
             </div>
         </div>
