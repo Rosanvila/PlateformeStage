@@ -21,28 +21,20 @@ class CompanyRepository extends ServiceEntityRepository
         parent::__construct($registry, Company::class);
     }
 
-    //    /**
-    //     * @return Company[] Returns an array of Company objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('c')
-    //            ->andWhere('c.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('c.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    public function findSearchResults(string $queryStr, int $limit = null): array
+    {
+        $queryStr = strtolower($queryStr);
+        $qb = $this->createQueryBuilder('c')
+            ->where('LOWER(c.name) LIKE :queryStr')
+            ->setParameter('queryStr', '%'.$queryStr.'%')
+            ->orderBy('c.name', 'ASC');
 
-    //    public function findOneBySomeField($value): ?Company
-    //    {
-    //        return $this->createQueryBuilder('c')
-    //            ->andWhere('c.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+        if(!is_null($limit)) {
+            $qb->setMaxResults($limit);
+        }
+
+        $query = $qb->getQuery();
+
+        return $query->execute();
+    }
 }
