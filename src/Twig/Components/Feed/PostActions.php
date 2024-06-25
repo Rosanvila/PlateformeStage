@@ -48,21 +48,32 @@ class PostActions extends AbstractController
     #[LiveAction]
     public function delete(): RedirectResponse
     {
+        $currentUser = $this->security->getUser();
+
         // Si entité Post
-        if($this->post) {
-            foreach($this->post->getPostMedias() as $media) {
+        if ($this->post) {
+            // Si l'utilisateur connecté n'est pas l'auteur du post
+            if (!$currentUser->getPosts()->contains($this->post)) {
+                throw $this->createAccessDeniedException();
+            }
+
+            foreach ($this->post->getPostMedias() as $media) {
                 $this->entityManager->remove($media);
             }
-            
+
             $this->entityManager->remove($this->post);
             $this->entityManager->flush();
 
             $this->emit('post:deleted', [
                 'post' => $this->post->getId(),
             ]);
-        }
-        // Si entité Comment
+        } // Si entité Comment
         else if ($this->comment) {
+            // Si l'utilisateur connecté n'est pas l'auteur du commentaire
+            if ($currentUser !== $this->comment->getAuthor()) {
+                throw $this->createAccessDeniedException();
+            }
+
             $this->entityManager->remove($this->comment);
             $this->entityManager->flush();
 

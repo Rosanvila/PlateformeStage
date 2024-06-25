@@ -28,6 +28,12 @@ class PostRepository extends ServiceEntityRepository
             $query = $this->createQueryBuilder('p')
                         ->andWhere('p.author = :user')
                         ->setParameter('user', $user);
+
+            if ($user->getFollows()->count() > 0) {
+                $query = $query->orWhere('p.author IN (:follows)')
+                        ->setParameter('follows', $user->getFollows());
+            }
+
             if ($isCount) {
                 $query = $query->select('count(p.id)');
             }
@@ -36,8 +42,6 @@ class PostRepository extends ServiceEntityRepository
                 $query = $query->orderBy('p.creationDate', 'DESC');
             }
 
-            $query = $query->getQuery();
-
-           return $query;
+           return $query->getQuery();
        }
 }
