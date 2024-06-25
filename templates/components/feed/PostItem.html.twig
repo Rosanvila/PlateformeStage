@@ -22,7 +22,9 @@
                 </div>
                 {# Actions sur le post #}
                 <div class="col-1 d-flex flex-row justify-content-end pe-2">
-                    <twig:Feed:PostActions post="{{ item }}" key="{{ 'postActions-' ~ item.id }}"/>
+                    {% if app.user == item.author %}
+                        <twig:Feed:PostActions post="{{ item }}" key="{{ 'postActions-' ~ item.id }}"/>
+                    {% endif %}
                 </div>
             </div>
             {# Contenu du post #}
@@ -31,13 +33,13 @@
             </div>
             {# Médias du post #}
             <div class="d-flex flex-row col-8 align-self-center flex-wrap">
-                {% for media in item.getPostMedias%}
+                {% for media in item.getPostMedias %}
                     {% if loop.index == 6 and loop.length > 6 %}
                         <div class="col-4 p-1 d-flex align-items-center justify-content-center">
                                 <span
-                                    data-bs-toggle="modal"
-                                    data-bs-target="{{ '#modalCarouselPostMedias-' ~ item.id }}"
-                                    style="cursor: pointer;"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="{{ '#modalCarouselPostMedias-' ~ item.id }}"
+                                        style="cursor: pointer;"
                                 >
                                     {{ loop.length - (loop.index -1) }} more
                                 </span>
@@ -45,17 +47,18 @@
                     {% elseif loop.index <= 5 %}
                         <div class="d-flex col-4 p-1">
                             <img
-                                style="cursor: pointer;"
-                                src="{{ media.getHtmlSrc }}"
-                                class="img-thumbnail object-fit-cover"
-                                alt="media"
-                                data-bs-toggle="modal"
-                                data-bs-target="{{ '#modalCarouselPostMedias-' ~ item.id }}">
+                                    style="cursor: pointer;"
+                                    src="{{ media.getHtmlSrc }}"
+                                    class="img-thumbnail object-fit-cover"
+                                    alt="media"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="{{ '#modalCarouselPostMedias-' ~ item.id }}">
                         </div>
                     {% endif %}
                 {% endfor %}
                 {% if item.getPostMedias|length > 0 %}
-                    <twig:feed:ModalCarouselPostMedias post="{{ item }}" key="{{ 'modalCarouselPostMedias-' ~ item.id }}"/>
+                    <twig:feed:ModalCarouselPostMedias post="{{ item }}"
+                                                       key="{{ 'modalCarouselPostMedias-' ~ item.id }}"/>
                 {% endif %}
             </div>
             {# Statistiques du post #}
@@ -63,18 +66,19 @@
                 <div class="row d-flex flex-row border-bottom pt-2 pb-2">
                     <div class="col-2 d-flex flex-row align-items-center justify-content-start">
                         {% if likesCount > 0 %}
-                                <div class="me-2 p-1 rounded-circle border d-flex align-items-center border-primary bg-primary text-white">
-                                    <twig:ux:icon name="mdi:like" />
-                                </div>
-                                <div class="text-black-50">
-                                    {{ likesCount }}
-                                </div>
+                            <div class="me-2 p-1 rounded-circle border d-flex align-items-center border-primary bg-primary text-white">
+                                <twig:ux:icon name="mdi:like"/>
+                            </div>
+                            <div class="text-black-50">
+                                {{ likesCount }}
+                            </div>
                         {% endif %}
                     </div>
                     <div class="col-10 d-flex flex-row align-items-center justify-content-end">
                         {% if commentsCount > 0 %}
                             <div>
-                                <a class="link-secondary" data-bs-toggle="collapse" href="#collapse-comments-{{ item.id }}">
+                                <a class="link-secondary" data-bs-toggle="collapse"
+                                   href="#collapse-comments-{{ item.id }}">
                                     {{ commentsCount }} {{ 'feed.num_of_comments'|trans({'comments': commentsCount}) }}
                                 </a>
                             </div>
@@ -86,14 +90,16 @@
             <div class="row d-flex flex-row border-bottom pt-2 pb-2 justify-content-evenly">
                 <div class="col-6 d-flex flex-row align-items-center justify-content-center">
                     <button type="button"
-                        data-action="live#action"
-                        data-live-action-param="like"
-                        class="d-flex btn btn-outline-dark-light-hover border-0 align-items-center {{ isLikedByUser == true ? 'text-primary': '' }}">
+                            data-action="live#action"
+                            data-live-action-param="like"
+                            class="d-flex btn btn-outline-dark-light-hover border-0 align-items-center {{ isLikedByUser == true ? 'text-primary': '' }}">
                         <twig:ux:icon name="mdi:like-outline"/> &nbsp; {{ 'feed.like'|trans }}
                     </button>
                 </div>
                 <div class="col-6 d-flex flex-row align-items-center justify-content-center">
-                    <button type="button" data-bs-toggle="collapse" data-bs-target="#collapse-comments-{{ item.id }}" class="d-flex btn btn-outline-dark-light-hover border-0 align-items-center"><twig:ux:icon name="mdi:chat-bubble-outline" /> &nbsp; {{ 'feed.comment'|trans }}</button>
+                    <button type="button" data-bs-toggle="collapse" data-bs-target="#collapse-comments-{{ item.id }}"
+                            class="d-flex btn btn-outline-dark-light-hover border-0 align-items-center">
+                        <twig:ux:icon name="mdi:chat-bubble-outline"/> &nbsp; {{ 'feed.comment'|trans }}</button>
                 </div>
             </div>
             {# Liste des commentaires #}

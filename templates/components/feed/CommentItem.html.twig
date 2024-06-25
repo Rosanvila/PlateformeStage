@@ -22,7 +22,9 @@
                 </div>
                 {# Actions sur le commentaire #}
                 <div class="col-1 d-flex flex-row justify-content-end pe-2">
-                    <twig:Feed:PostActions comment="{{ item }}" key="{{ 'commentActions-' ~ item.id }}"/>
+                    {% if app.user == item.author %}
+                        <twig:Feed:PostActions comment="{{ item }}" key="{{ 'commentActions-' ~ item.id }}"/>
+                    {% endif %}
                 </div>
             </div>
             {# Contenu du post #}
