@@ -1,12 +1,22 @@
-<div class="modal fade" tabindex="-1" id="createPostModal" data-controller="feed-post-modal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <twig:Feed:FormCreatePost />
-      </div>
+<div class="modal modal-post-feed fade" tabindex="-1" id="createPostModal" data-controller="feed-post-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header border-bottom-0 pb-0 justify-content-center">
+                <div class="d-flex align-items-center flex-column">
+                    <div>
+                        <img src="{{ photo }}" class="img-post rounded-circle img-fluid" alt="profile picture">
+                    </div>
+                    <div class="col pt-3">
+                        {{ firstname }} {{ lastname }} <br>
+                        {{ job }} - {{ expertise|join(', ') }}
+                    </div>
+                    <button type="button" class="position-absolute btn-close" style="top: 1rem; right: 1rem"
+                            data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <twig:Feed:FormCreatePost/>
+            </div>
+        </div>
     </div>
-  </div>
 </div>

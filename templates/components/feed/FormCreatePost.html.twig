@@ -1,39 +1,33 @@
 <div {{ attributes }}>
-    <div class="row justify-content-center">
-        <div class="col">
-            <div class="mb-3 mt-3">
-                <textarea type="text" data-model="postContent" id="postContent" class="form-control {{ _errors.has('postContent') ? 'is-invalid' }}" name="postContent" placeholder="{{ 'feed.post.your_post'|trans }}" style="height: 100px"></textarea>
-                {# <label class="form-label" for="postContent">{{ 'feed.post.your_post'|trans }}</label> #}
+    <div class="row">
+        <div class="col mb-4">
+            <form>
+                <label class="form-label" for="postContent"></label>
+                <textarea type="text" data-model="postContent" id="postContent"
+                          class="form-control {{ _errors.has('postContent') ? 'is-invalid' }}"
+                          rows="5" name="postContent" placeholder="{{ 'feed.post.your_post'|trans }}"
+                          style="resize: none">
+                </textarea>
                 {% if _errors.has('postContent') %}
                     <div class="invalid-feedback">
                         {{ _errors.get('postContent') }}
                     </div>
                 {% endif %}
+            </form>
+            <div class="d-flex flex-column">
+                <twig:UploadPostMediaFiles/>
             </div>
         </div>
     </div>
-    <div class="row justify-content-start">
-        <div class="col-8 d-flex flex-column">
-            <div>
-                <button
-                    class="d-flex btn btn-outline-dark-light-hover border-0 align-items-center"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#mediaContent">
-                        <twig:ux:icon name="ant-design:picture-outlined" width="20px" height="20px"/>
-                </button>
-            </div>
-            <div class="collapse" id="mediaContent">
-                <twig:UploadPostMediaFiles />
-            </div>
-        </div>
-    </div>
+    {#    <div class="row justify-content-start"> #}
+    {# </div> #}
     <div class="row justify-content-end">
-        <div class="col-4">
+        <div class="col d-flex">
             <button
-                class="flex-fill  btn btn-mysecu"
-                data-action="click->live#action:prevent"
-                data-live-action-param="savePost">
-                    {{ 'feed.post.post'|trans }}
+                    class="flex-fill btn btn-mysecu fw-bold"
+                    data-action="click->live#action:prevent"
+                    data-live-action-param="savePost">
+                {{ 'feed.post.post'|trans }}
             </button>
         </div>
     </div>

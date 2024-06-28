@@ -1,4 +1,9 @@
-<twig:feed:ModalCreatePost />
+<twig:feed:ModalCreatePost
+photo="{{ app.user.getSrcPhoto }}"
+firstname="{{ app.user.firstname }}"
+lastname="{{ app.user.lastname }}"
+job="{{ app.user.job }}"
+expertise="{{ app.user.expertise }}"/>
 <div class="d-flex flex-row border-bottom p-2 mb-3">
   <div class="col-1 p-1 me-1">
     <img src="{{ photo }}" class="rounded-circle img-fluid" alt="profile picture">
