@@ -6,7 +6,7 @@
                 <textarea type="text" data-model="postContent" id="postContent"
                           class="form-control {{ _errors.has('postContent') ? 'is-invalid' }}"
                           rows="5" name="postContent" placeholder="{{ 'feed.post.your_post'|trans }}"
-                          style="resize: none">
+                          style="resize: none; border: none">
                 </textarea>
                 {% if _errors.has('postContent') %}
                     <div class="invalid-feedback">
@@ -14,21 +14,26 @@
                     </div>
                 {% endif %}
             </form>
-            <div class="d-flex flex-column">
-                <twig:UploadPostMediaFiles/>
+            <div class="row">
+                <div class="col-9">
+                    <twig:UploadPostMediaFiles/>
+                </div>
+                <div class="col-3 pt-2">
+                    <button
+                            class="flex-fill btn btn-mysecu fw-bold"
+                            data-action="click->live#action:prevent"
+                            data-live-action-param="savePost">
+                        {{ 'feed.post.post'|trans }}
+                    </button>
+                </div>
+
             </div>
         </div>
     </div>
     {#    <div class="row justify-content-start"> #}
     {# </div> #}
-    <div class="row justify-content-end">
+    {#    <div class="row justify-content-end">
         <div class="col d-flex">
-            <button
-                    class="flex-fill btn btn-mysecu fw-bold"
-                    data-action="click->live#action:prevent"
-                    data-live-action-param="savePost">
-                {{ 'feed.post.post'|trans }}
-            </button>
         </div>
-    </div>
+    </div> #}
 </div>
