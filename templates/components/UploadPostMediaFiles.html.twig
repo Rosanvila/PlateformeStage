@@ -1,32 +1,25 @@
 <div {{ attributes }}>
-    <label for="multiple-files" class="form-label" style="cursor: pointer">
-        <twig:ux:icon name="ant-design:picture-outlined" width="20px" height="20px" alt="Upload Files"/>
+    <label for="multiple-files" class="form-label mb-0"
+           style="cursor: pointer;">
+        <twig:ux:icon name="ant-design:picture-outlined" width="3rem" height="3rem"
+                      style="background-color: whitesmoke; padding: .5rem; border-radius: 50%;" alt="Upload Files"/>
     </label>
     <input type="file" name="multiple[]" accept="image/png, image/gif, image/jpeg, image/bmp" autocomplete="off"
-           multiple="" id="multiple-files" class="form-control-file d-none" data-action="live#action"
+           multiple="" id="multiple-files" class="form-control-file d-none"
+           data-action="change->live#action"
            data-live-action-param="files|uploadFiles">
-    <div class="form-group mb-3" id="fileList">
-        <div class="form-text text-muted">{#Current files:#}
-            {% if multipleUploadFilenames %}
+    {% if multipleUploadFilenames %}
+        <div class="form-group mb-3" id="fileList">
+            <div class="form-text text-muted">{# Current files: #}
                 <ul>
                     {% for file in multipleUploadFilenames %}
                         <li>{{ file.filename }} ({{ file.size }} bytes)</li>
                     {% endfor %}
                 </ul>
-            {% else %}
-{#
-                (none)
-#}
+            </div>
+            {% if multipleFileUploadError %}
+                <div class="invalid-feedback" style="display: block">{{ multipleFileUploadError }}</div>
             {% endif %}
         </div>
-        {% if multipleFileUploadError %}
-            <div class="invalid-feedback" style="display: block">{{ multipleFileUploadError }}</div>
-        {% endif %}
-        {#<button
-                data-action="live#action"
-                data-live-action-param="files|uploadFiles"
-                class="btn btn-primary"
-        >Upload files!
-        </button>#}
-    </div>
+    {% endif %}
 </div>
