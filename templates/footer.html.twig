@@ -1,0 +1,24 @@
+{% set _route = app.request.get('_route') %}
+    {% set footerLinks = [
+        {'route': 'app_legal', 'title': 'footer.legal'},
+        {'route': 'app_cookies', 'title': 'footer.cookies'},
+        {'route': 'app_cgu', 'title': 'footer.cgu'},
+        {'route': 'app_cgv', 'title': 'footer.cgv'},
+    ] %}
+<footer class="p-3 border-top border-white bg-dark">
+    <div class="container d-flex">
+        <div class="text-uppercase text-light p-2">
+            mysecu 2023
+        </div>
+        <ul class="d-flex flex-row mb-0 list-unstyled ms-auto flex-wrap">
+            {% for link in footerLinks %}
+                <li class="text-light p-2">
+                    <a class="text-light text-decoration-none text-reset {{ _route == link.route ? 'active' : '' }}"
+                            {#                                {% if not is_granted('IS_AUTHENTICATED_FULLY') %} data-bs-toggle="modal" data-bs-target="#modalLogin" href="#" {% else %}
+                                    href="{{ path(link.route) }}" {% endif %} #}
+                    >{{ link.title|trans }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</footer>
