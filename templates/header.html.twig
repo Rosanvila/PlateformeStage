@@ -23,6 +23,7 @@
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                 <twig:Header:SearchInput attributes='{{ {class: "col-4 d-flex flex-column"} }}'/>
             {% endif %}
+            {# Toggle en format mobile #}
             <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -51,7 +52,7 @@
                              aria-labelledby="dropdownMenuButton">
                             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                                 <a class="dropdown-item"
-                                   href="{{ path('app_preferences') }}">{{ 'menu.preferences'|trans }}</a>
+                                   href="{{ path('app_preferences') }}">{{ 'preferences.preferences'|trans }}</a>
                                 {% if is_granted('ROLE_VENDOR') %}
                                     <a class="dropdown-item"
                                        href="{{ path('app_company', {'id': app.user.vendorCompany.id}) }}">
