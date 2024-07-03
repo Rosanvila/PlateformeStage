@@ -208,6 +208,7 @@ feed:
     create: Commencer un post
     post: Poster
     your_post: Votre post
+  date_format: 'j F Y'
 
 shop:
   banner: Boutique

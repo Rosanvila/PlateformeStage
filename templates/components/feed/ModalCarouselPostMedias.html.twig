@@ -1,11 +1,11 @@
 <div class="modal fade" tabindex="-1" id="{{ key }}">
-  <div class="modal-dialog modal-xl">
+  <div class="modal-dialog modal-dialog-centered modal-xl">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header border-0">
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body d-flex justify-content-center">
-        <div id="carouselPostMedia-{{ key }}" class="carousel slide w-50" data-bs-theme="dark">
+        <div id="carouselPostMedia-{{ key }}" class="carousel slide w-75" data-bs-theme="dark">
           <ol class="carousel-indicators">
             {% for media in post.getPostMedias%}
               <button type="button" data-bs-target="#carouselPostMedia-{{ key }}" data-bs-slide-to="{{ loop.index0 }}" class="{{ loop.first ? 'active' : '' }}" "{{ loop.first ? 'aria-current="true"' : '' }}"></button>
