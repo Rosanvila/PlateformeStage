@@ -23,7 +23,7 @@ class LanguagesFormType extends AbstractType
                 'attr' => ['class' => 'form-select form-select-lg my-3'],
             ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Submit',
+                'label' => 'hello.submit',
                 'attr' => ['class' => 'btn btn-mysecu mt-3'],
             ]);
     }
