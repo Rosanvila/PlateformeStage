@@ -22,8 +22,8 @@ class PasswordConfirmType extends AbstractType
                     'toggle' => true,
                     'use_toggle_form_theme' => false,
                     'always_empty' => false,
-                    'hidden_label' => 'Hide',
-                    'visible_label' => 'Show',
+                    'hidden_label' => null,
+                    'visible_label' => null,
                     'attr' => [
                         'autocomplete' => 'new-password',
                     ],

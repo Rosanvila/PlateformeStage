@@ -35,8 +35,8 @@ class ChangePasswordFormType extends AbstractType
                 'toggle' => true,
                 'use_toggle_form_theme' => false,
                 'always_empty' => false,
-                'hidden_label' => 'Hide',
-                'visible_label' => 'Show',
+                'hidden_label' => null,
+                'visible_label' => null,
                 'required' => true,
                 'mapped' => false,
             ])
@@ -45,7 +45,7 @@ class ChangePasswordFormType extends AbstractType
             ])
             ->add('submit', SubmitType::class, [
                 'label' => $this->translator->trans('account_secu.validate'),
-                'attr' => ['class' => 'btn btn-mysecu'],
+                'attr' => ['class' => 'btn btn-mysecu mx-auto d-block w-100'],
             ]);
     }
 
