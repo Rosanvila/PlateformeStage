@@ -9,7 +9,7 @@
         {'route': 'app_contacts', 'title': 'menu.contacts'},
         {'route': 'app_events', 'title': 'menu.events'},
     ] %}
-    <nav class="navbar navbar-expand-sm navbar-light bg-dark">
+    <nav class="navbar navbar-expand-md navbar-light bg-dark">
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
             {% set logoPath =  'app_feed' %}
         {% else %}
