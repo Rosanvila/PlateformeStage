@@ -5,11 +5,14 @@
 
 {% block body %}
     <div class="container col-10">
-    <p class="text-light">
-        {{ 'reset_password.password_reset_email_sent'|trans({'%expiresAt%': resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, "ResetPasswordBundle") }) }}
-    </p>
-    <p class="text-light">
-        {{ 'reset_password.check_your_spam'|trans({'%href%': path('app_forgot_password_request') })|raw }}
-    </p>
+        <p class="text-light">
+            {{ 'reset_password.password_reset_email_sent'|trans({'%expiresAt%': resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, "ResetPasswordBundle") }) }}
+        </p>
+        <p class="text-light">
+            {{ 'reset_password.check_your_spam'|trans({'%href%': path('app_forgot_password_request') })|raw }}
+        </p>
     </div>
+{% endblock %}
+
+{% block footer %}
 {% endblock %}

@@ -4,28 +4,36 @@
 {% block title %}{{ 'reset_password.reset_your_password'|trans }}{% endblock %}
 
 {% block body %}
-    <div class="container col-4">
-        <h3>{{ 'reset_password.reset_your_password'|trans }}</h3>
+    <div class="container-fluid col-12 col-md-8 col-lg-6 col-xl-4 mt-5">
+        <div class="card">
+            <div class="card-body">
+                <h3>{{ 'reset_password.reset_your_password'|trans }}</h3>
 
-        {{ form_start(resetForm) }}
-            <div class="row form-floating mb-3">
-                {{ form_widget(resetForm.plainPassword.password.first) }}
-                {{ form_label(resetForm.plainPassword.password.first) }}
-                {{ form_errors(resetForm.plainPassword.password.first) }}
-                {{ form_help(resetForm.plainPassword.password.first) }}
-            </div>
+                {{ form_start(resetForm) }}
+                <div class="row form-floating mb-3">
+                    {{ form_widget(resetForm.plainPassword.password.first) }}
+                    {{ form_label(resetForm.plainPassword.password.first) }}
+                    {{ form_errors(resetForm.plainPassword.password.first) }}
+                    {{ form_help(resetForm.plainPassword.password.first) }}
+                </div>
 
-            <div class="row form-floating mb-3">
-                {{ form_widget(resetForm.plainPassword.password.second) }}
-                {{ form_label(resetForm.plainPassword.password.second) }}
-                {{ form_errors(resetForm.plainPassword.password.second) }}
-                {{ form_help(resetForm.plainPassword.password.second) }}
-            </div>
+                <div class="row form-floating mb-3">
+                    {{ form_widget(resetForm.plainPassword.password.second) }}
+                    {{ form_label(resetForm.plainPassword.password.second) }}
+                    {{ form_errors(resetForm.plainPassword.password.second) }}
+                    {{ form_help(resetForm.plainPassword.password.second) }}
+                </div>
                 <div class="row justify-content-center">
                     <div class="col-10 d-flex mb-3">
-                        <button type="submit" class="flex-fill btn btn-mysecu">{{ 'reset_password.reset_your_password'|trans }}</button>
+                        <button type="submit"
+                                class="flex-fill btn btn-mysecu">{{ 'reset_password.reset_your_password'|trans }}</button>
                     </div>
                 </div>
-        {{ form_end(resetForm) }}
+                {{ form_end(resetForm) }}
+            </div>
+        </div>
     </div>
+{% endblock %}
+
+{% block footer %}
 {% endblock %}
