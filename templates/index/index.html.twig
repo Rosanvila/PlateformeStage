@@ -24,7 +24,7 @@
         </div>
     </section>
     <section>
-        <div class="py-3 px-5 container-fluid d-flex justify-content-around bg-primary">
+        <div class="py-3 container-fluid d-flex justify-content-around bg-primary">
             <div class="text-center">
                 <img class="w-25 img-fluid" src="{{ asset('images/collaboration.png') }}" alt="Collaboration">
                 <p class="m-0 fw-medium mt-2">Collaboration</p>
@@ -42,180 +42,182 @@
     <section class="container mt-5">
         <h2 class="text-center text-primary text-uppercase">{{ 'index.subscription' |trans }}</h2>
         <p class="text-light text-center">{{ 'index.subs_txt' |trans }}</p>
-        <table class="table table-dark text-center mt-3">
-            <thead>
-            <tr>
-                <th class="border-0"></th>
-                <th class="text-uppercase text-primary fw-medium border-0">freemium</th>
-                <th class="text-uppercase text-primary fw-medium border-0">premium</th>
-                <th class="text-uppercase text-primary fw-medium border-0">vendors</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td class="text-start align-content-center fw-light">{{ 'table.free_events' |trans }}</td>
-                <td>
-                    <twig:ux:icon name="ic:round-check" width="40" height="40"/>
-                </td>
-                <td>
-                    <twig:ux:icon name="ic:round-check" width="40" height="40"/>
-                </td>
-                <td>
-                    <twig:ux:icon name="ic:round-check" width="40" height="40"/>
-                </td>
+        <div class="table-responsive">
+            <table class="table table-dark text-center mt-3">
+                <thead>
+                <tr>
+                    <th class="border-0"></th>
+                    <th class="text-uppercase text-primary fw-medium border-0">freemium</th>
+                    <th class="text-uppercase text-primary fw-medium border-0">premium</th>
+                    <th class="text-uppercase text-primary fw-medium border-0">vendors</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="text-start align-content-center fw-light">{{ 'table.free_events' |trans }}</td>
+                    <td>
+                        <twig:ux:icon name="ic:round-check" width="40" height="40"/>
+                    </td>
+                    <td>
+                        <twig:ux:icon name="ic:round-check" width="40" height="40"/>
+                    </td>
+                    <td>
+                        <twig:ux:icon name="ic:round-check" width="40" height="40"/>
+                    </td>
 
-            </tr>
-            <tr>
-                <td class="text-start align-content-center fw-light">{{ 'table.events' |trans }}</td>
-                <td>
-                    <twig:ux:icon name="charm:cross" width="40" height="40"/>
-                </td>
-                <td>
-                    <twig:ux:icon name="ic:round-check" width="40" height="40"/>
-                </td>
-                <td>
-                    <twig:ux:icon name="ic:round-check" width="40" height="40"/>
-                </td>
-            </tr>
-            <tr>
-                <td class="text-start align-content-center fw-light">{{ 'table.create_events' |trans }}</td>
-                <td>
-                    <twig:ux:icon name="charm:cross" width="40" height="40"/>
-                </td>
-                <td>
-                    <twig:ux:icon name="charm:cross" width="40" height="40"/>
-                </td>
-                <td>
-                    <twig:ux:icon name="ic:round-check" width="40" height="40"/>
-                </td>
-            </tr>
-            <tr>
-                <td class="text-start align-content-center fw-light">{{ 'table.profil_access' |trans }}</td>
-                <td>{{ 'table.consultation' |trans }}</td>
-                <td>
-                    <twig:ux:icon name="ic:round-check" width="40" height="40"/>
-                </td>
-                <td>
-                    <twig:ux:icon name="ic:round-check" width="40" height="40"/>
-                </td>
-            </tr>
-            <tr>
-                <td class="text-start align-content-center fw-light">{{ 'table.relation' |trans }}</td>
-                <td>{{ 'table.relation_limited' |trans }}</td>
-                <td>
-                    <twig:ux:icon name="ic:round-check" width="40" height="40"/>
-                </td>
-                <td>
-                    <twig:ux:icon name="ic:round-check" width="40" height="40"/>
-                </td>
-            </tr>
-            <tr>
-                <td class="text-start align-content-center fw-light">{{ 'table.chat' |trans }}</td>
-                <td>
-                    <twig:ux:icon name="charm:cross" width="40" height="40"/>
-                </td>
-                <td>
-                    <twig:ux:icon name="ic:round-check" width="40" height="40"/>
-                </td>
-                <td>
-                    <twig:ux:icon name="ic:round-check" width="40" height="40"/>
-                </td>
-            </tr>
-            <tr>
-                <td class="text-start align-content-center fw-light">{{ 'table.send_event' |trans }}</td>
-                <td>
-                    <twig:ux:icon name="charm:cross" width="40" height="40"/>
-                </td>
-                <td>
-                    <twig:ux:icon name="charm:cross" width="40" height="40"/>
-                </td>
-                <td>
-                    <twig:ux:icon name="ic:round-check" width="40" height="40"/>
-                </td>
-            </tr>
-            <tr>
-                <td class="text-start align-content-center fw-light">{{ 'table.events_react' |trans }}</td>
-                <td>
-                    <twig:ux:icon name="ic:round-check" width="40" height="40"/>
-                </td>
-                <td>
-                    <twig:ux:icon name="ic:round-check" width="40" height="40"/>
-                </td>
-                <td>
-                    <twig:ux:icon name="ic:round-check" width="40" height="40"/>
-                </td>
-            </tr>
-            <tr>
-                <td class="text-start align-content-center fw-light">{{ 'table.events_comment' |trans }}</td>
-                <td>
-                    <twig:ux:icon name="charm:cross" width="40" height="40"/>
-                </td>
-                <td>
-                    <twig:ux:icon name="ic:round-check" width="40" height="40"/>
-                </td>
-                <td>
-                    <twig:ux:icon name="ic:round-check" width="40" height="40"/>
-                </td>
-            </tr>
-            <tr>
-                <td class="text-start align-content-center fw-light">{{ 'table.events_moderation' |trans }}</td>
-                <td>
-                    <twig:ux:icon name="charm:cross" width="40" height="40"/>
-                </td>
-                <td>
-                    <twig:ux:icon name="charm:cross" width="40" height="40"/>
-                </td>
-                <td>
-                    <twig:ux:icon name="ic:round-check" width="40" height="40"/>
-                </td>
-            </tr>
-            <tr>
-                <td class="text-start align-content-center fw-light border-0">{{ 'table.profil_subs' |trans }}
-                    <br> {{ 'table.fees' |trans }}</td>
-                <td class="border-0 text-primary">0€<br>/</td>
-                <td class="border-0 text-primary text-uppercase">{{ 'table.premium_subs' |trans }}<br>/</td>
-                <td class="border-0 text-primary text-uppercase">{{ 'table.vendors_subs' |trans }}<br>
-                    <span class="text-light text-decoration-line-through">2500€</span>
-                    <span class="text-primary">1000€</span>
-                </td>
-            </tr>
-            <tr>
-                <td class="border-0"></td>
-                <td class="border-0">
-                    <a href="{{ path('app_register') }}"
-                       class="btn bg-light text-primary text-uppercase fw-bold py-2 px-4 rounded-5">
-                        {{ 'table.subs' |trans }}
-                    </a>
-                </td>
-                <td class="border-0">
-                    <a href="{{ path('app_register') }}"
-                       class="btn bg-light text-primary text-uppercase fw-bold py-2 px-4 rounded-5">
-                        {{ 'table.subs' |trans }}
-                    </a>
-                </td>
-                <td class="border-0">
-                    <a href="{{ path('app_register') }}"
-                       class="btn bg-light text-primary text-uppercase fw-bold py-2 px-4 rounded-5">
-                        {{ 'table.subs' |trans }}
-                    </a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+                </tr>
+                <tr>
+                    <td class="text-start align-content-center fw-light">{{ 'table.events' |trans }}</td>
+                    <td>
+                        <twig:ux:icon name="charm:cross" width="40" height="40"/>
+                    </td>
+                    <td>
+                        <twig:ux:icon name="ic:round-check" width="40" height="40"/>
+                    </td>
+                    <td>
+                        <twig:ux:icon name="ic:round-check" width="40" height="40"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-start align-content-center fw-light">{{ 'table.create_events' |trans }}</td>
+                    <td>
+                        <twig:ux:icon name="charm:cross" width="40" height="40"/>
+                    </td>
+                    <td>
+                        <twig:ux:icon name="charm:cross" width="40" height="40"/>
+                    </td>
+                    <td>
+                        <twig:ux:icon name="ic:round-check" width="40" height="40"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-start align-content-center fw-light">{{ 'table.profil_access' |trans }}</td>
+                    <td>{{ 'table.consultation' |trans }}</td>
+                    <td>
+                        <twig:ux:icon name="ic:round-check" width="40" height="40"/>
+                    </td>
+                    <td>
+                        <twig:ux:icon name="ic:round-check" width="40" height="40"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-start align-content-center fw-light">{{ 'table.relation' |trans }}</td>
+                    <td>{{ 'table.relation_limited' |trans }}</td>
+                    <td>
+                        <twig:ux:icon name="ic:round-check" width="40" height="40"/>
+                    </td>
+                    <td>
+                        <twig:ux:icon name="ic:round-check" width="40" height="40"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-start align-content-center fw-light">{{ 'table.chat' |trans }}</td>
+                    <td>
+                        <twig:ux:icon name="charm:cross" width="40" height="40"/>
+                    </td>
+                    <td>
+                        <twig:ux:icon name="ic:round-check" width="40" height="40"/>
+                    </td>
+                    <td>
+                        <twig:ux:icon name="ic:round-check" width="40" height="40"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-start align-content-center fw-light">{{ 'table.send_event' |trans }}</td>
+                    <td>
+                        <twig:ux:icon name="charm:cross" width="40" height="40"/>
+                    </td>
+                    <td>
+                        <twig:ux:icon name="charm:cross" width="40" height="40"/>
+                    </td>
+                    <td>
+                        <twig:ux:icon name="ic:round-check" width="40" height="40"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-start align-content-center fw-light">{{ 'table.events_react' |trans }}</td>
+                    <td>
+                        <twig:ux:icon name="ic:round-check" width="40" height="40"/>
+                    </td>
+                    <td>
+                        <twig:ux:icon name="ic:round-check" width="40" height="40"/>
+                    </td>
+                    <td>
+                        <twig:ux:icon name="ic:round-check" width="40" height="40"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-start align-content-center fw-light">{{ 'table.events_comment' |trans }}</td>
+                    <td>
+                        <twig:ux:icon name="charm:cross" width="40" height="40"/>
+                    </td>
+                    <td>
+                        <twig:ux:icon name="ic:round-check" width="40" height="40"/>
+                    </td>
+                    <td>
+                        <twig:ux:icon name="ic:round-check" width="40" height="40"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-start align-content-center fw-light">{{ 'table.events_moderation' |trans }}</td>
+                    <td>
+                        <twig:ux:icon name="charm:cross" width="40" height="40"/>
+                    </td>
+                    <td>
+                        <twig:ux:icon name="charm:cross" width="40" height="40"/>
+                    </td>
+                    <td>
+                        <twig:ux:icon name="ic:round-check" width="40" height="40"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-start align-content-center fw-light border-0">{{ 'table.profil_subs' |trans }}
+                        <br> {{ 'table.fees' |trans }}</td>
+                    <td class="border-0 text-primary">0€<br>/</td>
+                    <td class="border-0 text-primary text-uppercase">{{ 'table.premium_subs' |trans }}<br>/</td>
+                    <td class="border-0 text-primary text-uppercase">{{ 'table.vendors_subs' |trans }}<br>
+                        <span class="text-light text-decoration-line-through">2500€</span>
+                        <span class="text-primary">1000€</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="border-0"></td>
+                    <td class="border-0">
+                        <a href="{{ path('app_register') }}"
+                           class="btn bg-light text-primary text-uppercase fw-bold py-2 px-4 rounded-5">
+                            {{ 'table.subs' |trans }}
+                        </a>
+                    </td>
+                    <td class="border-0">
+                        <a href="{{ path('app_register') }}"
+                           class="btn bg-light text-primary text-uppercase fw-bold py-2 px-4 rounded-5">
+                            {{ 'table.subs' |trans }}
+                        </a>
+                    </td>
+                    <td class="border-0">
+                        <a href="{{ path('app_register') }}"
+                           class="btn bg-light text-primary text-uppercase fw-bold py-2 px-4 rounded-5">
+                            {{ 'table.subs' |trans }}
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </section>
     <section class="container-fluid mt-5">
         {# <h2 class="text-center text-hide">Nos Partenaires</h2> #}
         <div class="row text-center bg-light px-5">
-            <div class="col d-flex justify-content-center align-items-center py-5 mx-5">
+            <div class="col-5 col-md d-flex justify-content-center align-items-center py-3 mx-2 py-lg-4 mx-lg-4 mx-xl-5">
                 <img src="{{ asset('images/axicom.svg') }}" alt="Axicom" class="img-fluid">
             </div>
-            <div class="col d-flex justify-content-center align-items-center py-5 mx-5">
-                <img src="{{ asset('images/wanpulse.png') }}" alt="WanPulse" class="img-fluid"">
+            <div class="col-5 col-md d-flex justify-content-center align-items-center py-3 mx-2 py-lg-4 mx-lg-4 mx-xl-5">
+                <img src="{{ asset('images/wanpulse.png') }}" alt="WanPulse" class="img-fluid">
             </div>
-            <div class="col d-flex justify-content-center align-items-center py-5 mx-5">
-                <img src="{{ asset('images/scaleway.png') }}" alt="Scaleway" class="img-fluid"">
+            <div class="col-5 col-md d-flex justify-content-center align-items-center py-3 mx-2 py-lg-4 mx-lg-4 mx-xl-5">
+                <img src="{{ asset('images/scaleway.png') }}" alt="Scaleway" class="img-fluid">
             </div>
-            <div class="col d-flex justify-content-center align-items-center py-5 mx-5">
+            <div class="col-5 col-md d-flex justify-content-center align-items-center py-3 mx-2 py-lg-4 mx-lg-4 mx-xl-5">
                 <img src="{{ asset('images/itrust.jpg') }}" alt="ITrust" class="img-fluid">
             </div>
         </div>
@@ -229,7 +231,7 @@
             </div>
 
             <!-- Right column with the form -->
-            <div class="col-md-6">
+            <div class="col-md-6 mt-5 mt-md-0">
                 <h2 class="text-center d-none">Contact</h2>
                 {{ form_start(form, {'attr': {'class': 'text-center'}}) }}
                 <div class="row mb-3">
