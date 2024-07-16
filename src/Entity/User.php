@@ -118,6 +118,12 @@ class User implements UserInterface, TwoFactorEmailInterface, PasswordAuthentica
     #[ORM\ManyToMany(targetEntity: self::class, mappedBy: 'follows')]
     private Collection $followers;
 
+    /**
+     * @var Collection<int, Invitation>
+     */
+    #[ORM\OneToMany(targetEntity: Invitation::class, mappedBy: 'sender')]
+    private Collection $Invitations;
+
     public function __construct()
     {
         $this->companies = new ArrayCollection();
@@ -126,6 +132,7 @@ class User implements UserInterface, TwoFactorEmailInterface, PasswordAuthentica
         $this->postsComments = new ArrayCollection();
         $this->follows = new ArrayCollection();
         $this->followers = new ArrayCollection();
+        $this->Invitations = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -588,6 +595,27 @@ class User implements UserInterface, TwoFactorEmailInterface, PasswordAuthentica
     {
         if ($this->followers->removeElement($follower)) {
             $follower->removeFollow($this);
+        }
+
+        return $this;
+    }
+
+    public function addInvitation(Invitation $invitation): self
+    {
+        if (!$this->Invitations->contains($invitation)) {
+            $this->Invitations[] = $invitation;
+            $invitation->setSender($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInvitation(Invitation $invitation): self
+    {
+        if ($this->Invitations->removeElement($invitation)) {
+            if ($invitation->getSender() === $this) {
+                $invitation->setSender(null);
+            }
         }
 
         return $this;

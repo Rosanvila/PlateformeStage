@@ -152,6 +152,8 @@ preferences:
   password_change_success: Your password has been changed successfully
   username: Edit my information
   update_success: Your information has been updated successfully
+  vendor: Vendors
+  manage_vendor: Manage my collaborators
 visibility:
   any_user: "Any user"
   only_contacts: "Only users in my contact list"

@@ -1,0 +1,29 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th>{{ 'Emails'|trans }}</th>
+        <th>{{ 'Date d\'envoi'|trans }}</th>
+        <th>{{ 'Statut'|trans }}</th>
+        <th>{{ 'Actions'|trans }}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for invitation in invitations %}
+        <tr>
+            <td>{{ invitation.email }}</td>
+            <td>{{ invitation.dateEnvoi|date('d/m/Y') }}</td>
+            <td>{{ invitation.statut }}</td>
+            <td>
+                {% if invitation.statut == 'En attente' %}
+                    <button data-action="click->invite#resend">{{ 'Renvoyer'|trans }}</button>
+                    <button data-action="click->invite#delete">{{ 'Supprimer'|trans }}</button>
+                {% elseif invitation.statut == 'Acceptée' %}
+                    <button data-action="click->invite#deactivate">{{ 'Désactiver'|trans }}</button>
+                {% elseif invitation.statut == 'Désactivée' %}
+                    <button data-action="click->invite#reactivate">{{ 'Réactiver'|trans }}</button>
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

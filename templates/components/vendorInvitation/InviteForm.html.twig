@@ -1,0 +1,5 @@
+<form id="invite-form" {{ stimulus_controller('invite') }}>
+    <label for="invite_email">{{ 'email_de_invite'|trans }}</label>
+    <input type="email" id="invite_email" name="invite_email" required>
+    <button type="submit">{{ 'Inviter'|trans }}</button>
+</form>

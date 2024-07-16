@@ -29,6 +29,13 @@
                         type="button" role="tab" aria-controls="nav-subs" aria-selected="false">{{ 'preferences.subscription' |trans}}
                 </button>
             </li>
+            {% if app.user == app.user.vendorCompany.owner %}
+            <li class="nav-item" role="presentation">
+                <button class="preference nav-link text-light" id="nav-vendor-tab" data-bs-toggle="tab" data-bs-target="#nav-vendor"
+                        type="button" role="tab" aria-controls="nav-vendor" aria-selected="false">{{ 'preferences.vendor' |trans}}
+                </button>
+            </li>
+            {% endif %}
         </ul>
     </nav>
     <div class="tab-content" id="nav-tabContent">
@@ -44,6 +51,9 @@
         </div>
         <div class="tab-pane card" id="nav-subs" role="tabpanel" aria-labelledby="nav-subs-tab">
             {% include 'preferences/PreferencesSubscription.html.twig' %}
+        </div>
+        <div class="tab-pane card" id="nav-vendor" role="tabpanel" aria-labelledby="nav-vendor-tab">
+            {% include 'preferences/PreferencesVendor.html.twig' %}
         </div>
     </div>
 

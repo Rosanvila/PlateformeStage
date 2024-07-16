@@ -148,6 +148,8 @@ preferences:
   password_change_success: Votre mot de passe a été modifié avec succès
   username: Modifier mes informations
   update_success: Vos informations ont été mises à jour avec succès
+  vendor: Collaborateurs
+  manage_vendor: Gérer les collaborateurs
 visibility:
   any_user: "Tout utilisateur"
   only_contacts: "Seulement les utilisateurs dans ma liste de contacts"
