@@ -1,36 +1,50 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Service\Mailer;
 
-use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Email;
+use Symfony\Component\Mime\Address;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
+use App\Entity\Invitation;
 
-class InviteMailer
+final class InviteMailer
 {
-    private MailerInterface $mailer;
+    private Address|string|null $senderAddress;
 
-    public function __construct(MailerInterface $mailer)
-    {
-        $this->mailer = $mailer;
+    public function __construct(
+        private readonly TranslatorInterface $translator,
+        private readonly MailerInterface $mailer,
+        #[Autowire(env: 'AUTH_CODE_SUBJECT')] private readonly string $subject,
+        #[Autowire(env: 'AUTH_CODE_SENDER_EMAIL')] string|null $senderEmail,
+        #[Autowire(env: 'AUTH_CODE_SENDER_NAME')] ?string $senderName = null,
+    ) {
+        if (null !== $senderEmail && null !== $senderName) {
+            $this->senderAddress = new Address($senderEmail, $senderName);
+        } elseif (null !== $senderEmail) {
+            $this->senderAddress = $senderEmail;
+        }
     }
 
-
-    public function sendInvitation(string $email, string $token, string $companyName): void
+    public function sendInvitation(Invitation $invitation): void
     {
-        $inviteUrl = 'https://mysecu.com/accept-invitation?token=' . $token;
+        $message = (new TemplatedEmail())
+            ->to(new Address($invitation->getReceiverEmail()))
+            ->subject($invitation->getMessage())
+            ->htmlTemplate('emails/invitation.html.twig')
+            ->context([
+                'invitationCode' => $invitation->getToken(),
+            ]);
 
-        $email = (new Email())
-            ->from('noreplyinvitation@mysecu.com')
-            ->to($email)
-            ->subject('Invitation to join ' . $companyName)
-            ->html('<p>Click <a href="' . $inviteUrl . '">here</a> to join ' . $companyName . '</p>');
+        if (null !== $this->senderAddress) {
+            $message->from($this->senderAddress);
+        }
 
         try {
-            $this->mailer->send($email);
-        } catch (TransportExceptionInterface $e) {
-            // Gérer l'exception ici, par exemple, enregistrer un message d'erreur dans un fichier log
-            // ou notifier l'administrateur du système par un autre email ou un système de logging.
+            $this->mailer->send($message);
+        } catch (\Exception $e) {
+            throw new \RuntimeException('Unable to send email', 0, $e);
         }
     }
 }

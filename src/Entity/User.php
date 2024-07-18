@@ -600,6 +600,15 @@ class User implements UserInterface, TwoFactorEmailInterface, PasswordAuthentica
         return $this;
     }
 
+
+    /**
+     * @return Collection<int, self>
+     */
+
+    public function getInvitations(): Collection
+    {
+        return $this->Invitations;
+    }
     public function addInvitation(Invitation $invitation): self
     {
         if (!$this->Invitations->contains($invitation)) {

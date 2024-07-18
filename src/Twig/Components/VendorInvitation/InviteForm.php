@@ -2,56 +2,78 @@
 
 namespace App\Twig\Components\VendorInvitation;
 
-use App\Entity\Company;
 use App\Entity\Invitation;
+use App\Form\InviteVendorType;
 use App\Service\Mailer\InviteMailer;
-use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
+use Symfony\UX\LiveComponent\Attribute\LiveAction;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
+use Symfony\UX\LiveComponent\ComponentWithFormTrait;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\UX\LiveComponent\ComponentToolsTrait;
+use Symfony\Bundle\SecurityBundle\Security;
+use Doctrine\ORM\EntityManagerInterface;
 
-#[AsLiveComponent (template: 'components/vendorInvitation/inviteForm.html.twig')]
-class InviteForm
+#[AsLiveComponent(template: 'components/vendorInvitation/InviteForm.html.twig')]
+class InviteForm extends AbstractController
 {
     use DefaultActionTrait;
+    use ComponentWithFormTrait;
+    use ComponentToolsTrait;
 
-    #[LiveProp]
-    public string $inviteEmail = '';
-
-    private InviteMailer $mailer;
+    private InviteMailer $inviteMailer;
+    private Security $security;
     private EntityManagerInterface $entityManager;
 
-    public function __construct(InviteMailer $mailer, EntityManagerInterface $entityManager)
+    #[LiveProp]
+    public ?Invitation $initialFormData = null;
+
+    public function __construct(InviteMailer $inviteMailer, Security $security, EntityManagerInterface $entityManager)
     {
-        $this->mailer = $mailer;
+        $this->inviteMailer = $inviteMailer;
+        $this->security = $security;
         $this->entityManager = $entityManager;
     }
 
-    public function invite(Request $request): void
+    protected function instantiateForm(): FormInterface
     {
-        $email = $request->request->get('invite_email');
+        return $this->createForm(InviteVendorType::class, $this->initialFormData);
+    }
 
-        // Generate unique token
-        $token = uniqid();
+    #[LiveAction]
+    public function sendInvitation(EntityManagerInterface $entityManager): RedirectResponse
+    {
+        $this->submitForm();
 
-        // Get the company from the database
-        $company = $this->entityManager->getRepository(Company::class)->find();
 
-        // Create and save the invitation entity
-        $invitation = new Invitation();
-        $invitation->setSender($company->getOwner());
-        $invitation->setToken($token);
-        $invitation->setCompany($company);
-        $invitation->setStatus('En attente');
+        /** @var Invitation $invitation */
+        $invitation = $this->getForm()->getData();
+
+        $user = $this->security->getUser();
+        if (null === $user) {
+            throw new \RuntimeException('Unable to send invitation email');
+        }
+
+        $invitation->setSender($user);
+        $invitation->setCompany($user->getVendorCompany());
+        $invitation->setToken(uniqid());  // Generate a unique token
+        $invitation->setStatus('pending');
+        $invitation->setMessage('Please join our company');
         $invitation->setSentAt(new \DateTime());
 
         $this->entityManager->persist($invitation);
         $this->entityManager->flush();
 
-        // Send the invitation email
-        $this->mailer->sendInvitation($email, $token, 'Your Company Name');
-
-        // Optionally, you can flash a success message or handle errors
+        try {
+            $this->inviteMailer->sendInvitation($invitation);
+        } catch (\Exception $e) {
+            throw new \RuntimeException('Unable to send invitation email', 0, $e);
+        }
+        return $this->redirectToRoute('app_preferences', [
+            'id' => $invitation->getId(),
+        ]);
     }
 }

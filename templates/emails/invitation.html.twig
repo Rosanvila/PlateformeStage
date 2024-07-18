@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Bienvenue chez {{ companyName }}!</h1>
+    <p>Bonjour,</p>
+    <p>Nous sommes ravis de vous inviter à rejoindre notre société, {{ companyName }}. Nous pensons que votre expertise
+        et vos compétences seront un atout précieux pour notre équipe.</p>
+    <p>Pour accepter cette invitation, veuillez cliquer sur le lien ci-dessous :</p>
+    <p><a href="{{ invitationCode }}">Accepter l'invitation</a></p>
+    <p>Ce lien restera actif pendant 48 heures. Passé ce délai, il sera nécessaire de demander une nouvelle
+        invitation.</p>
+    <p>Si vous avez des questions ou si vous souhaitez discuter de cette opportunité avant de prendre votre décision,
+        n'hésitez pas à nous contacter.</p>
+    <p>Nous espérons vous accueillir bientôt parmi nous !</p>
+    <p>Cordialement,</p>
+    <p>L'équipe de {{ companyName }}</p>
+{% endblock %}
