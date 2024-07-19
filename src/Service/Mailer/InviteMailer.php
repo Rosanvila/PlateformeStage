@@ -14,12 +14,12 @@ final class InviteMailer
     private Address|string|null $senderAddress;
 
     public function __construct(
-        private readonly TranslatorInterface $translator,
-        private readonly MailerInterface $mailer,
-        #[Autowire(env: 'AUTH_CODE_SUBJECT')] private readonly string $subject,
+        private readonly TranslatorInterface                   $translator,
+        private readonly MailerInterface                       $mailer,
         #[Autowire(env: 'AUTH_CODE_SENDER_EMAIL')] string|null $senderEmail,
-        #[Autowire(env: 'AUTH_CODE_SENDER_NAME')] ?string $senderName = null,
-    ) {
+        #[Autowire(env: 'AUTH_CODE_SENDER_NAME')] ?string      $senderName = null,
+    )
+    {
         if (null !== $senderEmail && null !== $senderName) {
             $this->senderAddress = new Address($senderEmail, $senderName);
         } elseif (null !== $senderEmail) {
@@ -27,15 +27,19 @@ final class InviteMailer
         }
     }
 
+
     public function sendInvitation(Invitation $invitation): void
     {
-        $message = (new TemplatedEmail())
-            ->to(new Address($invitation->getReceiverEmail()))
-            ->subject($invitation->getMessage())
-            ->htmlTemplate('emails/invitation.html.twig')
-            ->context([
-                'invitationCode' => $invitation->getToken(),
-            ]);
+        $message = new TemplatedEmail();
+        $message
+            ->to($invitation->getReceiverEmail())
+            //->cc('cc@example.com')
+            //->bcc('bcc@example.com')
+            //->replyTo('fabien@example.com')
+            //->priority(Email::PRIORITY_HIGH)
+            ->subject('Time for Symfony Mailer!')
+            ->html('security/email/authcode.html.twig')
+            ;
 
         if (null !== $this->senderAddress) {
             $message->from($this->senderAddress);

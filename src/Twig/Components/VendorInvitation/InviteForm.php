@@ -44,10 +44,9 @@ class InviteForm extends AbstractController
     }
 
     #[LiveAction]
-    public function sendInvitation(EntityManagerInterface $entityManager): RedirectResponse
+    public function addInvite(EntityManagerInterface $entityManager): RedirectResponse
     {
         $this->submitForm();
-
 
         /** @var Invitation $invitation */
         $invitation = $this->getForm()->getData();
@@ -57,23 +56,25 @@ class InviteForm extends AbstractController
             throw new \RuntimeException('Unable to send invitation email');
         }
 
+        // Configuration de l'invitation
         $invitation->setSender($user);
         $invitation->setCompany($user->getVendorCompany());
-        $invitation->setToken(uniqid());  // Generate a unique token
+        $invitation->setToken(uniqid());  // Génération d'un token unique
         $invitation->setStatus('pending');
         $invitation->setMessage('Please join our company');
         $invitation->setSentAt(new \DateTime());
 
-        $this->entityManager->persist($invitation);
-        $this->entityManager->flush();
+        // Enregistrement dans la base de données
+        $entityManager->persist($invitation);
+        $entityManager->flush();
 
+        // Envoi de l'email d'invitation
         try {
             $this->inviteMailer->sendInvitation($invitation);
         } catch (\Exception $e) {
             throw new \RuntimeException('Unable to send invitation email', 0, $e);
         }
-        return $this->redirectToRoute('app_preferences', [
-            'id' => $invitation->getId(),
-        ]);
+
+        return $this->redirectToRoute('app_preferences', ['id' => $invitation->getId()]);
     }
 }
