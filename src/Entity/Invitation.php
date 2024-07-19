@@ -23,7 +23,7 @@ class Invitation
     private ?Company $company = null;
 
     #[ORM\Column(type: "string", length: 255, unique: true)]
-    private string $token;
+    private string $uuid;
 
     #[ORM\Column(type: "datetime")]
     private \DateTime $sentAt;
@@ -35,8 +35,6 @@ class Invitation
     #[ORM\Column(type: "string", length: 50)]
     private string $status;
 
-    #[ORM\Column(type: "string", length: 255)]
-    private string $message;
 
     public function __construct()
     {
@@ -68,14 +66,14 @@ class Invitation
         $this->company = $company;
     }
 
-    public function getToken(): string
+    public function getUuid(): string
     {
-        return $this->token;
+        return $this->uuid;
     }
 
-    public function setToken(string $token): void
+    public function setUuid(string $uuid): void
     {
-        $this->token = $token;
+        $this->uuid = $uuid;
     }
 
     public function getSentAt(): \DateTime
@@ -96,18 +94,6 @@ class Invitation
     public function setReceiverEmail(string $receiverEmail): void
     {
         $this->receiverEmail = $receiverEmail;
-    }
-
-
-
-    public function getMessage(): string
-    {
-        return $this->message;
-    }
-
-    public function setMessage(string $message): void
-    {
-        $this->message = $message;
     }
 
     public function getStatus(): string

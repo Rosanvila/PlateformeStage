@@ -30,23 +30,25 @@ final class InviteMailer
 
     public function sendInvitation(Invitation $invitation): void
     {
-        $message = new TemplatedEmail();
-        $message
-            ->to($invitation->getReceiverEmail())
+        $email = (new TemplatedEmail())
+            ->to(new Address($invitation->getReceiverEmail()))
             //->cc('cc@example.com')
             //->bcc('bcc@example.com')
             //->replyTo('fabien@example.com')
             //->priority(Email::PRIORITY_HIGH)
             ->subject('Time for Symfony Mailer!')
-            ->html('security/email/authcode.html.twig')
-            ;
+            ->htmlTemplate('emails/invitation.html.twig')
+            ->context([
+                'companyName' => $invitation->getCompany()->getName(),
+                'invitationLink' => 'https://votre-domaine.com/accepter-invitation?token=' . $invitation->getUuid(),
+            ]);
 
         if (null !== $this->senderAddress) {
-            $message->from($this->senderAddress);
+            $email->from($this->senderAddress);
         }
 
         try {
-            $this->mailer->send($message);
+            $this->mailer->send($email);
         } catch (\Exception $e) {
             throw new \RuntimeException('Unable to send email', 0, $e);
         }

@@ -8,6 +8,7 @@ use App\Service\Mailer\InviteMailer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Uid\Uuid;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveAction;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
@@ -59,9 +60,8 @@ class InviteForm extends AbstractController
         // Configuration de l'invitation
         $invitation->setSender($user);
         $invitation->setCompany($user->getVendorCompany());
-        $invitation->setToken(uniqid());  // Génération d'un token unique
+        $invitation->setUuid(Uuid::v7()->toRfc4122());
         $invitation->setStatus('pending');
-        $invitation->setMessage('Please join our company');
         $invitation->setSentAt(new \DateTime());
 
         // Enregistrement dans la base de données
@@ -75,6 +75,6 @@ class InviteForm extends AbstractController
             throw new \RuntimeException('Unable to send invitation email', 0, $e);
         }
 
-        return $this->redirectToRoute('app_preferences', ['id' => $invitation->getId()]);
+        return $this->redirectToRoute('app_preferences');
     }
 }
