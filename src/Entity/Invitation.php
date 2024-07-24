@@ -35,6 +35,9 @@ class Invitation
     #[ORM\Column(type: "string", length: 50)]
     private string $status;
 
+    #[ORM\Column(type: "boolean")]
+    private bool $isAccepted = false;
+
 
     public function __construct()
     {
@@ -104,5 +107,15 @@ class Invitation
     public function setStatus(string $status): void
     {
         $this->status = $status;
+    }
+
+    public function getIsAccepted(): bool
+    {
+        return $this->isAccepted;
+    }
+
+    public function setIsAccepted(bool $isAccepted): void
+    {
+        $this->isAccepted = $isAccepted;
     }
 }

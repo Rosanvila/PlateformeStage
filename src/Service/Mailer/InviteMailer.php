@@ -5,6 +5,7 @@ namespace App\Service\Mailer;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use App\Entity\Invitation;
@@ -13,13 +14,17 @@ final class InviteMailer
 {
     private Address|string|null $senderAddress;
 
+    private UrlGeneratorInterface $urlGenerator;
+
     public function __construct(
+        UrlGeneratorInterface                                  $urlGenerator,
         private readonly TranslatorInterface                   $translator,
         private readonly MailerInterface                       $mailer,
         #[Autowire(env: 'AUTH_CODE_SENDER_EMAIL')] string|null $senderEmail,
         #[Autowire(env: 'AUTH_CODE_SENDER_NAME')] ?string      $senderName = null,
     )
     {
+        $this->urlGenerator = $urlGenerator;
         if (null !== $senderEmail && null !== $senderName) {
             $this->senderAddress = new Address($senderEmail, $senderName);
         } elseif (null !== $senderEmail) {
@@ -30,17 +35,16 @@ final class InviteMailer
 
     public function sendInvitation(Invitation $invitation): void
     {
+        $invitationLink = $this->urlGenerator->generate('app_register_with_invitation', [
+            'token' => $invitation->getUuid(),
+        ], UrlGeneratorInterface::ABSOLUTE_URL);
         $email = (new TemplatedEmail())
             ->to(new Address($invitation->getReceiverEmail()))
-            //->cc('cc@example.com')
-            //->bcc('bcc@example.com')
-            //->replyTo('fabien@example.com')
-            //->priority(Email::PRIORITY_HIGH)
             ->subject('Time for Symfony Mailer!')
             ->htmlTemplate('emails/invitation.html.twig')
             ->context([
                 'companyName' => $invitation->getCompany()->getName(),
-                'invitationLink' => 'https://votre-domaine.com/accepter-invitation?token=' . $invitation->getUuid(),
+                'invitationLink' => $invitationLink,
             ]);
 
         if (null !== $this->senderAddress) {

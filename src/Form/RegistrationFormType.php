@@ -9,12 +9,14 @@ use App\Form\Type\CompanyNameType;
 use App\Form\Type\FirstnameType;
 use App\Form\Type\LastnameType;
 use App\Form\Type\PostalCodeType;
+use App\Repository\InvitationRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -30,8 +32,18 @@ use App\Form\Type\PasswordConfirmType;
 
 class RegistrationFormType extends AbstractType
 {
+    private RequestStack $requestStack;
+
+    public function __construct(RequestStack $requestStack, InvitationRepository $invitationRepository)
+    {
+        $this->requestStack = $requestStack;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $request = $this->requestStack->getCurrentRequest();
+        $token = $request->attributes->get('token');
+
         $builder = new DynamicFormBuilder($builder);
         $builder
             ->add('email', EmailType::class, [
@@ -95,7 +107,7 @@ class RegistrationFormType extends AbstractType
                 'label' => 'register.picture_format',
                 'required' => false,
                 'attr' => [
-                    'data-action' =>"change->live#action:prevent",
+                    'data-action' => "change->live#action:prevent",
                     'data-live-action-param' => "files|updatePicturePreview",
                 ],
             ])
@@ -133,14 +145,14 @@ class RegistrationFormType extends AbstractType
                 $field->add(SubmitType::class, $submitOptions);
             });
 
-        // Partie entreprise si vendor
-        $builder->addDependent('siretNumber', 'function', function (DependentField $field, ?string $function) {
-            if (in_array($function, ["freemium", "premium"]) || $function === null) {
-                return;
-            } else {
-                $field->add(NumberType::class, [
+
+        if ($token) {
+            $builder
+                ->add('siretNumber', NumberType::class, [
                     'label' => 'register.siretNumber',
-                    'attr' => ['placeholder' => 'siretNumber'],
+                    'attr' => [
+                        'placeholder' => 'siretNumber',
+                        'disabled' => true],
                     'mapped' => false,
                     'required' => true,
                     'constraints' => [
@@ -157,16 +169,12 @@ class RegistrationFormType extends AbstractType
                             'message' => 'Le numéro de SIRET ne peut contenir que des chiffres.',
                         ]),
                     ],
-                ]);
-            }
-        });
-        $builder->addDependent('vatNumber', 'function', function (DependentField $field, ?string $function) {
-            if (in_array($function, ["freemium", "premium"]) || $function === null) {
-                return;
-            } else {
-                $field->add(null, [
+                ])
+                ->add('vatNumber', TextType::class, [
                     'label' => 'register.vatNumber',
-                    'attr' => ['placeholder' => 'vatNumber'],
+                    'attr' => [
+                        'placeholder' => 'vatNumber',
+                        'disabled' => true],
                     'mapped' => false,
                     'required' => true,
                     'constraints' => [
@@ -179,8 +187,57 @@ class RegistrationFormType extends AbstractType
                         ]),
                     ]
                 ]);
-            }
-        });
+        } else {
+            // Partie entreprise si vendor
+            $builder->addDependent('siretNumber', 'function', function (DependentField $field, ?string $function) {
+                if (in_array($function, ["freemium", "premium"]) || $function === null) {
+                    return;
+                } else {
+                    $field->add(NumberType::class, [
+                        'label' => 'register.siretNumber',
+                        'attr' => ['placeholder' => 'siretNumber'],
+                        'mapped' => false,
+                        'required' => true,
+                        'constraints' => [
+                            new NotBlank([
+                                'message' => 'Le numéro de SIRET ne peut pas être vide.',
+                            ]),
+                            new Length([
+                                'min' => 14,
+                                'max' => 14,
+                                'exactMessage' => 'Le numéro de SIRET doit comporter exactement {{ limit }} chiffres.',
+                            ]),
+                            new Regex([
+                                'pattern' => '/^[0-9]*$/',
+                                'message' => 'Le numéro de SIRET ne peut contenir que des chiffres.',
+                            ]),
+                        ],
+                    ]);
+                }
+            });
+            $builder->addDependent('vatNumber', 'function', function (DependentField $field, ?string $function) {
+                if (in_array($function, ["freemium", "premium"]) || $function === null) {
+                    return;
+                } else {
+                    $field->add(null, [
+                        'label' => 'register.vatNumber',
+                        'attr' => ['placeholder' => 'vatNumber'],
+                        'mapped' => false,
+                        'required' => true,
+                        'constraints' => [
+                            new NotBlank([
+                                'message' => 'Le numéro de TVA ne peut pas être vide.',
+                            ]),
+                            new Regex([
+                                'pattern' => '/^FR[A-Z0-9]{2}[0-9]{9}$/',
+                                'message' => 'Le numéro de TVA doit suivre le format FRXX999999999.',
+                            ]),
+                        ]
+                    ]);
+                }
+            });
+        }
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void

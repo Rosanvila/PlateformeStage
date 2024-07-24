@@ -1,3 +1,6 @@
+{% extends 'security/email/base.html.twig' %}
+
+{% block body %}
 <h1>Bienvenue chez {{ companyName }}!</h1>
 <p>Bonjour,</p>
 <p>Nous sommes ravis de vous inviter à rejoindre notre société, {{ companyName }}. Nous pensons que votre expertise et
@@ -10,3 +13,4 @@
 <p>Nous espérons vous accueillir bientôt parmi nous !</p>
 <p>Cordialement,</p>
 <p>L'équipe de {{ companyName }}</p>
+{% endblock %}

@@ -2,10 +2,14 @@
 
 namespace App\Twig\Components;
 
+use App\Entity\Invitation;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
+use App\Repository\InvitationRepository;
+use App\Service\RegisterInvitation\PreFillFields;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveAction;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
@@ -37,7 +41,9 @@ class RegisterForm extends AbstractController
     private Address|string|null $senderAddress = '';
 
     private User $user;
-
+    private RequestStack $requestStack;
+    private InvitationRepository $invitationRepository;
+    private PreFillFields $PreFillFields;
     #[LiveProp()]
     public string $base64Photo = '';
 
@@ -56,9 +62,15 @@ class RegisterForm extends AbstractController
         #[Autowire(env: 'RESET_PASSWORD_SUBJECT')] private readonly string $subject,
         #[Autowire(env: 'AUTH_CODE_SENDER_EMAIL')] string|null             $senderEmail,
         #[Autowire(env: 'AUTH_CODE_SENDER_NAME')] ?string                  $senderName = null,
+        RequestStack                                                       $requestStack,
+        InvitationRepository                                               $invitationRepository,
+        PreFillFields                                                      $PreFillFields
     )
     {
         $this->user = new User();
+        $this->requestStack = $requestStack;
+        $this->invitationRepository = $invitationRepository;
+        $this->PreFillFields = $PreFillFields;
         if (null !== $senderEmail && null !== $senderName) {
             $this->senderAddress = new Address($senderEmail, $senderName);
         } elseif (null !== $senderEmail) {
@@ -66,10 +78,24 @@ class RegisterForm extends AbstractController
         }
     }
 
+    public function preFillForm(FormInterface $form, Invitation $invitation): void
+    {
+        $this->PreFillFields->invitationFillField($form, $invitation);
+    }
+
     protected function instantiateForm(): FormInterface
     {
-        // we can extend AbstractController to get the normal shortcuts
-        return $this->createForm(RegistrationFormType::class, $this->initialFormData);
+        $request = $this->requestStack->getCurrentRequest();
+        $token = $request->attributes->get('token');
+        $form = $this->createForm(RegistrationFormType::class, $this->initialFormData);
+
+        if ($token) {
+            $invitation = $this->invitationRepository->findOneBy(['uuid' => $token]);
+            if ($invitation) {
+                $this->PreFillForm($form, $invitation);
+            }
+        }
+        return $form;
     }
 
     #[LiveAction]

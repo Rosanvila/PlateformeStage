@@ -4,8 +4,11 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistrationFormType;
+use App\Repository\InvitationRepository;
 use App\Repository\UserRepository;
 use App\Security\EmailVerifier;
+use App\Service\RegisterInvitation\PreFillFields;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,8 +21,10 @@ use Symfony\Component\DependencyInjection\Attribute\Autowire;
 class RegistrationController extends AbstractController
 {
     private Address|string|null $senderAddress;
+    private PreFillFields $preFillFields;
 
     public function __construct(
+        PreFillFields                                                      $preFillFields,
         private EmailVerifier                                              $emailVerifier,
         #[Autowire(env: 'RESET_PASSWORD_SUBJECT')] private readonly string $subject,
         #[Autowire(env: 'AUTH_CODE_SENDER_EMAIL')] string|null             $senderEmail,
@@ -30,6 +35,7 @@ class RegistrationController extends AbstractController
         } elseif (null !== $senderEmail) {
             $this->senderAddress = $senderEmail;
         }
+        $this->preFillFields = $preFillFields;
     }
 
     #[Route(
@@ -44,6 +50,34 @@ class RegistrationController extends AbstractController
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form,
+        ]);
+    }
+
+    #[Route(path: '/register/{token}',
+        name: 'app_register_with_invitation',
+    )]
+    public function registerWithInvitation(string $token, InvitationRepository $invitationRepository, EntityManagerInterface $entityManager): Response
+    {
+        $invitation = $invitationRepository->findOneBy(['uuid' => $token]);
+
+        // Check if the invitation exists
+        if (!$invitation) {
+            throw $this->createNotFoundException('Invitation not found');
+        }
+
+        // Check if the invitation has already been accepted
+        if ($invitation->getIsAccepted() === true) {
+            throw $this->createAccessDeniedException('Invitation already accepted');
+        }
+
+        $user = new User();
+        $form = $this->createForm(RegistrationFormType::class, $user);
+
+        $this->preFillFields->invitationFillField($form, $invitation);
+
+        return $this->render('registration/register.html.twig', [
+            'registrationForm' => $form,
+            'invitation' => $invitation,
         ]);
     }
 
