@@ -41,9 +41,6 @@ class RegisterForm extends AbstractController
     private Address|string|null $senderAddress = '';
 
     private User $user;
-    private RequestStack $requestStack;
-    private InvitationRepository $invitationRepository;
-    private PreFillFields $PreFillFields;
     #[LiveProp()]
     public string $base64Photo = '';
 
@@ -62,20 +59,23 @@ class RegisterForm extends AbstractController
         #[Autowire(env: 'RESET_PASSWORD_SUBJECT')] private readonly string $subject,
         #[Autowire(env: 'AUTH_CODE_SENDER_EMAIL')] string|null             $senderEmail,
         #[Autowire(env: 'AUTH_CODE_SENDER_NAME')] ?string                  $senderName = null,
-        RequestStack                                                       $requestStack,
-        InvitationRepository                                               $invitationRepository,
-        PreFillFields                                                      $PreFillFields
+        private RequestStack                                               $requestStack,
+        private InvitationRepository                                       $invitationRepository,
+        private PreFillFields                                              $PreFillFields
     )
     {
         $this->user = new User();
-        $this->requestStack = $requestStack;
-        $this->invitationRepository = $invitationRepository;
-        $this->PreFillFields = $PreFillFields;
         if (null !== $senderEmail && null !== $senderName) {
             $this->senderAddress = new Address($senderEmail, $senderName);
         } elseif (null !== $senderEmail) {
             $this->senderAddress = $senderEmail;
         }
+    }
+
+    private function getInvitationFromToken(): ?Invitation
+    {
+        $token = $this->requestStack->getCurrentRequest()->attributes->get('token');
+        return $token ? $this->invitationRepository->findOneBy(['uuid' => $token]) : null;
     }
 
     public function preFillForm(FormInterface $form, Invitation $invitation): void
@@ -85,15 +85,10 @@ class RegisterForm extends AbstractController
 
     protected function instantiateForm(): FormInterface
     {
-        $request = $this->requestStack->getCurrentRequest();
-        $token = $request->attributes->get('token');
+        $invitation = $this->getInvitationFromToken();
         $form = $this->createForm(RegistrationFormType::class, $this->initialFormData);
-
-        if ($token) {
-            $invitation = $this->invitationRepository->findOneBy(['uuid' => $token]);
-            if ($invitation) {
-                $this->PreFillForm($form, $invitation);
-            }
+        if ($invitation) {
+            $this->PreFillForm($form, $invitation);
         }
         return $form;
     }
@@ -136,6 +131,8 @@ class RegisterForm extends AbstractController
     #[LiveAction]
     public function save(Request $request, UserPasswordHasherInterface $userPasswordHasher, Security $security, EntityManagerInterface $entityManager, TranslatorInterface $translator)
     {
+        $invitation = $this->getInvitationFromToken();
+
         $this->submitForm();
         $this->user = $this->getForm()->getData();
 
@@ -167,23 +164,42 @@ class RegisterForm extends AbstractController
             $this->user->setPostalCode($this->getForm()->get('postalCode')->get('postalCodeField')->getData());
             $this->user->setCity($this->getForm()->get('city')->get('cityField')->getData());
         } else {
-            // Il va falloir créer une entreprise
-            $this->user->setBusinessAddress(null);
-            $this->user->setPostalCode(null);
-            $this->user->setCity(null);
+            if ($invitation) {
 
-            $company = new Company();
-            $company->setName($this->getForm()->get('company')->get('companyField')->getData());
-            $company->setBusinessAddress($this->getForm()->get('businessAddress')->get('businessAddressField')->getData());
-            // ajout des champs city et postalCode
-            $company->setPostalCode($this->getForm()->get('postalCode')->get('postalCodeField')->getData());
-            $company->setCity($this->getForm()->get('city')->get('cityField')->getData());
-            $company->setSiretNumber($this->getForm()->get('siretNumber')->getData());
-            $company->setVatNumber($this->getForm()->get('vatNumber')->getData());
-            $company->setOwner($this->user);
-            $entityManager->persist($company);
+                $company = $invitation->getCompany();
 
-            $this->user->setVendorCompany($company);
+                $this->user->set('company')->get('companyField')->setData($company->getName());
+                $this->user->set('email')->setData($invitation->getReceiverEmail());
+                // Les champs pour le numéro de SIRET et de TVA ne sont pas enregistrés
+                // car non présents dans l'entité User.
+
+                // La présence de ces champs dans la vue du formulaire
+                // n'est qu'à titre indicatif pour le vendor invité.
+                $this->user->set('businessAddress')->get('businessAddressField')->setData($company->getBusinessAddress());
+                $this->user->set('postalCode')->get('postalCodeField')->setData($company->getPostalCode());
+                $this->user->set('city')->get('cityField')->setData($company->getCity());
+                $invitation->setIsAccepted(true);
+                $invitation->setStatus('accepted');
+            } else {
+
+                // Il va falloir créer une entreprise
+                $this->user->setBusinessAddress(null);
+                $this->user->setPostalCode(null);
+                $this->user->setCity(null);
+
+                $company = new Company();
+                $company->setName($this->getForm()->get('company')->get('companyField')->getData());
+                $company->setBusinessAddress($this->getForm()->get('businessAddress')->get('businessAddressField')->getData());
+                // ajout des champs city et postalCode
+                $company->setPostalCode($this->getForm()->get('postalCode')->get('postalCodeField')->getData());
+                $company->setCity($this->getForm()->get('city')->get('cityField')->getData());
+                $company->setSiretNumber($this->getForm()->get('siretNumber')->getData());
+                $company->setVatNumber($this->getForm()->get('vatNumber')->getData());
+                $company->setOwner($this->user);
+                $entityManager->persist($company);
+
+                $this->user->setVendorCompany($company);
+            }
         }
 
         $entityManager->persist($this->user);

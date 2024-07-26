@@ -14,6 +14,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -33,22 +34,27 @@ use App\Form\Type\PasswordConfirmType;
 class RegistrationFormType extends AbstractType
 {
     private RequestStack $requestStack;
+    private InvitationRepository $invitationRepository;
 
     public function __construct(RequestStack $requestStack, InvitationRepository $invitationRepository)
     {
         $this->requestStack = $requestStack;
+        $this->invitationRepository = $invitationRepository;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $request = $this->requestStack->getCurrentRequest();
         $token = $request->attributes->get('token');
+        $invitation = $token ? $this->invitationRepository->findOneBy(['uuid' => $token]) : null;
 
         $builder = new DynamicFormBuilder($builder);
         $builder
             ->add('email', EmailType::class, [
                 'label' => 'login.email_adress',
                 'attr' => ['placeholder' => 'email'],
+                'required' => true,
+                'disabled' => (bool)$invitation,
             ])
             ->add('lastname', LastnameType::class, [
                 'required' => true,
@@ -74,6 +80,7 @@ class RegistrationFormType extends AbstractType
             ->add('company', CompanyNameType::class, [
                 'required' => true,
                 'mapped' => false,
+                'disabled' => (bool)$invitation,
             ])
             ->add('expertise', ChoiceType::class, [
                 'choices' => [
@@ -93,14 +100,17 @@ class RegistrationFormType extends AbstractType
             ->add('businessAddress', BusinessAddressType::class, [
                 'required' => true,
                 'mapped' => false,
+                'disabled' => (bool)$invitation,
             ])
             ->add('city', CityType::class, [
                 'required' => true,
                 'mapped' => false,
+                'disabled' => (bool)$invitation,
             ])
             ->add('postalCode', PostalCodeType::class, [
                 'required' => true,
                 'mapped' => false,
+                'disabled' => (bool)$invitation,
             ])
             ->add('picture', FileType::class, [
                 'mapped' => false,
@@ -121,6 +131,7 @@ class RegistrationFormType extends AbstractType
             ->add('function', ChoiceType::class, [
                 'label' => 'register.function',
                 'mapped' => false,
+                'disabled' => (bool)$invitation,
                 'choices' => [
                     'Freemium' => "freemium",
                     'Premium' => "premium",
@@ -146,7 +157,7 @@ class RegistrationFormType extends AbstractType
             });
 
 
-        if ($token) {
+        if ($invitation) {
             $builder
                 ->add('siretNumber', NumberType::class, [
                     'label' => 'register.siretNumber',
@@ -237,7 +248,9 @@ class RegistrationFormType extends AbstractType
                 }
             });
         }
-
+     /*   if (!$invitation) {
+            dd($invitation);
+        }*/
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -247,15 +260,3 @@ class RegistrationFormType extends AbstractType
         ]);
     }
 }
-
-/*function buildForm(FormBuilderInterface $builder, array $options): void
-{
-    $builder = new DynamicFormBuilder($builder);
-
-    for ($i = 1; $i <= 5; $i++) {
-        $builder->add('vendor' . $i, EmailType::class, [
-            'label' => 'Vendor ' . $i,
-            'attr' => ['placeholder' => 'email'],
-        ]);
-    }
-}*/
