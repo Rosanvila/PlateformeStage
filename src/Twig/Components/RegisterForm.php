@@ -6,6 +6,7 @@ use App\Entity\Invitation;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Repository\InvitationRepository;
+use App\Service\RegisterInvitation\InvitationService;
 use App\Service\RegisterInvitation\PreFillFields;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
@@ -30,6 +31,7 @@ use Symfony\Component\Mime\Address;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use App\Security\EmailVerifier;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\UX\TwigComponent\Attribute\PostMount;
 
 #[AsLiveComponent]
 class RegisterForm extends AbstractController
@@ -54,6 +56,7 @@ class RegisterForm extends AbstractController
     public string $photoUploadError = '';
 
     public function __construct(
+        private InvitationService                                           $invitationService,
         private readonly ValidatorInterface                                $validator,
         private EmailVerifier                                              $emailVerifier,
         #[Autowire(env: 'RESET_PASSWORD_SUBJECT')] private readonly string $subject,
@@ -72,11 +75,6 @@ class RegisterForm extends AbstractController
         }
     }
 
-    private function getInvitationFromToken(): ?Invitation
-    {
-        $token = $this->requestStack->getCurrentRequest()->attributes->get('token');
-        return $token ? $this->invitationRepository->findOneBy(['uuid' => $token]) : null;
-    }
 
     public function preFillForm(FormInterface $form, Invitation $invitation): void
     {
@@ -85,10 +83,13 @@ class RegisterForm extends AbstractController
 
     protected function instantiateForm(): FormInterface
     {
-        $invitation = $this->getInvitationFromToken();
-        $form = $this->createForm(RegistrationFormType::class, $this->initialFormData);
-        if ($invitation) {
-            $this->PreFillForm($form, $invitation);
+        $this->invitationService->getInvitationFromSession();
+        $sessionInvitation = $this->invitationService->getInvitationFromSession();
+
+        $form = $this->createForm(RegistrationFormType::class, $this->initialFormData,
+            ['invitation' => $sessionInvitation]);
+        if ($sessionInvitation) {
+            $this->preFillForm($form, $sessionInvitation);
         }
         return $form;
     }
@@ -131,7 +132,8 @@ class RegisterForm extends AbstractController
     #[LiveAction]
     public function save(Request $request, UserPasswordHasherInterface $userPasswordHasher, Security $security, EntityManagerInterface $entityManager, TranslatorInterface $translator)
     {
-        $invitation = $this->getInvitationFromToken();
+
+        $invitation = $this->invitationService->getInvitationFromSession();
 
         $this->submitForm();
         $this->user = $this->getForm()->getData();
@@ -168,16 +170,17 @@ class RegisterForm extends AbstractController
 
                 $company = $invitation->getCompany();
 
-                $this->user->set('company')->get('companyField')->setData($company->getName());
-                $this->user->set('email')->setData($invitation->getReceiverEmail());
+                $this->user->setBusinessAddress($company->getBusinessAddress());
+                $this->user->setPostalCode($company->getPostalCode());
+                $this->user->setCity($company->getCity());
+                $this->user->setCompany($company->getName());
+                $this->user->setEmail($invitation->getReceiverEmail());
+                $this->user->setVendorCompany($company);
                 // Les champs pour le numéro de SIRET et de TVA ne sont pas enregistrés
                 // car non présents dans l'entité User.
-
                 // La présence de ces champs dans la vue du formulaire
                 // n'est qu'à titre indicatif pour le vendor invité.
-                $this->user->set('businessAddress')->get('businessAddressField')->setData($company->getBusinessAddress());
-                $this->user->set('postalCode')->get('postalCodeField')->setData($company->getPostalCode());
-                $this->user->set('city')->get('cityField')->setData($company->getCity());
+
                 $invitation->setIsAccepted(true);
                 $invitation->setStatus('accepted');
             } else {
@@ -219,6 +222,8 @@ class RegisterForm extends AbstractController
         );
 
         $security->login($this->user, 'form_login', 'main');
+        $this->invitationService->clearInvitationFromSession();
+
         return $this->redirectToRoute('app_index');
 
     }

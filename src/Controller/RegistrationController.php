@@ -7,6 +7,7 @@ use App\Form\RegistrationFormType;
 use App\Repository\InvitationRepository;
 use App\Repository\UserRepository;
 use App\Security\EmailVerifier;
+use App\Service\RegisterInvitation\InvitationService;
 use App\Service\RegisterInvitation\PreFillFields;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,6 +25,7 @@ class RegistrationController extends AbstractController
     private PreFillFields $preFillFields;
 
     public function __construct(
+        private InvitationService                                          $invitationService,
         PreFillFields                                                      $preFillFields,
         private EmailVerifier                                              $emailVerifier,
         #[Autowire(env: 'RESET_PASSWORD_SUBJECT')] private readonly string $subject,
@@ -53,33 +55,35 @@ class RegistrationController extends AbstractController
         ]);
     }
 
-    #[Route(path: '/register/{token}',
-        name: 'app_register_with_invitation',
-    )]
+    #[Route(path: '/register/{token}', name: 'app_register_with_invitation')]
     public function registerWithInvitation(string $token, InvitationRepository $invitationRepository, EntityManagerInterface $entityManager): Response
     {
         $invitation = $invitationRepository->findOneBy(['uuid' => $token]);
 
-        // Check if the invitation exists
         if (!$invitation) {
             throw $this->createNotFoundException('Invitation not found');
         }
 
-        // Check if the invitation has already been accepted
-        if ($invitation->getIsAccepted() === true) {
+        if ($invitation->getIsAccepted()) {
             throw $this->createAccessDeniedException('Invitation already accepted');
         }
 
+        $this->invitationService->setInvitationToSession($invitation);
+
         $user = new User();
-        $form = $this->createForm(RegistrationFormType::class, $user);
+        $form = $this->createForm(RegistrationFormType::class, $user,
+            [
+                'invitation' => $invitation,
+            ]);
 
         $this->preFillFields->invitationFillField($form, $invitation);
 
         return $this->render('registration/register.html.twig', [
-            'registrationForm' => $form,
+            'registrationForm' => $form->createView(),
             'invitation' => $invitation,
         ]);
     }
+
 
     #[Route(path: '/verify/email',
         name: 'app_verify_email',
