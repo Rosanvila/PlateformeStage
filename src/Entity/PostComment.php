@@ -21,7 +21,7 @@ class PostComment
     #[ORM\JoinColumn(nullable: false)]
     private ?Post $post = null;
 
-    #[ORM\Column(length: 65535)]
+    #[ORM\Column(length: 450)]
     private ?string $content = null;
 
     #[ORM\Column]
