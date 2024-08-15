@@ -29,7 +29,7 @@
                         type="button" role="tab" aria-controls="nav-subs" aria-selected="false">{{ 'preferences.subscription' |trans}}
                 </button>
             </li>
-            {% if app.user == app.user.vendorCompany.owner %}
+            {% if app.user.vendorCompany is not null %}
             <li class="nav-item" role="presentation">
                 <button class="preference nav-link text-light" id="nav-vendor-tab" data-bs-toggle="tab" data-bs-target="#nav-vendor"
                         type="button" role="tab" aria-controls="nav-vendor" aria-selected="false">{{ 'preferences.vendor' |trans}}
