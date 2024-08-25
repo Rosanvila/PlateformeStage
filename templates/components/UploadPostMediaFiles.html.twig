@@ -17,9 +17,9 @@
                     {% endfor %}
                 </ul>
             </div>
-            {% if multipleFileUploadError %}
-                <div class="invalid-feedback" style="display: block">{{ multipleFileUploadError }}</div>
-            {% endif %}
         </div>
+    {% endif %}
+    {% if multipleFileUploadError %}
+        <div class="invalid-feedback" style="display: block">{{ multipleFileUploadError }}</div>
     {% endif %}
 </div>
