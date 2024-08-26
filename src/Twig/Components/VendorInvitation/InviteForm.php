@@ -32,6 +32,9 @@ class InviteForm extends AbstractController
     #[LiveProp]
     public ?Invitation $initialFormData = null;
 
+    #[LiveProp]
+    public bool $emailSent = false;
+
     public function __construct(InviteMailer $inviteMailer, Security $security, EntityManagerInterface $entityManager)
     {
         $this->inviteMailer = $inviteMailer;
@@ -45,7 +48,7 @@ class InviteForm extends AbstractController
     }
 
     #[LiveAction]
-    public function addInvite(EntityManagerInterface $entityManager): RedirectResponse
+    public function addInvite(EntityManagerInterface $entityManager): void
     {
         $this->submitForm();
 
@@ -71,10 +74,9 @@ class InviteForm extends AbstractController
         // Envoi de l'email d'invitation
         try {
             $this->inviteMailer->sendInvitation($invitation);
+            $this->emailSent = true;
         } catch (\Exception $e) {
             throw new \RuntimeException('Unable to send invitation email', 0, $e);
         }
-
-        return $this->redirectToRoute('app_preferences');
     }
 }

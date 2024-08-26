@@ -7,4 +7,10 @@
         {{ form_row(form.receiverEmail) }}
     </div>
     {{ form_end(form) }}
+
+    {% if emailSent %}
+        <div class="alert alert-success" role="alert">
+            L'invitation a été envoyée avec succès !
+        </div>
+    {% endif %}
 </div>
