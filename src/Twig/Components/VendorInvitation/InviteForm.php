@@ -7,7 +7,6 @@ use App\Form\InviteVendorType;
 use App\Service\Mailer\InviteMailer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Uid\Uuid;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveAction;
@@ -21,9 +20,7 @@ use Doctrine\ORM\EntityManagerInterface;
 #[AsLiveComponent(template: 'components/vendorInvitation/InviteForm.html.twig')]
 class InviteForm extends AbstractController
 {
-    use DefaultActionTrait;
-    use ComponentWithFormTrait;
-    use ComponentToolsTrait;
+    use DefaultActionTrait, ComponentWithFormTrait, ComponentToolsTrait;
 
     private InviteMailer $inviteMailer;
     private Security $security;
@@ -51,27 +48,22 @@ class InviteForm extends AbstractController
     public function addInvite(EntityManagerInterface $entityManager): void
     {
         $this->submitForm();
-
-        /** @var Invitation $invitation */
         $invitation = $this->getForm()->getData();
-
         $user = $this->security->getUser();
-        if (null === $user) {
+
+        if (!$user) {
             throw new \RuntimeException('Unable to send invitation email');
         }
 
-        // Configuration de l'invitation
         $invitation->setSender($user);
         $invitation->setCompany($user->getVendorCompany());
         $invitation->setUuid(Uuid::v7()->toRfc4122());
         $invitation->setStatus('pending');
         $invitation->setSentAt(new \DateTime());
 
-        // Enregistrement dans la base de données
         $entityManager->persist($invitation);
         $entityManager->flush();
 
-        // Envoi de l'email d'invitation
         try {
             $this->inviteMailer->sendInvitation($invitation);
             $this->emailSent = true;

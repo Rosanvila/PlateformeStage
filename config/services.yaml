@@ -24,6 +24,17 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
+
+    App\Service\CompanyNameChecker:
+        arguments:
+            $companyRepository: '@App\Repository\CompanyRepository'
+
+    App\Validator\Constraints\UniqueCompanyNameValidator:
+        arguments:
+            $companyNameChecker: '@App\Service\CompanyNameChecker'
+        tags:
+            - { name: validator.constraint_validator, alias: app_unique_company_name }
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 

@@ -10,6 +10,7 @@ use App\Service\RegisterInvitation\InvitationService;
 use App\Service\RegisterInvitation\PreFillFields;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveAction;
@@ -43,6 +44,7 @@ class RegisterForm extends AbstractController
     private Address|string|null $senderAddress = '';
 
     private User $user;
+    private Invitation $invitation;
     #[LiveProp()]
     public string $base64Photo = '';
 
@@ -56,7 +58,7 @@ class RegisterForm extends AbstractController
     public string $photoUploadError = '';
 
     public function __construct(
-        private InvitationService                                           $invitationService,
+        private InvitationService                                          $invitationService,
         private readonly ValidatorInterface                                $validator,
         private EmailVerifier                                              $emailVerifier,
         #[Autowire(env: 'RESET_PASSWORD_SUBJECT')] private readonly string $subject,
@@ -83,11 +85,12 @@ class RegisterForm extends AbstractController
 
     protected function instantiateForm(): FormInterface
     {
-        $this->invitationService->getInvitationFromSession();
         $sessionInvitation = $this->invitationService->getInvitationFromSession();
 
         $form = $this->createForm(RegistrationFormType::class, $this->initialFormData,
-            ['invitation' => $sessionInvitation]);
+            ['invitation' => $sessionInvitation
+            ]);
+
         if ($sessionInvitation) {
             $this->preFillForm($form, $sessionInvitation);
         }
@@ -130,7 +133,7 @@ class RegisterForm extends AbstractController
     }
 
     #[LiveAction]
-    public function save(Request $request, UserPasswordHasherInterface $userPasswordHasher, Security $security, EntityManagerInterface $entityManager, TranslatorInterface $translator)
+    public function save(Request $request, UserPasswordHasherInterface $userPasswordHasher, Security $security, EntityManagerInterface $entityManager, TranslatorInterface $translator): RedirectResponse
     {
 
         $invitation = $this->invitationService->getInvitationFromSession();
@@ -151,7 +154,7 @@ class RegisterForm extends AbstractController
         );
 
         // Photo
-        if (!is_null($this->base64Photo) && !empty($this->base64Photo)) {
+        if (!empty($this->base64Photo)) {
             $this->user->setPhoto($this->base64Photo);
         }
 
@@ -181,8 +184,8 @@ class RegisterForm extends AbstractController
                 // La présence de ces champs dans la vue du formulaire
                 // n'est qu'à titre indicatif pour le vendor invité.
 
-                $invitation->setIsAccepted(true);
-                $invitation->setStatus('accepted');
+                $this->invitation->setIsAccepted(true);
+                $this->invitation->setStatus('accepted');
             } else {
 
                 // Il va falloir créer une entreprise
@@ -199,6 +202,10 @@ class RegisterForm extends AbstractController
                 $company->setSiretNumber($this->getForm()->get('siretNumber')->getData());
                 $company->setVatNumber($this->getForm()->get('vatNumber')->getData());
                 $company->setOwner($this->user);
+                if ($company->getOwner() !== null) {
+                    $company->addUser($this->user);
+                }
+
                 $entityManager->persist($company);
 
                 $this->user->setVendorCompany($company);

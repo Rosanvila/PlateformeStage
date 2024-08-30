@@ -46,9 +46,7 @@ class RegistrationController extends AbstractController
     )]
     public function register(): Response
     {
-        $user = new User();
-        $form = $this->createForm(RegistrationFormType::class, $user);
-
+        $form = $this->createForm(RegistrationFormType::class);
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form,

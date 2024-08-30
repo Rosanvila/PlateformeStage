@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Symfony\Component\Validator\Constraints\Image;
@@ -21,7 +22,7 @@ use Symfony\UX\LiveComponent\ComponentToolsTrait;
 use Symfony\UX\LiveComponent\ComponentWithFormTrait;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
 
-#[AsLiveComponent]
+#[AsLiveComponent (template: 'components/company_edit_form.html.twig')]
 class CompanyEditForm extends AbstractController
 {
     use DefaultActionTrait;
@@ -101,7 +102,7 @@ class CompanyEditForm extends AbstractController
     }
 
     #[LiveAction]
-    public function save(Request $request, EntityManagerInterface $entityManager)
+    public function save(EntityManagerInterface $entityManager):RedirectResponse
     {
         $this->submitForm();
 

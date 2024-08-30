@@ -37,4 +37,13 @@ class CompanyRepository extends ServiceEntityRepository
 
         return $query->execute();
     }
+
+    public function findOneByName(string $name): ?Company
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.name = :name')
+            ->setParameter('name', $name)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }
